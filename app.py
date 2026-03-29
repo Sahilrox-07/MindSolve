@@ -6,34 +6,53 @@ from textblob import TextBlob
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-# 🔐 Load environment variables
+# 🔐 Load env variables
 load_dotenv()
 
-# 🔗 MongoDB Connection
-client = MongoClient(os.getenv("MONGO_URI"))
-db = client["mindsolve"]
-problems_collection = db["problems"]
+app = Flask(__name__)
 
-# 🔹 Load data
+# =========================
+# 🔗 MongoDB SAFE CONNECT
+# =========================
+problems_collection = None
+
+try:
+    mongo_uri = os.getenv("MONGO_URI")
+
+    if not mongo_uri:
+        raise Exception("MONGO_URI not found")
+
+    client = MongoClient(mongo_uri)
+
+    # Test connection
+    client.admin.command("ping")
+
+    db = client["mindsolve"]
+    problems_collection = db["problems"]
+
+    print("✅ MongoDB Connected")
+
+except Exception as e:
+    print("❌ MongoDB Connection Failed:", e)
+    problems_collection = None
+
+
+# =========================
+# 📂 Load JSON (fallback)
+# =========================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 with open(os.path.join(BASE_DIR, "data.json"), encoding="utf-8") as f:
     knowledge_base = json.load(f)
 
-app = Flask(__name__)
 
-
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-
-# 🧹 Clean text
+# =========================
+# 🧹 Utilities
+# =========================
 def clean_text(text):
     return text.lower().strip()
 
 
-# 🧠 Autocorrect (safe)
 def autocorrect_text(text):
     try:
         return str(TextBlob(text).correct())
@@ -41,7 +60,9 @@ def autocorrect_text(text):
         return text
 
 
-# 🧠 Suggestion logic
+# =========================
+# 🧠 Suggestion Engine (JSON based)
+# =========================
 def get_suggestions(problem_text):
     problem_text = clean_text(problem_text)
     corrected_text = autocorrect_text(problem_text)
@@ -51,6 +72,7 @@ def get_suggestions(problem_text):
 
     for category in knowledge_base:
         for item in knowledge_base[category]:
+
             db_problem = clean_text(item["problem"])
 
             score = max(
@@ -68,79 +90,115 @@ def get_suggestions(problem_text):
     return best_match["solutions"], [best_match["problem"]]
 
 
-# 🧠 Solve + Save
+# =========================
+# 🌐 ROUTES
+# =========================
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
+# 🧠 Solve Problem
 @app.route("/problem", methods=["POST"])
 def solve_problem():
-    data = request.get_json()
-    text = data.get("text", "").strip()
-
-    if not text:
-        return jsonify({"suggestions": [], "similar": []})
-
     try:
-        problems_collection.insert_one({"problem": text})
+        data = request.get_json()
+        text = data.get("text", "").strip()
+
+        if not text:
+            return jsonify({"suggestions": [], "similar": []})
+
+        # Save to MongoDB safely
+        if problems_collection is not None:
+            try:
+                problems_collection.insert_one({"problem": text})
+            except Exception as e:
+                print("⚠️ Insert Error:", e)
+
+        suggestions, similar = get_suggestions(text)
+
+        return jsonify({
+            "suggestions": suggestions,
+            "similar": similar
+        })
+
     except Exception as e:
-        print("MongoDB Error:", e)
-
-    suggestions, similar = get_suggestions(text)
-
-    return jsonify({
-        "suggestions": suggestions,
-        "similar": similar
-    })
+        print("❌ /problem error:", e)
+        return jsonify({"suggestions": [], "similar": []}), 500
 
 
 # 🔍 Search
 @app.route("/search", methods=["POST"])
 def search():
-    data = request.get_json()
-    query = clean_text(data.get("query", ""))
+    try:
+        data = request.get_json()
+        query = clean_text(data.get("query", ""))
 
-    corrected_query = autocorrect_text(query)
+        corrected_query = autocorrect_text(query)
 
-    results = []
+        results = []
 
-    for category in knowledge_base:
-        for item in knowledge_base[category]:
-            db_problem = clean_text(item["problem"])
+        for category in knowledge_base:
+            for item in knowledge_base[category]:
 
-            score = fuzz.partial_ratio(corrected_query, db_problem)
+                db_problem = clean_text(item["problem"])
 
-            if score > 40:
-                results.append(item["problem"])
+                score = fuzz.partial_ratio(corrected_query, db_problem)
 
-    results = list(set(results))
+                if score > 40:
+                    results.append(item["problem"])
 
-    return jsonify({"results": results[:5]})
+        results = list(set(results))
+
+        return jsonify({"results": results[:5]})
+
+    except Exception as e:
+        print("❌ /search error:", e)
+        return jsonify({"results": []}), 500
 
 
 # 📂 Category
 @app.route("/category", methods=["POST"])
 def get_category():
-    data = request.get_json()
-    category = data.get("category", "").lower().strip()
+    try:
+        data = request.get_json()
+        category = data.get("category", "").lower().strip()
 
-    if category not in knowledge_base:
-        return jsonify({"problems": []})
+        if category not in knowledge_base:
+            return jsonify({"problems": []})
 
-    problems = [item["problem"] for item in knowledge_base[category]]
+        problems = [item["problem"] for item in knowledge_base[category]]
 
-    return jsonify({"problems": problems})
+        return jsonify({"problems": problems})
+
+    except Exception as e:
+        print("❌ /category error:", e)
+        return jsonify({"problems": []}), 500
 
 
-# 🧠 Recent Problems
+# 🧠 Recent Problems (MongoDB)
 @app.route("/recent", methods=["GET"])
 def get_recent():
     try:
-        problems = list(problems_collection.find().sort("_id", -1).limit(10))
+        if problems_collection is None:
+            return jsonify({"problems": []})
+
+        problems = list(
+            problems_collection.find().sort("_id", -1).limit(10)
+        )
+
         return jsonify({
             "problems": [p.get("problem", "") for p in problems]
         })
+
     except Exception as e:
-        print("MongoDB Error:", e)
-        return jsonify({"problems": []})
+        print("❌ /recent error:", e)
+        return jsonify({"problems": []}), 500
 
 
-# 🚀 Run
+# =========================
+# 🚀 RUN
+# =========================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

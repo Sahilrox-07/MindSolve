@@ -301,3 +301,9 @@ button:active {
   }
 
 }
+
+.sub-list li.active-item {
+  background: var(--primary);
+  color: white;
+  border-radius: 8px;
+}

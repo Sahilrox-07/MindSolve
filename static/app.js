@@ -176,7 +176,14 @@ async function toggleCategory(element, category) {
 
             li.onclick = (e) => {
                 e.stopPropagation();
-                document.getElementById("problemInput").value = problem;
+
+                document.querySelectorAll(".sub-list li").forEach(el => {
+                    el.classList.remove("active-item");
+                })
+
+                li.classList.add("active-item");
+            
+            document.getElementById("problemInput").value = problem;
                 submitProblem();
             };
 

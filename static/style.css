@@ -222,11 +222,6 @@ button:active {
   color: var(--secondary);
 }
 
-.loading::after {
-  content: "...";
-  animation: dots 1s steps(3, end) infinite;
-}
-
 @keyframes dots {
   0% { content: ""; }
   33% { content: "."; }

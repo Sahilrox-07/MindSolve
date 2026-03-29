@@ -33,10 +33,8 @@ def clean_text(text):
     return text.lower().strip()
 
 
-# 🧠 Autocorrect
+# 🧠 Autocorrect (safe)
 def autocorrect_text(text):
-    if len(text.split()) < 4:
-        return text
     try:
         return str(TextBlob(text).correct())
     except:
@@ -74,11 +72,13 @@ def get_suggestions(problem_text):
 @app.route("/problem", methods=["POST"])
 def solve_problem():
     data = request.get_json()
-    text = data.get("text", "")
+    text = data.get("text", "").strip()
+
+    if not text:
+        return jsonify({"suggestions": [], "similar": []})
 
     try:
-        if text:
-            problems_collection.insert_one({"problem": text})
+        problems_collection.insert_one({"problem": text})
     except Exception as e:
         print("MongoDB Error:", e)
 
@@ -131,11 +131,14 @@ def get_category():
 # 🧠 Recent Problems
 @app.route("/recent", methods=["GET"])
 def get_recent():
-    problems = list(problems_collection.find().sort("_id", -1).limit(10))
-
-    return jsonify({
-        "problems": [p["problem"] for p in problems]
-    })
+    try:
+        problems = list(problems_collection.find().sort("_id", -1).limit(10))
+        return jsonify({
+            "problems": [p.get("problem", "") for p in problems]
+        })
+    except Exception as e:
+        print("MongoDB Error:", e)
+        return jsonify({"problems": []})
 
 
 # 🚀 Run

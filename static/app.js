@@ -1,4 +1,6 @@
 let timeout = null;
+let controller = null;
+let loadingInterval = null;
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -9,16 +11,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     submitBtn.addEventListener("click", submitProblem);
 
-    // 🔥 LOAD RECENT FROM MONGO
     loadRecent();
 
-    // 🔍 SEARCH
     searchBar.addEventListener("input", function () {
 
         const query = this.value.trim().toLowerCase();
         clearTimeout(timeout);
 
         timeout = setTimeout(async () => {
+
+            if (controller) controller.abort();
+            controller = new AbortController();
 
             if (query.length < 2) {
                 resultsBox.style.display = "none";
@@ -33,13 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 const res = await fetch("/search", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({ query })
+                    body: JSON.stringify({ query }),
+                    signal: controller.signal
                 });
 
                 const data = await res.json();
                 resultsList.innerHTML = "";
 
-                if (!data.results.length) {
+                if (!data.results || !data.results.length) {
                     resultsList.innerHTML = "<li>No results</li>";
                     return;
                 }
@@ -58,21 +62,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
             } catch (err) {
-                console.error(err);
-                resultsList.innerHTML = "<li>Error</li>";
+                if (err.name !== "AbortError") {
+                    console.error(err);
+                    resultsList.innerHTML = "<li>Error</li>";
+                }
             }
 
         }, 300);
     });
 
-    // CLOSE SEARCH
     document.addEventListener("click", function (e) {
         if (!resultsBox.contains(e.target) && e.target !== searchBar) {
             resultsBox.style.display = "none";
         }
     });
 
-    // CLOSE SIDEBAR
     document.addEventListener("click", function (e) {
         if (!e.target.closest(".sidebar")) {
             document.querySelectorAll(".sidebar li").forEach(li => {
@@ -86,7 +90,22 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// 🧠 LOAD RECENT
+// 🧠 Loading animation (fixed)
+function startLoading(messageEl) {
+    let dots = 0;
+    loadingInterval = setInterval(() => {
+        dots = (dots + 1) % 4;
+        messageEl.innerText = "Processing" + ".".repeat(dots);
+    }, 300);
+}
+
+function stopLoading(messageEl) {
+    clearInterval(loadingInterval);
+    messageEl.innerText = "";
+}
+
+
+// 🧠 Load Recent
 async function loadRecent() {
     const feed = document.getElementById("problemFeed");
 
@@ -108,7 +127,7 @@ async function loadRecent() {
 }
 
 
-// 🔥 SUBMIT
+// 🔥 Submit
 async function submitProblem() {
 
     const input = document.getElementById("problemInput");
@@ -119,8 +138,7 @@ async function submitProblem() {
     const text = input.value.trim();
     if (!text) return;
 
-    message.innerText = "Processing";
-    message.classList.add("loading");
+    startLoading(message);
 
     try {
         const res = await fetch("/problem", {
@@ -149,18 +167,16 @@ async function submitProblem() {
         input.value = "";
         loadRecent();
 
-        message.innerText = "";
-        message.classList.remove("loading");
-
     } catch (err) {
         console.error(err);
         message.innerText = "Server error";
-        message.classList.remove("loading");
     }
+
+    stopLoading(message);
 }
 
 
-// 📂 CATEGORY
+// 📂 Category
 async function toggleCategory(element, category) {
 
     const subList = element.querySelector(".sub-list");

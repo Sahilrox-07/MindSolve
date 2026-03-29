@@ -4,14 +4,17 @@ from flask import Flask, request, jsonify, render_template
 from rapidfuzz import fuzz
 from textblob import TextBlob
 from pymongo import MongoClient
+from dotenv import load_dotenv
+
+# 🔐 Load environment variables
+load_dotenv()
 
 # 🔗 MongoDB Connection
-client = MongoClient("mongodb+srv://sahilrox528_db_user:2WEUyXk5shVqMGEO@cluster0.yi7xmwi.mongodb.net/mindsolve")
-
+client = MongoClient(os.getenv("MONGO_URI"))
 db = client["mindsolve"]
 problems_collection = db["problems"]
 
-# 🔹 Load data safely
+# 🔹 Load data
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 with open(os.path.join(BASE_DIR, "data.json"), encoding="utf-8") as f:
@@ -32,7 +35,7 @@ def clean_text(text):
 
 # 🧠 Autocorrect
 def autocorrect_text(text):
-    if len(text.split()) < 3:
+    if len(text.split()) < 4:
         return text
     try:
         return str(TextBlob(text).correct())
@@ -67,16 +70,17 @@ def get_suggestions(problem_text):
     return best_match["solutions"], [best_match["problem"]]
 
 
-# 🧠 Solve problem + SAVE to MongoDB
+# 🧠 Solve + Save
 @app.route("/problem", methods=["POST"])
 def solve_problem():
     data = request.get_json()
     text = data.get("text", "")
 
-    # 🔥 Save to MongoDB
-    problems_collection.insert_one({
-        "problem": text
-    })
+    try:
+        if text:
+            problems_collection.insert_one({"problem": text})
+    except Exception as e:
+        print("MongoDB Error:", e)
 
     suggestions, similar = get_suggestions(text)
 
@@ -124,7 +128,7 @@ def get_category():
     return jsonify({"problems": problems})
 
 
-# 🧠 Get recent problems from MongoDB
+# 🧠 Recent Problems
 @app.route("/recent", methods=["GET"])
 def get_recent():
     problems = list(problems_collection.find().sort("_id", -1).limit(10))
@@ -134,6 +138,6 @@ def get_recent():
     })
 
 
-# 🚀 Run server
+# 🚀 Run
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

@@ -1,0 +1,85 @@
+{
+  "study": [
+    {
+      "problem": "I can't focus while studying",
+      "solutions": [
+        "Use the Pomodoro technique",
+        "Remove distractions like your phone",
+        "Study in short focused sessions"
+      ]
+    },
+    {
+      "problem": "I forget what I study",
+      "solutions": [
+        "Use active recall techniques",
+        "Revise regularly",
+        "Teach someone else what you learned"
+      ]
+    },
+    {
+      "problem": "I get distracted easily",
+      "solutions": [
+        "Study in a quiet environment",
+        "Use website blockers",
+        "Keep your study area clean"
+      ]
+    }
+  ],
+
+  "health": [
+    {
+      "problem": "I can't sleep properly",
+      "solutions": [
+        "Reduce screen time before bed",
+        "Maintain a consistent sleep schedule",
+        "Avoid caffeine at night"
+      ]
+    },
+    {
+      "problem": "I feel tired all day",
+      "solutions": [
+        "Get at least 7-8 hours of sleep",
+        "Stay hydrated",
+        "Exercise regularly"
+      ]
+    }
+  ],
+
+  "productivity": [
+    {
+      "problem": "I procrastinate too much",
+      "solutions": [
+        "Break tasks into smaller steps",
+        "Start with just 5 minutes",
+        "Remove distractions"
+      ]
+    },
+    {
+      "problem": "I feel unmotivated to work",
+      "solutions": [
+        "Set small achievable goals",
+        "Reward yourself after tasks",
+        "Create a daily routine"
+      ]
+    }
+  ],
+
+  "career": [
+    {
+      "problem": "I don't know what career to choose",
+      "solutions": [
+        "Explore different fields",
+        "Take aptitude tests",
+        "Talk to mentors"
+      ]
+    },
+    {
+      "problem": "I am confused about my future",
+      "solutions": [
+        "List your interests and strengths",
+        "Research career options",
+        "Seek guidance from professionals"
+      ]
+    }
+  ]
+}

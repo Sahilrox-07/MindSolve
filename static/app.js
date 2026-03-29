@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadRecent();
 
+    // =========================
+    // 🔍 SEARCH
+    // =========================
     searchBar.addEventListener("input", function () {
 
         const query = this.value.trim().toLowerCase();
@@ -40,7 +43,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     signal: controller.signal
                 });
 
+                if (!res.ok) throw new Error("Search failed");
+
                 const data = await res.json();
+
                 resultsList.innerHTML = "";
 
                 if (!data.results || !data.results.length) {
@@ -71,12 +77,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 300);
     });
 
+    // =========================
+    // 🔒 CLOSE SEARCH BOX
+    // =========================
     document.addEventListener("click", function (e) {
         if (!resultsBox.contains(e.target) && e.target !== searchBar) {
             resultsBox.style.display = "none";
         }
     });
 
+    // =========================
+    // 🔒 CLOSE SIDEBAR
+    // =========================
     document.addEventListener("click", function (e) {
         if (!e.target.closest(".sidebar")) {
             document.querySelectorAll(".sidebar li").forEach(li => {
@@ -90,9 +102,12 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// 🧠 Loading animation (fixed)
+// =========================
+// 🧠 LOADING ANIMATION
+// =========================
 function startLoading(messageEl) {
     let dots = 0;
+
     loadingInterval = setInterval(() => {
         dots = (dots + 1) % 4;
         messageEl.innerText = "Processing" + ".".repeat(dots);
@@ -105,15 +120,22 @@ function stopLoading(messageEl) {
 }
 
 
-// 🧠 Load Recent
+// =========================
+// 🧠 LOAD RECENT (SAFE)
+// =========================
 async function loadRecent() {
     const feed = document.getElementById("problemFeed");
 
     try {
         const res = await fetch("/recent");
+
+        if (!res.ok) throw new Error("Recent fetch failed");
+
         const data = await res.json();
 
         feed.innerHTML = "";
+
+        if (!data.problems) return;
 
         data.problems.forEach(p => {
             const li = document.createElement("li");
@@ -122,12 +144,14 @@ async function loadRecent() {
         });
 
     } catch (err) {
-        console.error(err);
+        console.error("Recent error:", err);
     }
 }
 
 
-// 🔥 Submit
+// =========================
+// 🔥 SUBMIT PROBLEM
+// =========================
 async function submitProblem() {
 
     const input = document.getElementById("problemInput");
@@ -147,18 +171,20 @@ async function submitProblem() {
             body: JSON.stringify({ text })
         });
 
+        if (!res.ok) throw new Error("Submit failed");
+
         const data = await res.json();
 
         suggestions.innerHTML = "";
         similar.innerHTML = "";
 
-        data.suggestions.forEach(s => {
+        (data.suggestions || []).forEach(s => {
             const li = document.createElement("li");
             li.innerText = s;
             suggestions.appendChild(li);
         });
 
-        data.similar.forEach(s => {
+        (data.similar || []).forEach(s => {
             const li = document.createElement("li");
             li.innerText = s;
             similar.appendChild(li);
@@ -176,17 +202,21 @@ async function submitProblem() {
 }
 
 
-// 📂 Category
+// =========================
+// 📂 CATEGORY HANDLER
+// =========================
 async function toggleCategory(element, category) {
 
     const subList = element.querySelector(".sub-list");
 
+    // collapse
     if (element.classList.contains("active")) {
         element.classList.remove("active");
         subList.innerHTML = "";
         return;
     }
 
+    // close others
     document.querySelectorAll(".sidebar li").forEach(li => {
         li.classList.remove("active");
         const ul = li.querySelector(".sub-list");
@@ -195,40 +225,48 @@ async function toggleCategory(element, category) {
 
     element.classList.add("active");
 
-    const res = await fetch("/category", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ category })
-    });
+    try {
+        const res = await fetch("/category", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ category })
+        });
 
-    const data = await res.json();
-    subList.innerHTML = "";
+        if (!res.ok) throw new Error("Category failed");
 
-    data.problems.slice(0, 3).forEach(problem => {
-        const li = document.createElement("li");
-        li.innerText = problem;
+        const data = await res.json();
 
-        li.onclick = (e) => {
-            e.stopPropagation();
+        subList.innerHTML = "";
 
-            document.querySelectorAll(".sub-list li").forEach(el => {
-                el.classList.remove("active-item");
-            });
+        (data.problems || []).slice(0, 3).forEach(problem => {
+            const li = document.createElement("li");
+            li.innerText = problem;
 
-            li.classList.add("active-item");
+            li.onclick = (e) => {
+                e.stopPropagation();
 
-            document.getElementById("problemInput").value = problem;
-            submitProblem();
-
-            setTimeout(() => {
-                document.querySelectorAll(".sidebar li").forEach(li => {
-                    li.classList.remove("active");
-                    const ul = li.querySelector(".sub-list");
-                    if (ul) ul.innerHTML = "";
+                document.querySelectorAll(".sub-list li").forEach(el => {
+                    el.classList.remove("active-item");
                 });
-            }, 200);
-        };
 
-        subList.appendChild(li);
-    });
+                li.classList.add("active-item");
+
+                document.getElementById("problemInput").value = problem;
+                submitProblem();
+
+                setTimeout(() => {
+                    document.querySelectorAll(".sidebar li").forEach(li => {
+                        li.classList.remove("active");
+                        const ul = li.querySelector(".sub-list");
+                        if (ul) ul.innerHTML = "";
+                    });
+                }, 200);
+            };
+
+            subList.appendChild(li);
+        });
+
+    } catch (err) {
+        console.error(err);
+    }
 }

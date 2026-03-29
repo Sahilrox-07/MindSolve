@@ -49,11 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     li.onclick = () => {
                         searchBar.value = item;
-
-                        const input = document.getElementById("problemInput");
-                        input.value = item;
-                        input.focus();
-
+                        document.getElementById("problemInput").value = item;
+                        document.getElementById("problemInput").focus();
                         resultsBox.style.display = "none";
                     };
 
@@ -62,16 +59,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
             } catch (err) {
                 console.error(err);
-                resultsList.innerHTML = "<li>Error loading results</li>";
+                resultsList.innerHTML = "<li>Error</li>";
             }
 
         }, 300);
     });
 
-    // Close search dropdown when clicking outside
+    // 🔒 CLOSE SEARCH DROPDOWN
     document.addEventListener("click", function (e) {
         if (!resultsBox.contains(e.target) && e.target !== searchBar) {
             resultsBox.style.display = "none";
+        }
+    });
+
+    // 🧠 CLOSE SIDEBAR WHEN CLICK OUTSIDE
+    document.addEventListener("click", function (e) {
+
+        const sidebar = document.querySelector(".sidebar");
+
+        if (!sidebar.contains(e.target)) {
+            document.querySelectorAll(".sidebar li").forEach(li => {
+                li.classList.remove("active");
+                const sub = li.querySelector(".sub-list");
+                if (sub) sub.innerHTML = "";
+            });
         }
     });
 
@@ -90,7 +101,6 @@ async function submitProblem() {
     const text = input.value.trim();
     if (!text) return;
 
-    // Show animation
     message.innerText = "Processing";
     message.classList.add("loading");
 
@@ -128,29 +138,30 @@ async function submitProblem() {
 
         input.value = "";
 
-        // Remove animation
         message.innerText = "";
         message.classList.remove("loading");
 
     } catch (err) {
         console.error(err);
-        message.innerText = "Server error. Try again.";
+        message.innerText = "Server error, Try again.";
         message.classList.remove("loading");
     }
 }
 
 
-// 📂 CATEGORY
+// 📂 CATEGORY HANDLER (ALL FIXES HERE)
 async function toggleCategory(element, category) {
 
     const subList = element.querySelector(".sub-list");
 
+    // collapse if already open
     if (element.classList.contains("active")) {
         element.classList.remove("active");
         subList.innerHTML = "";
         return;
     }
 
+    // close others
     document.querySelectorAll(".sidebar li").forEach(li => {
         li.classList.remove("active");
         const ul = li.querySelector(".sub-list");
@@ -159,38 +170,43 @@ async function toggleCategory(element, category) {
 
     element.classList.add("active");
 
-    try {
-        const res = await fetch("/category", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ category })
-        });
+    const res = await fetch("/category", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ category })
+    });
 
-        const data = await res.json();
+    const data = await res.json();
 
-        subList.innerHTML = "";
+    subList.innerHTML = "";
 
-        data.problems.slice(0, 3).forEach(problem => {
-            const li = document.createElement("li");
-            li.innerText = problem;
+    data.problems.slice(0, 3).forEach(problem => {
+        const li = document.createElement("li");
+        li.innerText = problem;
 
-            li.onclick = (e) => {
-                e.stopPropagation();
+        li.onclick = (e) => {
+            e.stopPropagation();
 
-                document.querySelectorAll(".sub-list li").forEach(el => {
-                    el.classList.remove("active-item");
-                })
+            // ❗ FIX 1: Highlight selected child
+            document.querySelectorAll(".sub-list li").forEach(el => {
+                el.classList.remove("active-item");
+            });
 
-                li.classList.add("active-item");
-            
+            li.classList.add("active-item");
+
             document.getElementById("problemInput").value = problem;
-                submitProblem();
-            };
+            submitProblem();
 
-            subList.appendChild(li);
-        });
+            // ❗ FIX 2 + UX UPGRADE: Close sidebar after selection
+            setTimeout(() => {
+                document.querySelectorAll(".sidebar li").forEach(li => {
+                    li.classList.remove("active");
+                    const ul = li.querySelector(".sub-list");
+                    if (ul) ul.innerHTML = "";
+                });
+            }, 200);
+        };
 
-    } catch (err) {
-        console.error(err);
-    }
+        subList.appendChild(li);
+    });
 }

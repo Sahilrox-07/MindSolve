@@ -247,3 +247,57 @@ button:active {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* 📱 MOBILE RESPONSIVE FIX */
+@media (max-width: 768px) {
+
+  body {
+    padding: 10px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .search-container {
+    max-width: 100%;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .wrapper {
+    grid-template-columns: 1fr; /* STACK */
+    gap: 15px;
+  }
+
+  .sidebar {
+    order: 2;
+    width: 100%;
+  }
+
+  .content {
+    order: 1;
+  }
+
+  .section {
+    padding: 16px;
+  }
+
+  textarea {
+    height: 100px;
+    font-size: 15px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  /* remove hover movement on mobile */
+  .sidebar li:hover {
+    transform: none;
+  }
+
+}

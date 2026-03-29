@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     submitBtn.addEventListener("click", submitProblem);
 
-    // SEARCH
+    // 🔍 SEARCH
     searchBar.addEventListener("input", function () {
 
         const query = this.value.trim().toLowerCase();
@@ -49,21 +49,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     li.onclick = () => {
                         searchBar.value = item;
+
+                        const input = document.getElementById("problemInput");
+                        input.value = item;
+                        input.focus();
+
                         resultsBox.style.display = "none";
-                        document.getElementById("problemInput").value = item;
-                        submitProblem();
                     };
 
                     resultsList.appendChild(li);
                 });
 
-            } catch {
-                resultsList.innerHTML = "<li>Error</li>";
+            } catch (err) {
+                console.error(err);
+                resultsList.innerHTML = "<li>Error loading results</li>";
             }
 
         }, 300);
     });
 
+    // Close search dropdown when clicking outside
     document.addEventListener("click", function (e) {
         if (!resultsBox.contains(e.target) && e.target !== searchBar) {
             resultsBox.style.display = "none";
@@ -85,7 +90,7 @@ async function submitProblem() {
     const text = input.value.trim();
     if (!text) return;
 
-    // show animation
+    // Show animation
     message.innerText = "Processing";
     message.classList.add("loading");
 
@@ -123,18 +128,19 @@ async function submitProblem() {
 
         input.value = "";
 
-        // remove animation
+        // Remove animation
         message.innerText = "";
         message.classList.remove("loading");
 
-    } catch {
-        message.innerText = "Something went wrong";
+    } catch (err) {
+        console.error(err);
+        message.innerText = "Server error. Try again.";
         message.classList.remove("loading");
     }
 }
 
 
-// CATEGORY
+// 📂 CATEGORY
 async function toggleCategory(element, category) {
 
     const subList = element.querySelector(".sub-list");
@@ -153,26 +159,31 @@ async function toggleCategory(element, category) {
 
     element.classList.add("active");
 
-    const res = await fetch("/category", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ category })
-    });
+    try {
+        const res = await fetch("/category", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ category })
+        });
 
-    const data = await res.json();
+        const data = await res.json();
 
-    subList.innerHTML = "";
+        subList.innerHTML = "";
 
-    data.problems.slice(0, 3).forEach(problem => {
-        const li = document.createElement("li");
-        li.innerText = problem;
+        data.problems.slice(0, 3).forEach(problem => {
+            const li = document.createElement("li");
+            li.innerText = problem;
 
-        li.onclick = (e) => {
-            e.stopPropagation();
-            document.getElementById("problemInput").value = problem;
-            submitProblem();
-        };
+            li.onclick = (e) => {
+                e.stopPropagation();
+                document.getElementById("problemInput").value = problem;
+                submitProblem();
+            };
 
-        subList.appendChild(li);
-    });
+            subList.appendChild(li);
+        });
+
+    } catch (err) {
+        console.error(err);
+    }
 }

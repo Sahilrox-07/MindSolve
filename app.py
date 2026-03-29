@@ -1,7 +1,6 @@
 import os
 import json
 from flask import Flask, request, jsonify, render_template
-from flask_cors import CORS
 from rapidfuzz import fuzz
 from textblob import TextBlob
 
@@ -12,7 +11,7 @@ with open(os.path.join(BASE_DIR, "data.json"), encoding="utf-8") as f:
     knowledge_base = json.load(f)
 
 app = Flask(__name__)
-CORS(app)
+
 
 
 @app.route("/")
@@ -27,10 +26,9 @@ def clean_text(text):
 
 # 🧠 Autocorrect (safe usage)
 def autocorrect_text(text):
+    if len(text.split()) < 3:
+        return text
     try:
-        # Avoid overcorrection on very short input
-        if len(text.split()) < 2:
-            return text
         return str(TextBlob(text).correct())
     except:
         return text

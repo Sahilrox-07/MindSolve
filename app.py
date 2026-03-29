@@ -2,13 +2,14 @@ import os
 import json
 from flask import Flask, request, jsonify, render_template
 from rapidfuzz import fuzz
-from textblob import TextBlobfor
+from textblob import TextBlob
 from pymongo import MongoClient
 
+# 🔗 MongoDB Connection
 client = MongoClient("mongodb+srv://sahilrox528_db_user:2WEUyXk5shVqMGEO@cluster0.yi7xmwi.mongodb.net/mindsolve")
 
 db = client["mindsolve"]
-problems_collections = db["problems"]
+problems_collection = db["problems"]
 
 # 🔹 Load data safely
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -19,19 +20,17 @@ with open(os.path.join(BASE_DIR, "data.json"), encoding="utf-8") as f:
 app = Flask(__name__)
 
 
-
 @app.route("/")
 def home():
-    
     return render_template("index.html")
 
 
-# 🧹 Clean text (normalize input)
+# 🧹 Clean text
 def clean_text(text):
     return text.lower().strip()
 
 
-# 🧠 Autocorrect (safe usage)
+# 🧠 Autocorrect
 def autocorrect_text(text):
     if len(text.split()) < 3:
         return text
@@ -41,9 +40,8 @@ def autocorrect_text(text):
         return text
 
 
-# 🧠 Suggestion logic (fuzzy + autocorrect)
+# 🧠 Suggestion logic
 def get_suggestions(problem_text):
-
     problem_text = clean_text(problem_text)
     corrected_text = autocorrect_text(problem_text)
 
@@ -52,7 +50,6 @@ def get_suggestions(problem_text):
 
     for category in knowledge_base:
         for item in knowledge_base[category]:
-
             db_problem = clean_text(item["problem"])
 
             score = max(
@@ -64,18 +61,22 @@ def get_suggestions(problem_text):
                 best_score = score
                 best_match = item
 
-    # 🛑 Safe fallback
     if best_score < 40 or not best_match:
         return ["No good match found. Try rephrasing."], []
 
     return best_match["solutions"], [best_match["problem"]]
 
 
-# 🧠 Solve problem endpoint
+# 🧠 Solve problem + SAVE to MongoDB
 @app.route("/problem", methods=["POST"])
 def solve_problem():
     data = request.get_json()
     text = data.get("text", "")
+
+    # 🔥 Save to MongoDB
+    problems_collection.insert_one({
+        "problem": text
+    })
 
     suggestions, similar = get_suggestions(text)
 
@@ -85,7 +86,7 @@ def solve_problem():
     })
 
 
-# 🔍 Smart search endpoint
+# 🔍 Search
 @app.route("/search", methods=["POST"])
 def search():
     data = request.get_json()
@@ -97,7 +98,6 @@ def search():
 
     for category in knowledge_base:
         for item in knowledge_base[category]:
-
             db_problem = clean_text(item["problem"])
 
             score = fuzz.partial_ratio(corrected_query, db_problem)
@@ -105,25 +105,33 @@ def search():
             if score > 40:
                 results.append(item["problem"])
 
-    # ❗ Remove duplicates
     results = list(set(results))
 
     return jsonify({"results": results[:5]})
 
 
-# 📂 Category loader endpoint
+# 📂 Category
 @app.route("/category", methods=["POST"])
 def get_category():
     data = request.get_json()
     category = data.get("category", "").lower().strip()
 
     if category not in knowledge_base:
-        print(f"⚠️ Unknown category received: {category}")
         return jsonify({"problems": []})
 
     problems = [item["problem"] for item in knowledge_base[category]]
 
     return jsonify({"problems": problems})
+
+
+# 🧠 Get recent problems from MongoDB
+@app.route("/recent", methods=["GET"])
+def get_recent():
+    problems = list(problems_collection.find().sort("_id", -1).limit(10))
+
+    return jsonify({
+        "problems": [p["problem"] for p in problems]
+    })
 
 
 # 🚀 Run server

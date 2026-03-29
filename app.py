@@ -2,7 +2,13 @@ import os
 import json
 from flask import Flask, request, jsonify, render_template
 from rapidfuzz import fuzz
-from textblob import TextBlob
+from textblob import TextBlobfor
+from pymongo import MongoClient
+
+client = MongoClient("mongodb+srv://sahilrox528_db_user:2WEUyXk5shVqMGEO@cluster0.yi7xmwi.mongodb.net/mindsolve")
+
+db = client["mindsolve"]
+problems_collections = db["problems"]
 
 # 🔹 Load data safely
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -16,6 +22,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
+    
     return render_template("index.html")
 
 

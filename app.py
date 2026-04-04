@@ -6,13 +6,13 @@ from textblob import TextBlob
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-# 🔐 Load env variables
+# 🔐 Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
 
 # =========================
-# 🔗 MongoDB SAFE CONNECT
+# 🔗 MongoDB Connection
 # =========================
 problems_collection = None
 
@@ -38,7 +38,7 @@ except Exception as e:
 
 
 # =========================
-# 📂 Load JSON (fallback)
+# 📂 Load JSON Knowledge Base
 # =========================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -61,7 +61,7 @@ def autocorrect_text(text):
 
 
 # =========================
-# 🧠 Suggestion Engine (JSON based)
+# 🧠 Suggestion Engine (JSON)
 # =========================
 def get_suggestions(problem_text):
     problem_text = clean_text(problem_text)
@@ -99,7 +99,9 @@ def home():
     return render_template("index.html")
 
 
-# 🧠 Solve Problem
+# =========================
+# 🔥 SOLVE PROBLEM (SMART MEMORY)
+# =========================
 @app.route("/problem", methods=["POST"])
 def solve_problem():
     try:
@@ -109,14 +111,44 @@ def solve_problem():
         if not text:
             return jsonify({"suggestions": [], "similar": []})
 
-        # Save to MongoDB safely
+        # =========================
+        # 💾 SAVE TO MONGODB
+        # =========================
         if problems_collection is not None:
             try:
                 problems_collection.insert_one({"problem": text})
             except Exception as e:
                 print("⚠️ Insert Error:", e)
 
-        suggestions, similar = get_suggestions(text)
+        # =========================
+        # 🧠 JSON Suggestions
+        # =========================
+        suggestions, json_similar = get_suggestions(text)
+
+        # =========================
+        # 🔥 SMART MEMORY (Mongo Search)
+        # =========================
+        mongo_similar = []
+
+        if problems_collection is not None:
+            try:
+                cursor = problems_collection.find({
+                    "problem": {"$regex": text, "$options": "i"}
+                }).limit(5)
+
+                mongo_similar = [
+                    doc.get("problem", "")
+                    for doc in cursor
+                    if doc.get("problem", "").lower() != text.lower()
+                ]
+
+            except Exception as e:
+                print("⚠️ Mongo search error:", e)
+
+        # =========================
+        # 🔗 MERGE RESULTS
+        # =========================
+        similar = list(set(json_similar + mongo_similar))
 
         return jsonify({
             "suggestions": suggestions,
@@ -128,7 +160,9 @@ def solve_problem():
         return jsonify({"suggestions": [], "similar": []}), 500
 
 
-# 🔍 Search
+# =========================
+# 🔍 SEARCH (JSON + Mongo)
+# =========================
 @app.route("/search", methods=["POST"])
 def search():
     try:
@@ -139,6 +173,7 @@ def search():
 
         results = []
 
+        # JSON search
         for category in knowledge_base:
             for item in knowledge_base[category]:
 
@@ -149,6 +184,19 @@ def search():
                 if score > 40:
                     results.append(item["problem"])
 
+        # Mongo search
+        if problems_collection is not None:
+            try:
+                cursor = problems_collection.find({
+                    "problem": {"$regex": corrected_query, "$options": "i"}
+                }).limit(5)
+
+                for doc in cursor:
+                    results.append(doc.get("problem", ""))
+
+            except Exception as e:
+                print("⚠️ Mongo search error:", e)
+
         results = list(set(results))
 
         return jsonify({"results": results[:5]})
@@ -158,7 +206,9 @@ def search():
         return jsonify({"results": []}), 500
 
 
-# 📂 Category
+# =========================
+# 📂 CATEGORY
+# =========================
 @app.route("/category", methods=["POST"])
 def get_category():
     try:
@@ -177,7 +227,9 @@ def get_category():
         return jsonify({"problems": []}), 500
 
 
-# 🧠 Recent Problems (MongoDB)
+# =========================
+# 🧠 RECENT (MongoDB)
+# =========================
 @app.route("/recent", methods=["GET"])
 def get_recent():
     try:

@@ -7,9 +7,6 @@ from textblob import TextBlob
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-# =========================
-# 🔐 Load ENV
-# =========================
 load_dotenv()
 
 app = Flask(__name__)
@@ -36,6 +33,7 @@ try:
 except Exception as e:
     print("❌ MongoDB Error:", e)
 
+
 # =========================
 # 📂 JSON
 # =========================
@@ -43,6 +41,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 with open(os.path.join(BASE_DIR, "data.json"), encoding="utf-8") as f:
     knowledge_base = json.load(f)
+
 
 # =========================
 # 🧹 Utils
@@ -56,8 +55,9 @@ def autocorrect_text(text):
     except:
         return text
 
+
 # =========================
-# 🧠 JSON Suggestions
+# 🧠 Suggestions
 # =========================
 def get_suggestions(problem_text):
     problem_text = clean_text(problem_text)
@@ -84,16 +84,15 @@ def get_suggestions(problem_text):
 
     return best_match["solutions"], [best_match["problem"]]
 
+
 # =========================
-# 🌐 ROUTES
+# ROUTES
 # =========================
 @app.route("/")
 def home():
     return render_template("index.html")
 
-# =========================
-# 🔥 MAIN LOGIC
-# =========================
+
 @app.route("/problem", methods=["POST"])
 def solve_problem():
     data = request.get_json()
@@ -102,19 +101,16 @@ def solve_problem():
     if not text:
         return jsonify({"suggestions": [], "similar": []})
 
-    # 💾 Save with timestamp
-    if problems_collection:
+    if problems_collection is not None:
         problems_collection.insert_one({
             "problem": text,
             "timestamp": datetime.utcnow()
         })
 
-    # JSON suggestions
     suggestions, json_similar = get_suggestions(text)
 
-    # Mongo similar
     mongo_similar = []
-    if problems_collection:
+    if problems_collection is not None:
         cursor = problems_collection.find({
             "problem": {"$regex": text, "$options": "i"}
         }).limit(5)
@@ -130,9 +126,7 @@ def solve_problem():
         "similar": list(set(json_similar + mongo_similar))
     })
 
-# =========================
-# 🔍 SEARCH (Autosuggest)
-# =========================
+
 @app.route("/search", methods=["POST"])
 def search():
     data = request.get_json()
@@ -141,15 +135,13 @@ def search():
     corrected = autocorrect_text(query)
     results = []
 
-    # JSON
     for category in knowledge_base:
         for item in knowledge_base[category]:
             score = fuzz.partial_ratio(corrected, clean_text(item["problem"]))
             if score > 40:
                 results.append(item["problem"])
 
-    # Mongo
-    if problems_collection:
+    if problems_collection is not None:
         cursor = problems_collection.find({
             "problem": {"$regex": corrected, "$options": "i"}
         }).limit(5)
@@ -158,9 +150,7 @@ def search():
 
     return jsonify({"results": list(set(results))[:5]})
 
-# =========================
-# 📂 CATEGORY
-# =========================
+
 @app.route("/category", methods=["POST"])
 def category():
     data = request.get_json()
@@ -173,12 +163,10 @@ def category():
         "problems": [item["problem"] for item in knowledge_base[cat]]
     })
 
-# =========================
-# 🧠 RECENT
-# =========================
+
 @app.route("/recent")
 def recent():
-    if not problems_collection:
+    if problems_collection is None:
         return jsonify({"problems": []})
 
     data = problems_collection.find().sort("timestamp", -1).limit(5)
@@ -187,12 +175,10 @@ def recent():
         "problems": [d["problem"] for d in data]
     })
 
-# =========================
-# 📈 TRENDING (FIXED)
-# =========================
+
 @app.route("/trending")
 def trending():
-    if not problems_collection:
+    if problems_collection is None:
         return jsonify({"trending": []})
 
     pipeline = [
@@ -207,8 +193,6 @@ def trending():
         "trending": [r["_id"] for r in results]
     })
 
-# =========================
-# 🚀 RUN
-# =========================
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

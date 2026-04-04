@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     submitBtn.addEventListener("click", submitProblem);
 
     loadRecent();
-    loadTrending(); // ✅ YOU FORGOT THIS EARLIER
+    loadTrending();
 
     // =========================
     // 🔍 SEARCH
@@ -44,10 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     signal: controller.signal
                 });
 
-                if (!res.ok) throw new Error("Search failed");
-
                 const data = await res.json();
-
                 resultsList.innerHTML = "";
 
                 if (!data.results || !data.results.length) {
@@ -70,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             } catch (err) {
                 if (err.name !== "AbortError") {
-                    console.error(err);
                     resultsList.innerHTML = "<li>Error</li>";
                 }
             }
@@ -78,25 +74,28 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 300);
     });
 
-    // =========================
-    // 🔒 CLOSE SEARCH BOX
-    // =========================
-    document.addEventListener("click", function (e) {
-        if (!resultsBox.contains(e.target) && e.target !== searchBar) {
-            resultsBox.style.display = "none";
+    // ENTER for search
+    searchBar.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            const first = document.querySelector("#searchResults li");
+            if (first) first.click();
         }
     });
 
-    // =========================
-    // 🔒 CLOSE SIDEBAR
-    // =========================
+    // ENTER for problem input
+    document.getElementById("problemInput")
+    .addEventListener("keydown", function(e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            submitProblem();
+        }
+    });
+
+    // close search
     document.addEventListener("click", function (e) {
-        if (!e.target.closest(".sidebar")) {
-            document.querySelectorAll(".sidebar li").forEach(li => {
-                li.classList.remove("active");
-                const sub = li.querySelector(".sub-list");
-                if (sub) sub.innerHTML = "";
-            });
+        if (!resultsBox.contains(e.target) && e.target !== searchBar) {
+            resultsBox.style.display = "none";
         }
     });
 
@@ -104,33 +103,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // =========================
-// 🧠 LOADING ANIMATION
+// LOADING
 // =========================
-function startLoading(messageEl) {
+function startLoading(el) {
     let dots = 0;
-
     loadingInterval = setInterval(() => {
         dots = (dots + 1) % 4;
-        messageEl.innerText = "Processing" + ".".repeat(dots);
+        el.innerText = "Processing" + ".".repeat(dots);
     }, 300);
 }
 
-function stopLoading(messageEl) {
+function stopLoading(el) {
     clearInterval(loadingInterval);
-    messageEl.innerText = "";
+    el.innerText = "";
 }
 
 
 // =========================
-// 🧠 LOAD RECENT
+// RECENT
 // =========================
 async function loadRecent() {
     const feed = document.getElementById("problemFeed");
 
     try {
         const res = await fetch("/recent");
-        if (!res.ok) throw new Error("Recent fetch failed");
-
         const data = await res.json();
 
         feed.innerHTML = "";
@@ -141,24 +137,20 @@ async function loadRecent() {
             feed.appendChild(li);
         });
 
-    } catch (err) {
-        console.error("Recent error:", err);
-    }
+    } catch {}
 }
 
 
 // =========================
-// 📈 LOAD TRENDING
+// TRENDING
 // =========================
 async function loadTrending() {
     try {
         const res = await fetch("/trending");
-        if (!res.ok) throw new Error("Trending failed");
-
         const data = await res.json();
 
         const list = document.getElementById("trendingList");
-        if (!list) return; // safety
+        if (!list) return;
 
         list.innerHTML = "";
 
@@ -166,7 +158,6 @@ async function loadTrending() {
             const li = document.createElement("li");
             li.innerText = t;
 
-            // click to reuse problem
             li.onclick = () => {
                 document.getElementById("problemInput").value = t;
                 submitProblem();
@@ -175,14 +166,12 @@ async function loadTrending() {
             list.appendChild(li);
         });
 
-    } catch (err) {
-        console.error("Trending error:", err);
-    }
+    } catch {}
 }
 
 
 // =========================
-// 🔥 SUBMIT PROBLEM
+// SUBMIT
 // =========================
 async function submitProblem() {
 
@@ -203,8 +192,6 @@ async function submitProblem() {
             body: JSON.stringify({ text })
         });
 
-        if (!res.ok) throw new Error("Submit failed");
-
         const data = await res.json();
 
         suggestions.innerHTML = "";
@@ -224,10 +211,9 @@ async function submitProblem() {
 
         input.value = "";
         loadRecent();
-        loadTrending(); // ✅ update after submit
+        loadTrending();
 
-    } catch (err) {
-        console.error(err);
+    } catch {
         message.innerText = "Server error";
     }
 
@@ -236,7 +222,7 @@ async function submitProblem() {
 
 
 // =========================
-// 📂 CATEGORY HANDLER
+// CATEGORY
 // =========================
 async function toggleCategory(element, category) {
 
@@ -256,48 +242,27 @@ async function toggleCategory(element, category) {
 
     element.classList.add("active");
 
-    try {
-        const res = await fetch("/category", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ category })
-        });
+    const res = await fetch("/category", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ category })
+    });
 
-        if (!res.ok) throw new Error("Category failed");
+    const data = await res.json();
 
-        const data = await res.json();
+    subList.innerHTML = "";
 
-        subList.innerHTML = "";
+    (data.problems || []).slice(0, 3).forEach(problem => {
+        const li = document.createElement("li");
+        li.innerText = problem;
 
-        (data.problems || []).slice(0, 3).forEach(problem => {
-            const li = document.createElement("li");
-            li.innerText = problem;
+        li.onclick = (e) => {
+            e.stopPropagation();
 
-            li.onclick = (e) => {
-                e.stopPropagation();
+            document.getElementById("problemInput").value = problem;
+            submitProblem();
+        };
 
-                document.querySelectorAll(".sub-list li").forEach(el => {
-                    el.classList.remove("active-item");
-                });
-
-                li.classList.add("active-item");
-
-                document.getElementById("problemInput").value = problem;
-                submitProblem();
-
-                setTimeout(() => {
-                    document.querySelectorAll(".sidebar li").forEach(li => {
-                        li.classList.remove("active");
-                        const ul = li.querySelector(".sub-list");
-                        if (ul) ul.innerHTML = "";
-                    });
-                }, 200);
-            };
-
-            subList.appendChild(li);
-        });
-
-    } catch (err) {
-        console.error(err);
-    }
+        subList.appendChild(li);
+    });
 }

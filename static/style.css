@@ -302,3 +302,13 @@ button:active {
   color: white;
   border-radius: 8px;
 }
+
+#trendingList li {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+#trendingList li:hover {
+  background: var(--accent);
+}

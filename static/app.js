@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
     submitBtn.addEventListener("click", submitProblem);
 
     loadRecent();
+    loadTrending(); // ✅ YOU FORGOT THIS EARLIER
 
     // =========================
     // 🔍 SEARCH
@@ -121,23 +122,20 @@ function stopLoading(messageEl) {
 
 
 // =========================
-// 🧠 LOAD RECENT (SAFE)
+// 🧠 LOAD RECENT
 // =========================
 async function loadRecent() {
     const feed = document.getElementById("problemFeed");
 
     try {
         const res = await fetch("/recent");
-
         if (!res.ok) throw new Error("Recent fetch failed");
 
         const data = await res.json();
 
         feed.innerHTML = "";
 
-        if (!data.problems) return;
-
-        data.problems.forEach(p => {
+        (data.problems || []).forEach(p => {
             const li = document.createElement("li");
             li.innerText = p;
             feed.appendChild(li);
@@ -145,6 +143,40 @@ async function loadRecent() {
 
     } catch (err) {
         console.error("Recent error:", err);
+    }
+}
+
+
+// =========================
+// 📈 LOAD TRENDING
+// =========================
+async function loadTrending() {
+    try {
+        const res = await fetch("/trending");
+        if (!res.ok) throw new Error("Trending failed");
+
+        const data = await res.json();
+
+        const list = document.getElementById("trendingList");
+        if (!list) return; // safety
+
+        list.innerHTML = "";
+
+        (data.trending || []).forEach(t => {
+            const li = document.createElement("li");
+            li.innerText = t;
+
+            // click to reuse problem
+            li.onclick = () => {
+                document.getElementById("problemInput").value = t;
+                submitProblem();
+            };
+
+            list.appendChild(li);
+        });
+
+    } catch (err) {
+        console.error("Trending error:", err);
     }
 }
 
@@ -192,6 +224,7 @@ async function submitProblem() {
 
         input.value = "";
         loadRecent();
+        loadTrending(); // ✅ update after submit
 
     } catch (err) {
         console.error(err);
@@ -209,14 +242,12 @@ async function toggleCategory(element, category) {
 
     const subList = element.querySelector(".sub-list");
 
-    // collapse
     if (element.classList.contains("active")) {
         element.classList.remove("active");
         subList.innerHTML = "";
         return;
     }
 
-    // close others
     document.querySelectorAll(".sidebar li").forEach(li => {
         li.classList.remove("active");
         const ul = li.querySelector(".sub-list");

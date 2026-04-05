@@ -44,6 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     signal: controller.signal
                 });
 
+                // ✅ FIX: proper error handling
+                if (!res.ok) throw new Error("Search failed");
+
                 const data = await res.json();
                 resultsList.innerHTML = "";
 
@@ -67,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             } catch (err) {
                 if (err.name !== "AbortError") {
+                    console.error(err);
                     resultsList.innerHTML = "<li>Error</li>";
                 }
             }
@@ -74,7 +78,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 300);
     });
 
-    // ENTER for search
+    // =========================
+    // ⌨️ ENTER KEY (SEARCH)
+    // =========================
     searchBar.addEventListener("keydown", function(e) {
         if (e.key === "Enter") {
             e.preventDefault();
@@ -83,7 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ENTER for problem input
+    // =========================
+    // ⌨️ ENTER KEY (PROBLEM)
+    // =========================
     document.getElementById("problemInput")
     .addEventListener("keydown", function(e) {
         if (e.key === "Enter" && !e.shiftKey) {
@@ -92,7 +100,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // close search
+    // =========================
+    // 🔒 CLOSE SEARCH BOX
+    // =========================
     document.addEventListener("click", function (e) {
         if (!resultsBox.contains(e.target) && e.target !== searchBar) {
             resultsBox.style.display = "none";
@@ -103,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // =========================
-// LOADING
+// ⏳ LOADING
 // =========================
 function startLoading(el) {
     let dots = 0;
@@ -120,13 +130,16 @@ function stopLoading(el) {
 
 
 // =========================
-// RECENT
+// 🧠 LOAD RECENT
 // =========================
 async function loadRecent() {
     const feed = document.getElementById("problemFeed");
 
     try {
         const res = await fetch("/recent");
+
+        if (!res.ok) throw new Error("Recent failed");
+
         const data = await res.json();
 
         feed.innerHTML = "";
@@ -137,16 +150,21 @@ async function loadRecent() {
             feed.appendChild(li);
         });
 
-    } catch {}
+    } catch (err) {
+        console.error("Recent error:", err);
+    }
 }
 
 
 // =========================
-// TRENDING
+// 📈 LOAD TRENDING
 // =========================
 async function loadTrending() {
     try {
         const res = await fetch("/trending");
+
+        if (!res.ok) throw new Error("Trending failed");
+
         const data = await res.json();
 
         const list = document.getElementById("trendingList");
@@ -166,12 +184,14 @@ async function loadTrending() {
             list.appendChild(li);
         });
 
-    } catch {}
+    } catch (err) {
+        console.error("Trending error:", err);
+    }
 }
 
 
 // =========================
-// SUBMIT
+// 🔥 SUBMIT PROBLEM
 // =========================
 async function submitProblem() {
 
@@ -191,6 +211,9 @@ async function submitProblem() {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ text })
         });
+
+        // ✅ FIX
+        if (!res.ok) throw new Error("Submit failed");
 
         const data = await res.json();
 
@@ -213,7 +236,8 @@ async function submitProblem() {
         loadRecent();
         loadTrending();
 
-    } catch {
+    } catch (err) {
+        console.error(err);
         message.innerText = "Server error";
     }
 
@@ -222,7 +246,7 @@ async function submitProblem() {
 
 
 // =========================
-// CATEGORY
+// 📂 CATEGORY
 // =========================
 async function toggleCategory(element, category) {
 
@@ -242,27 +266,34 @@ async function toggleCategory(element, category) {
 
     element.classList.add("active");
 
-    const res = await fetch("/category", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ category })
-    });
+    try {
+        const res = await fetch("/category", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ category })
+        });
 
-    const data = await res.json();
+        if (!res.ok) throw new Error("Category failed");
 
-    subList.innerHTML = "";
+        const data = await res.json();
 
-    (data.problems || []).slice(0, 3).forEach(problem => {
-        const li = document.createElement("li");
-        li.innerText = problem;
+        subList.innerHTML = "";
 
-        li.onclick = (e) => {
-            e.stopPropagation();
+        (data.problems || []).slice(0, 3).forEach(problem => {
+            const li = document.createElement("li");
+            li.innerText = problem;
 
-            document.getElementById("problemInput").value = problem;
-            submitProblem();
-        };
+            li.onclick = (e) => {
+                e.stopPropagation();
 
-        subList.appendChild(li);
-    });
+                document.getElementById("problemInput").value = problem;
+                submitProblem();
+            };
+
+            subList.appendChild(li);
+        });
+
+    } catch (err) {
+        console.error(err);
+    }
 }

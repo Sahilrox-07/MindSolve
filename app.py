@@ -7,15 +7,12 @@ from textblob import TextBlob
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-# =========================
-# 🔐 LOAD ENV
-# =========================
 load_dotenv()
 
 app = Flask(__name__)
 
 # =========================
-# 🔗 MONGODB CONNECTION
+# MongoDB
 # =========================
 problems_collection = None
 
@@ -38,7 +35,7 @@ except Exception as e:
 
 
 # =========================
-# 📂 LOAD JSON DATA
+# Load JSON
 # =========================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -47,7 +44,7 @@ with open(os.path.join(BASE_DIR, "data.json"), encoding="utf-8") as f:
 
 
 # =========================
-# 🧹 UTIL FUNCTIONS
+# Utils
 # =========================
 def clean_text(text):
     return text.lower().strip()
@@ -56,11 +53,8 @@ def clean_text(text):
 def autocorrect_text(text):
     try:
         corrected = str(TextBlob(text).correct())
-
-        # avoid over-correction stupidity
         if abs(len(corrected) - len(text)) > 5:
             return text
-
         return corrected
     except:
         return text
@@ -85,7 +79,7 @@ def is_valid_problem(text):
 
 
 # =========================
-# 🧠 SUGGESTION ENGINE
+# Suggestions
 # =========================
 def get_suggestions(problem_text):
     problem_text = clean_text(problem_text)
@@ -114,30 +108,23 @@ def get_suggestions(problem_text):
 
 
 # =========================
-# 🌐 ROUTES
+# Routes
 # =========================
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-# =========================
-# 🔥 SOLVE PROBLEM
-# =========================
 @app.route("/problem", methods=["POST"])
 def solve_problem():
     data = request.get_json()
     text = data.get("text", "").strip()
 
-    # ❌ Spam filter
     if not is_valid_problem(text):
-        return jsonify({
-            "suggestions": ["Invalid or spam input"],
-            "similar": []
-        })
+        return jsonify({"suggestions": ["Invalid input"], "similar": []})
 
-    # 💾 Save (no duplicates)
-    if problems_collection:
+    # SAVE
+    if problems_collection is not None:
         existing = problems_collection.find_one({"problem": text})
 
         if not existing:
@@ -146,12 +133,10 @@ def solve_problem():
                 "timestamp": datetime.utcnow()
             })
 
-    # JSON suggestions
     suggestions, json_similar = get_suggestions(text)
 
-    # Mongo similar (smart memory)
     mongo_similar = []
-    if problems_collection:
+    if problems_collection is not None:
         cursor = problems_collection.find({
             "problem": {"$regex": text, "$options": "i"}
         }).limit(5)
@@ -168,9 +153,6 @@ def solve_problem():
     })
 
 
-# =========================
-# 🔍 SEARCH (CLEAN ONLY)
-# =========================
 @app.route("/search", methods=["POST"])
 def search():
     data = request.get_json()
@@ -189,9 +171,6 @@ def search():
     return jsonify({"results": list(set(results))[:5]})
 
 
-# =========================
-# 📂 CATEGORY
-# =========================
 @app.route("/category", methods=["POST"])
 def category():
     data = request.get_json()
@@ -205,12 +184,9 @@ def category():
     })
 
 
-# =========================
-# 🧠 RECENT
-# =========================
 @app.route("/recent")
 def recent():
-    if not problems_collection:
+    if problems_collection is None:
         return jsonify({"problems": []})
 
     data = problems_collection.find().sort("timestamp", -1).limit(5)
@@ -220,12 +196,9 @@ def recent():
     })
 
 
-# =========================
-# 📈 TRENDING (LAST 7 DAYS)
-# =========================
 @app.route("/trending")
 def trending():
-    if not problems_collection:
+    if problems_collection is None:
         return jsonify({"trending": []})
 
     recent_time = datetime.utcnow() - timedelta(days=7)
@@ -244,8 +217,5 @@ def trending():
     })
 
 
-# =========================
-# 🚀 RUN
-# =========================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

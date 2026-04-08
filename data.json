@@ -1,84 +1,172 @@
 {
   "study": [
     {
-      "problem": "I can't focus while studying",
+      "problem": "i can't focus while studying",
       "solutions": [
-        "Use the Pomodoro technique",
-        "Remove distractions like your phone",
-        "Study in short focused sessions"
+        "use the pomodoro technique with 25 minute focus sessions",
+        "remove phone and distractions from your study area",
+        "study in a fixed location daily to build habit"
       ]
     },
     {
-      "problem": "I forget what I study",
+      "problem": "i forget what i study quickly",
       "solutions": [
-        "Use active recall techniques",
-        "Revise regularly",
-        "Teach someone else what you learned"
+        "revise within 24 hours of studying",
+        "use active recall instead of passive reading",
+        "practice writing answers instead of just reading"
       ]
     },
     {
-      "problem": "I get distracted easily",
+      "problem": "i feel sleepy while studying",
       "solutions": [
-        "Study in a quiet environment",
-        "Use website blockers",
-        "Keep your study area clean"
-      ]
-    }
-  ],
-
-  "health": [
-    {
-      "problem": "I can't sleep properly",
-      "solutions": [
-        "Reduce screen time before bed",
-        "Maintain a consistent sleep schedule",
-        "Avoid caffeine at night"
+        "study sitting upright instead of lying down",
+        "take short breaks every 30 minutes",
+        "avoid studying right after heavy meals"
       ]
     },
     {
-      "problem": "I feel tired all day",
+      "problem": "i can't understand difficult concepts",
       "solutions": [
-        "Get at least 7-8 hours of sleep",
-        "Stay hydrated",
-        "Exercise regularly"
-      ]
-    }
-  ],
-
-  "productivity": [
-    {
-      "problem": "I procrastinate too much",
-      "solutions": [
-        "Break tasks into smaller steps",
-        "Start with just 5 minutes",
-        "Remove distractions"
+        "break the concept into smaller parts",
+        "watch videos or visual explanations",
+        "teach the concept to someone else"
       ]
     },
     {
-      "problem": "I feel unmotivated to work",
+      "problem": "i procrastinate studying",
       "solutions": [
-        "Set small achievable goals",
-        "Reward yourself after tasks",
-        "Create a daily routine"
+        "start with just 5 minutes to reduce resistance",
+        "set clear small goals instead of big tasks",
+        "reward yourself after completing tasks"
       ]
     }
   ],
 
   "career": [
     {
-      "problem": "I don't know what career to choose",
+      "problem": "i don't know which career to choose",
       "solutions": [
-        "Explore different fields",
-        "Take aptitude tests",
-        "Talk to mentors"
+        "list your interests and strengths",
+        "research careers related to your skills",
+        "try internships or short courses"
       ]
     },
     {
-      "problem": "I am confused about my future",
+      "problem": "i am not confident in interviews",
       "solutions": [
-        "List your interests and strengths",
-        "Research career options",
-        "Seek guidance from professionals"
+        "practice common interview questions",
+        "record yourself and improve communication",
+        "prepare examples of your past work"
+      ]
+    },
+    {
+      "problem": "i keep getting rejected in jobs",
+      "solutions": [
+        "improve your resume and tailor it for each job",
+        "work on communication and soft skills",
+        "apply consistently and track feedback"
+      ]
+    },
+    {
+      "problem": "i don't have enough skills for a job",
+      "solutions": [
+        "identify required skills from job descriptions",
+        "take online courses and build projects",
+        "practice daily and track progress"
+      ]
+    },
+    {
+      "problem": "i feel stuck in my career",
+      "solutions": [
+        "learn new skills relevant to your field",
+        "seek mentorship or guidance",
+        "set clear short term and long term goals"
+      ]
+    }
+  ],
+
+  "productivity": [
+    {
+      "problem": "i waste too much time on phone",
+      "solutions": [
+        "use app blockers during work time",
+        "keep phone in another room",
+        "set specific time slots for phone usage"
+      ]
+    },
+    {
+      "problem": "i can't stay consistent",
+      "solutions": [
+        "start with small habits",
+        "track progress daily",
+        "avoid setting unrealistic goals"
+      ]
+    },
+    {
+      "problem": "i feel lazy all the time",
+      "solutions": [
+        "break tasks into smaller steps",
+        "start with the easiest task",
+        "create a routine and stick to it"
+      ]
+    },
+    {
+      "problem": "i get distracted easily",
+      "solutions": [
+        "work in a distraction free environment",
+        "use noise cancelling or focus music",
+        "set clear time blocks for tasks"
+      ]
+    },
+    {
+      "problem": "i don't complete what i start",
+      "solutions": [
+        "set deadlines for tasks",
+        "focus on one task at a time",
+        "track completion progress"
+      ]
+    }
+  ],
+
+  "health": [
+    {
+      "problem": "i can't sleep at night",
+      "solutions": [
+        "avoid screens 30 minutes before sleep",
+        "maintain a fixed sleep schedule",
+        "reduce caffeine intake in evening"
+      ]
+    },
+    {
+      "problem": "i feel stressed all the time",
+      "solutions": [
+        "practice deep breathing or meditation",
+        "take short breaks during the day",
+        "talk to someone you trust"
+      ]
+    },
+    {
+      "problem": "i have no energy during the day",
+      "solutions": [
+        "get enough sleep at night",
+        "eat balanced meals regularly",
+        "exercise lightly every day"
+      ]
+    },
+    {
+      "problem": "i overthink everything",
+      "solutions": [
+        "write down your thoughts",
+        "focus on what you can control",
+        "limit overanalysis by setting time limits"
+      ]
+    },
+    {
+      "problem": "i feel anxious in social situations",
+      "solutions": [
+        "start with small interactions",
+        "prepare topics to talk about",
+        "practice breathing techniques"
       ]
     }
   ]

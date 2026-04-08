@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // SEARCH
     searchBar.addEventListener("input", function () {
+
         const query = this.value.trim();
         clearTimeout(timeout);
 
@@ -38,11 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     signal: controller.signal
                 });
 
+                if (!res.ok) throw new Error();
+
                 const data = await res.json();
 
                 resultsList.innerHTML = "";
 
-                if (!data.results.length || !data.results.length) {
+                if (!data.results || !data.results.length) {
                     resultsList.innerHTML = "<li>No results</li>";
                     return;
                 }
@@ -59,25 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     resultsList.appendChild(li);
                 });
 
-            } catch {}
+            } catch {
+                resultsList.innerHTML = "<li>Error</li>";
+            }
+
         }, 300);
-    });
-
-    // ENTER SUPPORT
-    searchBar.addEventListener("keydown", e => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            const first = document.querySelector("#searchResults li");
-            if (first) first.click();
-        }
-    });
-
-    document.getElementById("problemInput")
-    .addEventListener("keydown", e => {
-        if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            submitProblem();
-        }
     });
 
 });
@@ -105,25 +94,23 @@ async function submitProblem() {
             body: JSON.stringify({ text })
         });
 
+        if (!res.ok) throw new Error();
+
         const data = await res.json();
 
         suggestions.innerHTML = "";
         similar.innerHTML = "";
 
-        setTimeout(() => {
-            message.innerText = "";
-        }, 800);
-
-// suggestions
+        // suggestions
         data.suggestions.forEach(s => {
             const li = document.createElement("li");
             li.innerText = s;
             li.style.whiteSpace = "pre-line";
-            li.style.marginBottom = "10px";
             li.classList.add("fade-in");
             suggestions.appendChild(li);
         });
 
+        // memory
         const memoryList = document.getElementById("memoryList");
         if (memoryList && data.history) {
             memoryList.innerHTML = "";
@@ -141,13 +128,40 @@ async function submitProblem() {
             });
         }
 
-        message.innerText = "Done";
+        loadRecent();
+        loadTrending();
 
-    } catch (err) {
-        message.innerText = "Error processing problem";
-        console.error(err);
+        setTimeout(() => {
+            message.innerText = "";
+        }, 800);
+
+    } catch {
+        message.innerText = "Server error";
     }
 }
+
+
+// =========================
+// RECENT
+// =========================
+async function loadRecent() {
+    const feed = document.getElementById("problemFeed");
+
+    try {
+        const res = await fetch("/recent");
+        const data = await res.json();
+
+        feed.innerHTML = "";
+
+        data.problems.forEach(p => {
+            const li = document.createElement("li");
+            li.innerText = p;
+            feed.appendChild(li);
+        });
+
+    } catch {}
+}
+
 
 // =========================
 // TRENDING
@@ -171,7 +185,10 @@ async function loadTrending() {
     } catch {}
 }
 
-// CATEGORY (FIXED)
+
+// =========================
+// CATEGORY
+// =========================
 async function toggleCategory(element, category) {
 
     const subList = element.querySelector(".sub-list");
@@ -197,6 +214,8 @@ async function toggleCategory(element, category) {
             body: JSON.stringify({ category })
         });
 
+        if (!res.ok) throw new Error();
+
         const data = await res.json();
 
         subList.innerHTML = "";
@@ -204,6 +223,7 @@ async function toggleCategory(element, category) {
         (data.problems || []).slice(0, 3).forEach(problem => {
             const li = document.createElement("li");
             li.innerText = problem;
+            li.classList.add("fade-in");
 
             li.onclick = (e) => {
                 e.stopPropagation();
@@ -214,7 +234,5 @@ async function toggleCategory(element, category) {
             subList.appendChild(li);
         });
 
-    } catch (err) {
-        console.error(err);
-    }
+    } catch {}
 }

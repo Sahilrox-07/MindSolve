@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 resultsList.innerHTML = "";
 
-                if (!data.results.length) {
+                if (!data.results.length || !data.results.length) {
                     resultsList.innerHTML = "<li>No results</li>";
                     return;
                 }
@@ -110,53 +110,44 @@ async function submitProblem() {
         suggestions.innerHTML = "";
         similar.innerHTML = "";
 
+        setTimeout(() => {
+            message.innerText = "";
+        }, 800);
+
+// suggestions
         data.suggestions.forEach(s => {
             const li = document.createElement("li");
             li.innerText = s;
             li.style.whiteSpace = "pre-line";
             li.style.marginBottom = "10px";
+            li.classList.add("fade-in");
             suggestions.appendChild(li);
         });
 
-        (data.similar || []).forEach(s => {
-            const li = document.createElement("li");
-            li.innerText = s;
-            similar.appendChild(li);
-        });
+        const memoryList = document.getElementById("memoryList");
+        if (memoryList && data.history) {
+            memoryList.innerHTML = "";
 
-        input.value = "";
-        loadRecent();
-        loadTrending();
+            data.history.forEach(item => {
+                const li = document.createElement("li");
+                li.innerText = item;
 
-    } catch {
-        message.innerText = "Server error";
+                li.onclick = () => {
+                    input.value = item;
+                    submitProblem();
+                };
+
+                memoryList.appendChild(li);
+            });
+        }
+
+        message.innerText = "Done";
+
+    } catch (err) {
+        message.innerText = "Error processing problem";
+        console.error(err);
     }
-
-    message.innerText = "";
 }
-
-
-// =========================
-// RECENT
-// =========================
-async function loadRecent() {
-    const feed = document.getElementById("problemFeed");
-
-    try {
-        const res = await fetch("/recent");
-        const data = await res.json();
-
-        feed.innerHTML = "";
-
-        data.problems.forEach(p => {
-            const li = document.createElement("li");
-            li.innerText = p;
-            feed.appendChild(li);
-        });
-
-    } catch {}
-}
-
 
 // =========================
 // TRENDING
@@ -178,4 +169,52 @@ async function loadTrending() {
         });
 
     } catch {}
+}
+
+// CATEGORY (FIXED)
+async function toggleCategory(element, category) {
+
+    const subList = element.querySelector(".sub-list");
+
+    if (element.classList.contains("active")) {
+        element.classList.remove("active");
+        subList.innerHTML = "";
+        return;
+    }
+
+    document.querySelectorAll(".sidebar li").forEach(li => {
+        li.classList.remove("active");
+        const ul = li.querySelector(".sub-list");
+        if (ul) ul.innerHTML = "";
+    });
+
+    element.classList.add("active");
+
+    try {
+        const res = await fetch("/category", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ category })
+        });
+
+        const data = await res.json();
+
+        subList.innerHTML = "";
+
+        (data.problems || []).slice(0, 3).forEach(problem => {
+            const li = document.createElement("li");
+            li.innerText = problem;
+
+            li.onclick = (e) => {
+                e.stopPropagation();
+                document.getElementById("problemInput").value = problem;
+                submitProblem();
+            };
+
+            subList.appendChild(li);
+        });
+
+    } catch (err) {
+        console.error(err);
+    }
 }

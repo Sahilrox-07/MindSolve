@@ -272,6 +272,17 @@ def trending():
         "trending": [r["_id"] for r in results]
     })
 
+@app.route("/category", methods=["POST"])
+def category():
+    data = request.get_json()
+    cat = data.get("category", "").lower()
+
+    if cat not in knowledge_base:
+        return jsonify({"problems": []})
+
+    return jsonify({
+        "problems": [item["problem"] for item in knowledge_base[cat]]
+    })
 
 # =========================
 # 🚀 RUN

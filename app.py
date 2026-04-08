@@ -69,9 +69,11 @@ def is_valid_problem(text):
 # =========================
 def detect_intent(text):
     text = text.lower()
+
     greetings = ["hello", "hi", "hey", "what is this", "who are you"]
 
-    if any(g in text for g in greetings):
+    # 🔥 Only trigger if EXACT greeting
+    if text.strip() in greetings:
         return "basic"
 
     return "problem"
@@ -89,57 +91,36 @@ def basic_response():
 
 
 # =========================
-# 🧠 CATEGORY DETECTION (IMPROVED)
-# =========================
-def detect_category(text):
-    text = text.lower()
-
-    categories = {
-        "study": ["study", "exam", "focus", "learn", "revision"],
-        "career": ["job", "career", "interview", "resume"],
-        "productivity": ["lazy", "time", "habit", "procrastinate"],
-        "health": ["stress", "sleep", "anxiety", "tired"]
-    }
-
-    scores = {}
-
-    for cat, keywords in categories.items():
-        scores[cat] = sum(1 for word in keywords if word in text)
-
-    best = max(scores, key=scores.get)
-
-    return best if scores[best] > 0 else None
-
-
-# =========================
-# 🧠 SUGGESTION ENGINE (STRICT)
+# 🧠 BETTER MATCHING ENGINE
 # =========================
 def get_suggestions(problem_text):
     problem_text = clean_text(problem_text)
     corrected = autocorrect_text(problem_text)
 
-    best_match = None
-    best_score = 0
+    matches = []
 
     for category in knowledge_base:
         for item in knowledge_base[category]:
 
             db_problem = clean_text(item["problem"])
-
             score = fuzz.token_set_ratio(corrected, db_problem)
 
-            if score > best_score:
-                best_score = score
-                best_match = item
+            if score > 55:  # 🔥 LOWERED THRESHOLD
+                matches.append((score, item))
 
-    if best_score < 70 or not best_match:
+    matches.sort(reverse=True, key=lambda x: x[0])
+
+    if not matches:
         return [], []
 
-    return best_match["solutions"], [best_match["problem"]]
+    best = matches[0][1]
+    similar = [m[1]["problem"] for m in matches[:3]]
+
+    return best["solutions"], similar
 
 
 # =========================
-# 🧠 RICH RESPONSE FORMAT
+# 🧠 RESPONSE FORMAT
 # =========================
 def format_response(problem, solutions):
 
@@ -175,7 +156,7 @@ def home():
 
 
 # =========================
-# 🔥 MAIN
+# 🔥 MAIN PROBLEM ROUTE
 # =========================
 @app.route("/problem", methods=["POST"])
 def solve_problem():
@@ -183,14 +164,14 @@ def solve_problem():
     text = data.get("text", "").strip()
 
     if not is_valid_problem(text):
-        return jsonify({"suggestions": ["Invalid or spam input"], "similar": []})
+        return jsonify({"suggestions": ["Invalid input"], "similar": []})
 
     intent = detect_intent(text)
 
     if intent == "basic":
         return jsonify({"suggestions": basic_response(), "similar": []})
 
-    # SAVE (NO BOOL ERROR FIX)
+    # SAVE TO DB
     if problems_collection is not None:
         if not problems_collection.find_one({"problem": text}):
             problems_collection.insert_one({
@@ -199,10 +180,9 @@ def solve_problem():
             })
 
     suggestions, similar = get_suggestions(text)
-
     response = format_response(text, suggestions)
 
-    # LIGHT MEMORY
+    # 🔥 MEMORY
     history = []
     if problems_collection is not None:
         recent = problems_collection.find().sort("timestamp", -1).limit(3)
@@ -216,7 +196,7 @@ def solve_problem():
 
 
 # =========================
-# 🔍 SEARCH (DATASET ONLY)
+# 🔍 SEARCH (IMPROVED)
 # =========================
 @app.route("/search", methods=["POST"])
 def search():
@@ -227,11 +207,28 @@ def search():
 
     for category in knowledge_base:
         for item in knowledge_base[category]:
-            score = fuzz.token_set_ratio(query, clean_text(item["problem"]))
-            if score > 70:
+            score = fuzz.partial_ratio(query, clean_text(item["problem"]))
+
+            if score > 50:  # 🔥 LOWERED
                 results.append(item["problem"])
 
     return jsonify({"results": list(set(results))[:5]})
+
+
+# =========================
+# 🧠 CATEGORY
+# =========================
+@app.route("/category", methods=["POST"])
+def category():
+    data = request.get_json()
+    cat = data.get("category", "").lower()
+
+    if cat not in knowledge_base:
+        return jsonify({"problems": []})
+
+    return jsonify({
+        "problems": [item["problem"] for item in knowledge_base[cat]]
+    })
 
 
 # =========================
@@ -272,17 +269,6 @@ def trending():
         "trending": [r["_id"] for r in results]
     })
 
-@app.route("/category", methods=["POST"])
-def category():
-    data = request.get_json()
-    cat = data.get("category", "").lower()
-
-    if cat not in knowledge_base:
-        return jsonify({"problems": []})
-
-    return jsonify({
-        "problems": [item["problem"] for item in knowledge_base[cat]]
-    })
 
 # =========================
 # 🚀 RUN

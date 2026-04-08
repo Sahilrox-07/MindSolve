@@ -94,14 +94,12 @@ async function submitProblem() {
             body: JSON.stringify({ text })
         });
 
-        if (!res.ok) throw new Error();
-
         const data = await res.json();
 
         suggestions.innerHTML = "";
         similar.innerHTML = "";
 
-        // suggestions
+        // ✅ suggestions
         data.suggestions.forEach(s => {
             const li = document.createElement("li");
             li.innerText = s;
@@ -110,14 +108,31 @@ async function submitProblem() {
             suggestions.appendChild(li);
         });
 
-        // memory
+        // ✅ similar problems (FIXED)
+        if (data.similar && data.similar.length) {
+            data.similar.forEach(s => {
+                const li = document.createElement("li");
+                li.innerText = s;
+
+                li.onclick = () => {
+                    input.value = s;
+                    submitProblem();
+                };
+
+                similar.appendChild(li);
+            });
+        } else {
+            similar.innerHTML = "<li>No similar problems found</li>";
+        }
+
+        // ✅ MEMORY UI UPGRADE
         const memoryList = document.getElementById("memoryList");
         if (memoryList && data.history) {
             memoryList.innerHTML = "";
 
             data.history.forEach(item => {
                 const li = document.createElement("li");
-                li.innerText = item;
+                li.innerText = "🧠 " + item;
 
                 li.onclick = () => {
                     input.value = item;
@@ -128,15 +143,14 @@ async function submitProblem() {
             });
         }
 
+        input.value = "";
         loadRecent();
         loadTrending();
 
-        setTimeout(() => {
-            message.innerText = "";
-        }, 800);
+        setTimeout(() => message.innerText = "", 800);
 
     } catch {
-        message.innerText = "Server error";
+        message.innerText = "Error";
     }
 }
 

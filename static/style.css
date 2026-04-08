@@ -350,3 +350,64 @@ button:active {
 li:active {
   transform: scale(0.96);
 }
+
+/* =========================
+🔥 FINAL UI FIXES
+========================= */
+
+/* FONT CONSISTENCY */
+body {
+  font-size: 15px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+li {
+  font-size: 14px;
+}
+
+/* MEMORY UI */
+#memoryList li {
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#memoryList li:hover {
+  background: var(--accent);
+}
+
+/* SIMILAR + TRENDING CLICKABLE */
+#similarProblems li,
+#trendingList li {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+#similarProblems li:hover,
+#trendingList li:hover {
+  background: var(--accent);
+}
+
+/* MOBILE FIX (IMPORTANT) */
+@media (max-width: 768px) {
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    order: 1;  /* 🔥 Sidebar on top now */
+    width: 100%;
+  }
+
+  .content {
+    order: 2;
+  }
+
+}

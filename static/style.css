@@ -303,3 +303,13 @@ MOBILE
     width: 100%;
   }
 }
+
+#clearBtn {
+  margin-left: 10px;
+  background: #e5e5e5;
+  color: #333;
+}
+
+#clearBtn:hover {
+  background: #ddd;
+}

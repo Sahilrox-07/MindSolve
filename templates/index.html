@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindSolve</title>
     <link rel="stylesheet" href="/static/style.css">
     <link rel="icon" href="/static/favicon.ico">
@@ -9,74 +10,118 @@
 
 <body>
 
-<!-- NAVBAR -->
+<!-- =========================
+NAVBAR
+========================= -->
 <div class="navbar">
     <div class="logo">🧠 MindSolve</div>
 
     <div class="search-container">
         <input type="text" id="searchBar" class="search-bar" placeholder="Search problems...">
+
         <div id="searchResultsBox">
             <ul id="searchResults"></ul>
         </div>
     </div>
 </div>
 
-<!-- MAIN -->
+<!-- =========================
+MAIN LAYOUT
+========================= -->
 <div class="wrapper">
 
-    <!-- SIDEBAR -->
+    <!-- =========================
+    SIDEBAR
+    ========================= -->
     <ul class="sidebar">
-        <li onclick="toggleCategory(this, 'study')">📚 Study<div class="sub-list"></div></li>
-        <li onclick="toggleCategory(this, 'career')">💼 Career<div class="sub-list"></div></li>
-        <li onclick="toggleCategory(this, 'productivity')">⏱ Productivity<div class="sub-list"></div></li>
-        <li onclick="toggleCategory(this, 'health')">🩺 Health<div class="sub-list"></div></li>
+
+        <li onclick="toggleCategory(this, 'study')">
+            📚 Study
+            <ul class="sub-list"></ul>
+        </li>
+
+        <li onclick="toggleCategory(this, 'career')">
+            💼 Career
+            <ul class="sub-list"></ul>
+        </li>
+
+        <li onclick="toggleCategory(this, 'productivity')">
+            ⏱ Productivity
+            <ul class="sub-list"></ul>
+        </li>
+
+        <li onclick="toggleCategory(this, 'health')">
+            🏥 Health
+            <ul class="sub-list"></ul>
+        </li>
+
     </ul>
 
-    <!-- CONTENT -->
-    <main class="content">
+    <!-- =========================
+    CONTENT
+    ========================= -->
+    <div class="content">
 
-        <!-- INPUT -->
+        <!-- =========================
+        INPUT SECTION
+        ========================= -->
         <div class="section">
             <h2>Enter Your Problem</h2>
-            <textarea id="problemInput" placeholder="Example: I can't focus while studying..."></textarea>
+
+            <textarea id="problemInput" enterkeyhint="send" placeholder="Example: I can't focus while studying..."></textarea>
+
             <button id="submitBtn">Submit Problem</button>
-            <p id="message"></p>
+            <button id="clearBtn">Clear</button>
+
+            <div id="message"></div>
         </div>
 
-        <!-- SUGGESTIONS -->
-        <div class="section">
+        <!-- =========================
+        SUGGESTIONS (IMPORTANT FOR SCROLL)
+        ========================= -->
+        <div id="suggestionsSection" class="section">
             <h2>💡 Suggested Solutions</h2>
             <ul id="suggestions"></ul>
         </div>
 
-        <!-- SIMILAR -->
+        <!-- =========================
+        SIMILAR
+        ========================= -->
         <div class="section">
             <h2>🔎 Similar Problems</h2>
             <ul id="similarProblems"></ul>
         </div>
 
-        <!-- RECENT -->
+        <!-- =========================
+        RECENT
+        ========================= -->
         <div class="section">
             <h2>🧾 Recent Problems</h2>
             <ul id="problemFeed"></ul>
         </div>
 
-        <!-- MEMORY -->
+        <!-- =========================
+        MEMORY
+        ========================= -->
         <div class="section">
             <h2>🧠 Your Activity</h2>
             <ul id="memoryList"></ul>
         </div>
 
-        <!-- TRENDING -->
+        <!-- =========================
+        TRENDING
+        ========================= -->
         <div class="section">
             <h2>📈 Trending Problems</h2>
             <ul id="trendingList"></ul>
         </div>
 
-    </main>
-
+    </div>
 </div>
 
+<!-- =========================
+SCRIPTS
+========================= -->
 <script src="/static/app.js"></script>
 
 </body>

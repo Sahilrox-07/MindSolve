@@ -1,79 +1,104 @@
-let timeout = null;
-let controller = null;
-
 document.addEventListener("DOMContentLoaded", () => {
 
     const searchBar = document.getElementById("searchBar");
     const resultsBox = document.getElementById("searchResultsBox");
     const resultsList = document.getElementById("searchResults");
+    const problemInput = document.getElementById("problemInput");
 
     document.getElementById("submitBtn").addEventListener("click", submitProblem);
 
     loadRecent();
     loadTrending();
 
-    // SEARCH
-    searchBar.addEventListener("input", function () {
+    // =========================
+    // 🔍 LIVE SEARCH (FIXED)
+    // =========================
+    searchBar.addEventListener("input", async function () {
 
         const query = this.value.trim();
-        clearTimeout(timeout);
 
-        timeout = setTimeout(async () => {
+        if (query.length < 2) {
+            resultsBox.style.display = "none";
+            return;
+        }
 
-            if (controller) controller.abort();
-            controller = new AbortController();
+        resultsBox.style.display = "block";
+        resultsList.innerHTML = "<li>Searching...</li>";
 
-            if (query.length < 2) {
-                resultsBox.style.display = "none";
+        try {
+            const res = await fetch("/search", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ query })
+            });
+
+            const data = await res.json();
+            resultsList.innerHTML = "";
+
+            if (!data.results || !data.results.length) {
+                resultsList.innerHTML = "<li>No results</li>";
                 return;
             }
 
-            resultsBox.style.display = "block";
-            resultsList.innerHTML = "<li>Searching...</li>";
+            data.results.forEach(item => {
+                const li = document.createElement("li");
+                li.innerText = item;
 
-            try {
-                const res = await fetch("/search", {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({ query }),
-                    signal: controller.signal
-                });
+                li.onclick = () => {
+                    problemInput.value = item;
+                    resultsBox.style.display = "none";
+                };
 
-                if (!res.ok) throw new Error();
+                resultsList.appendChild(li);
+            });
 
-                const data = await res.json();
+        } catch {
+            resultsList.innerHTML = "<li>Error</li>";
+        }
+    });
 
-                resultsList.innerHTML = "";
 
-                if (!data.results || !data.results.length) {
-                    resultsList.innerHTML = "<li>No results</li>";
-                    return;
-                }
+    // =========================
+    // 🧠 AUTO PROBLEM SUBMIT
+    // =========================
+    let typingTimer;
 
-                data.results.forEach(item => {
-                    const li = document.createElement("li");
-                    li.innerText = item;
+    problemInput.addEventListener("input", function () {
 
-                    li.onclick = () => {
-                        document.getElementById("problemInput").value = item;
-                        resultsBox.style.display = "none";
-                    };
+        clearTimeout(typingTimer);
 
-                    resultsList.appendChild(li);
-                });
+        const text = this.value.trim();
+        if (text.length < 5) return;
 
-            } catch {
-                resultsList.innerHTML = "<li>Error</li>";
+        typingTimer = setTimeout(() => {
+            submitProblem();
+        }, 800);
+    });
+
+
+    // =========================
+    // ❌ AUTO CLOSE UI
+    // =========================
+    document.addEventListener("click", function (e) {
+
+        if (!resultsBox.contains(e.target) && e.target !== searchBar) {
+            resultsBox.style.display = "none";
+        }
+
+        document.querySelectorAll(".sidebar li").forEach(li => {
+            if (!li.contains(e.target)) {
+                li.classList.remove("active");
+                const sub = li.querySelector(".sub-list");
+                if (sub) sub.innerHTML = "";
             }
-
-        }, 300);
+        });
     });
 
 });
 
 
 // =========================
-// SUBMIT
+// 🚀 SUBMIT
 // =========================
 async function submitProblem() {
 
@@ -99,7 +124,7 @@ async function submitProblem() {
         suggestions.innerHTML = "";
         similar.innerHTML = "";
 
-        // ✅ suggestions
+        // 💡 Suggestions
         data.suggestions.forEach(s => {
             const li = document.createElement("li");
             li.innerText = s;
@@ -108,7 +133,7 @@ async function submitProblem() {
             suggestions.appendChild(li);
         });
 
-        // ✅ similar problems (FIXED)
+        // 🔎 Similar Problems
         if (data.similar && data.similar.length) {
             data.similar.forEach(s => {
                 const li = document.createElement("li");
@@ -125,7 +150,7 @@ async function submitProblem() {
             similar.innerHTML = "<li>No similar problems found</li>";
         }
 
-        // ✅ MEMORY UI UPGRADE
+        // 🧠 Memory
         const memoryList = document.getElementById("memoryList");
         if (memoryList && data.history) {
             memoryList.innerHTML = "";
@@ -156,7 +181,7 @@ async function submitProblem() {
 
 
 // =========================
-// RECENT
+// 🧾 RECENT
 // =========================
 async function loadRecent() {
     const feed = document.getElementById("problemFeed");
@@ -178,7 +203,7 @@ async function loadRecent() {
 
 
 // =========================
-// TRENDING
+// 📈 TRENDING
 // =========================
 async function loadTrending() {
     try {
@@ -201,7 +226,7 @@ async function loadTrending() {
 
 
 // =========================
-// CATEGORY
+// 📂 CATEGORY
 // =========================
 async function toggleCategory(element, category) {
 
@@ -227,8 +252,6 @@ async function toggleCategory(element, category) {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ category })
         });
-
-        if (!res.ok) throw new Error();
 
         const data = await res.json();
 

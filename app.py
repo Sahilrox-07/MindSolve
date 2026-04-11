@@ -85,7 +85,9 @@ def is_valid_problem(text):
 BAD_WORDS = [
     "hate", "stupid", "idiot", "dumb", "kill", "useless",
     "madarchod", "behenchod", "bhosdike", "chutiya", "gandu",
-    "loda", "randi", "harami", "kaminey", "mc", "bc", "bkl", "bsdk"
+    "loda", "randi", "harami", "kaminey", "mc", "bc", "bkl", "bsdk",
+    "mutthi maroge", "goli maaro", "maro goli", "goli maar", "maar goli",
+    "muthi", "tere ma ka bhosada", "bhosada", "teri maa ki choot", "teri ma ki chut"
 ]
 
 def is_clean(text):

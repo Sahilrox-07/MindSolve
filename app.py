@@ -1,6 +1,6 @@
 import os
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from flask import Flask, request, jsonify, render_template
 from rapidfuzz import fuzz
 from textblob import TextBlob
@@ -211,7 +211,7 @@ def solve_problem():
         if not problems_collection.find_one({"problem": text}):
             problems_collection.insert_one({
                 "problem": text,
-                "timestamp": datetime.utcnow()
+                "timestamp": datetime.now(timezone.utc)
             })
 
     # get suggestions
@@ -306,7 +306,7 @@ def trending():
     if problems_collection is None:
         return jsonify({"trending": []})
 
-    last_week = datetime.utcnow() - timedelta(days=7)
+    last_week = datetime.now(timezone.utc) - timedelta(days=7)
 
     pipeline = [
         {"$match": {"timestamp": {"$gte": last_week}}},

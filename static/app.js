@@ -1,104 +1,138 @@
+let timeout = null;
+let controller = null;
+
 document.addEventListener("DOMContentLoaded", () => {
 
+    // =========================
+    // ELEMENTS
+    // =========================
     const searchBar = document.getElementById("searchBar");
     const resultsBox = document.getElementById("searchResultsBox");
     const resultsList = document.getElementById("searchResults");
+
     const problemInput = document.getElementById("problemInput");
+    const suggestions = document.getElementById("suggestions");
+    const similar = document.getElementById("similarProblems");
 
-    document.getElementById("submitBtn").addEventListener("click", submitProblem);
-
-    loadRecent();
-    loadTrending();
+    const clearBtn = document.getElementById("clearBtn");
+    const submitBtn = document.getElementById("submitBtn");
 
     // =========================
-    // 🔍 LIVE SEARCH (FIXED)
+    // ENTER KEY SUBMIT
     // =========================
-    searchBar.addEventListener("input", async function () {
+    problemInput.addEventListener("keydown", function (e) {
+
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault(); // stop new line
+        submitProblem();
+    }
+
+});
+
+    // =========================
+    // CLEAR BUTTON
+    // =========================
+    clearBtn.addEventListener("click", () => {
+        problemInput.value = "";
+        suggestions.innerHTML = "";
+        similar.innerHTML = "";
+        resultsBox.style.display = "none";
+    });
+
+    // =========================
+    // SUBMIT
+    // =========================
+    submitBtn.addEventListener("click", submitProblem);
+
+    // =========================
+    // LIVE SEARCH (DEBOUNCE + CANCEL)
+    // =========================
+    searchBar.addEventListener("input", function () {
 
         const query = this.value.trim();
 
-        if (query.length < 2) {
-            resultsBox.style.display = "none";
-            return;
-        }
+        clearTimeout(timeout);
 
-        resultsBox.style.display = "block";
-        resultsList.innerHTML = "<li>Searching...</li>";
+        timeout = setTimeout(async () => {
 
-        try {
-            const res = await fetch("/search", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ query })
-            });
+            if (controller) controller.abort();
+            controller = new AbortController();
 
-            const data = await res.json();
-            resultsList.innerHTML = "";
-
-            if (!data.results || !data.results.length) {
-                resultsList.innerHTML = "<li>No results</li>";
+            if (query.length < 2) {
+                resultsBox.style.display = "none";
                 return;
             }
 
-            data.results.forEach(item => {
-                const li = document.createElement("li");
-                li.innerText = item;
+            resultsBox.style.display = "block";
+            resultsList.innerHTML = "<li>Searching...</li>";
 
-                li.onclick = () => {
-                    problemInput.value = item;
-                    resultsBox.style.display = "none";
-                };
+            try {
+                const res = await fetch("/search", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ query }),
+                    signal: controller.signal
+                });
 
-                resultsList.appendChild(li);
-            });
+                const data = await res.json();
+                resultsList.innerHTML = "";
 
-        } catch {
-            resultsList.innerHTML = "<li>Error</li>";
-        }
+                if (!data.results.length) {
+                    resultsList.innerHTML = "<li>No results</li>";
+                    return;
+                }
+
+                data.results.forEach(item => {
+                    const li = document.createElement("li");
+                    li.innerText = item;
+
+                    li.onclick = () => {
+                        problemInput.value = item;
+                        resultsBox.style.display = "none";
+                        submitProblem();
+                    };
+
+                    resultsList.appendChild(li);
+                });
+
+            } catch (err) {
+                if (err.name !== "AbortError") {
+                    resultsList.innerHTML = "<li>Error</li>";
+                }
+            }
+
+        }, 400); // debounce delay
+
     });
 
-
     // =========================
-    // 🧠 AUTO PROBLEM SUBMIT
+    // CLICK OUTSIDE = CLOSE SEARCH + RESET CATEGORY
     // =========================
-    let typingTimer;
+    document.addEventListener("click", (e) => {
 
-    problemInput.addEventListener("input", function () {
-
-        clearTimeout(typingTimer);
-
-        const text = this.value.trim();
-        if (text.length < 5) return;
-
-        typingTimer = setTimeout(() => {
-            submitProblem();
-        }, 800);
-    });
-
-
-    // =========================
-    // ❌ AUTO CLOSE UI
-    // =========================
-    document.addEventListener("click", function (e) {
-
-        if (!resultsBox.contains(e.target) && e.target !== searchBar) {
+        if (!e.target.closest(".search-container")) {
             resultsBox.style.display = "none";
         }
 
+        // reset category
         document.querySelectorAll(".sidebar li").forEach(li => {
-            if (!li.contains(e.target)) {
-                li.classList.remove("active");
-                const sub = li.querySelector(".sub-list");
-                if (sub) sub.innerHTML = "";
-            }
+            li.classList.remove("active");
+            const ul = li.querySelector(".sub-list");
+            if (ul) ul.innerHTML = "";
         });
+
     });
 
+    // =========================
+    // INITIAL LOAD
+    // =========================
+    loadRecent();
+    loadTrending();
 });
 
 
 // =========================
-// 🚀 SUBMIT
+// SUBMIT FUNCTION
 // =========================
 async function submitProblem() {
 
@@ -124,7 +158,7 @@ async function submitProblem() {
         suggestions.innerHTML = "";
         similar.innerHTML = "";
 
-        // 💡 Suggestions
+        // suggestions
         data.suggestions.forEach(s => {
             const li = document.createElement("li");
             li.innerText = s;
@@ -133,7 +167,7 @@ async function submitProblem() {
             suggestions.appendChild(li);
         });
 
-        // 🔎 Similar Problems
+        // similar problems
         if (data.similar && data.similar.length) {
             data.similar.forEach(s => {
                 const li = document.createElement("li");
@@ -150,7 +184,7 @@ async function submitProblem() {
             similar.innerHTML = "<li>No similar problems found</li>";
         }
 
-        // 🧠 Memory
+        // memory
         const memoryList = document.getElementById("memoryList");
         if (memoryList && data.history) {
             memoryList.innerHTML = "";
@@ -168,9 +202,10 @@ async function submitProblem() {
             });
         }
 
-        input.value = "";
-        loadRecent();
-        loadTrending();
+        // 🔥 SCROLL TO RESULT (FIX YOUR ISSUE)
+        document.getElementById("suggestionsSection").scrollIntoView({
+            behavior: "smooth"
+        });
 
         setTimeout(() => message.innerText = "", 800);
 
@@ -181,9 +216,10 @@ async function submitProblem() {
 
 
 // =========================
-// 🧾 RECENT
+// RECENT
 // =========================
 async function loadRecent() {
+
     const feed = document.getElementById("problemFeed");
 
     try {
@@ -195,6 +231,12 @@ async function loadRecent() {
         data.problems.forEach(p => {
             const li = document.createElement("li");
             li.innerText = p;
+
+            li.onclick = () => {
+                document.getElementById("problemInput").value = p;
+                submitProblem();
+            };
+
             feed.appendChild(li);
         });
 
@@ -203,21 +245,27 @@ async function loadRecent() {
 
 
 // =========================
-// 📈 TRENDING
+// TRENDING
 // =========================
 async function loadTrending() {
+
+    const list = document.getElementById("trendingList");
+
     try {
         const res = await fetch("/trending");
         const data = await res.json();
-
-        const list = document.getElementById("trendingList");
-        if (!list) return;
 
         list.innerHTML = "";
 
         data.trending.forEach(t => {
             const li = document.createElement("li");
             li.innerText = t;
+
+            li.onclick = () => {
+                document.getElementById("problemInput").value = t;
+                submitProblem();
+            };
+
             list.appendChild(li);
         });
 
@@ -226,7 +274,7 @@ async function loadTrending() {
 
 
 // =========================
-// 📂 CATEGORY
+// CATEGORY
 // =========================
 async function toggleCategory(element, category) {
 
@@ -254,13 +302,11 @@ async function toggleCategory(element, category) {
         });
 
         const data = await res.json();
-
         subList.innerHTML = "";
 
         (data.problems || []).slice(0, 3).forEach(problem => {
             const li = document.createElement("li");
             li.innerText = problem;
-            li.classList.add("fade-in");
 
             li.onclick = (e) => {
                 e.stopPropagation();

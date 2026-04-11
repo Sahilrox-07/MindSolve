@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from datetime import datetime, timedelta, timezone
 from flask import Flask, request, jsonify, render_template
 from rapidfuzz import fuzz
@@ -55,30 +56,47 @@ def clean_text(text):
 
 def autocorrect_text(text):
     try:
-        # avoid messing small inputs
         if len(text) < 6:
             return text
 
         corrected = str(TextBlob(text).correct())
 
-        # reject weird corrections
         if fuzz.ratio(text, corrected) < 70:
             return text
 
         return corrected
-    except Exception:
+    except:
         return text
 
 
 def is_valid_problem(text):
     if not text or len(text) < 5 or len(text) > 200:
         return False
-
     if len(set(text)) <= 2:
         return False
-
     if not any(c.isalpha() for c in text):
         return False
+    return True
+
+
+# =========================
+# 🚫 ABUSE FILTER
+# =========================
+BAD_WORDS = [
+    "hate", "stupid", "idiot", "dumb", "kill", "useless",
+    "madarchod", "behenchod", "bhosdike", "chutiya", "gandu",
+    "loda", "randi", "harami", "kaminey", "mc", "bc", "bkl", "bsdk"
+]
+
+def is_clean(text):
+    text = text.lower()
+
+    # remove symbols
+    cleaned = re.sub(r'[^a-zA-Z\s]', '', text)
+
+    for word in BAD_WORDS:
+        if word in cleaned:
+            return False
 
     return True
 
@@ -91,7 +109,6 @@ def detect_intent(text):
 
     greetings = ["hello", "hi", "hey", "what is this", "who are you"]
 
-    # strict detection
     if any(text.startswith(g) for g in greetings) and len(text.split()) <= 3:
         return "basic"
 
@@ -113,8 +130,9 @@ def basic_response():
 # 🧠 MATCHING ENGINE
 # =========================
 def get_suggestions(problem_text):
+
     if not knowledge_base:
-        return ["Knowledge base not loaded"], []
+        return ["System is currently unavailable. Please try again later."], []
 
     problem_text = clean_text(problem_text)
     corrected = autocorrect_text(problem_text)
@@ -125,14 +143,17 @@ def get_suggestions(problem_text):
         for item in knowledge_base[category]:
 
             db_problem = clean_text(item["problem"])
-            score = fuzz.token_set_ratio(corrected, db_problem)
+
+            score = max(
+                fuzz.token_set_ratio(corrected, db_problem),
+                fuzz.partial_ratio(corrected, db_problem)
+            )
 
             if score > 55:
                 matches.append((score, item))
 
     matches.sort(reverse=True, key=lambda x: x[0])
 
-    # fallback if nothing found
     if not matches:
         return [
             "Break the problem into smaller parts",
@@ -142,8 +163,6 @@ def get_suggestions(problem_text):
         ], []
 
     best = matches[0][1]
-
-    # avoid duplicate in similar
     similar = [m[1]["problem"] for m in matches[1:4]]
 
     return best["solutions"], similar
@@ -155,7 +174,7 @@ def get_suggestions(problem_text):
 def format_response(problem, solutions):
 
     explanation = (
-        f"It looks like you're facing: '{problem}'. "
+        f"It looks like you're dealing with this issue: '{problem}'. "
         "This usually happens due to lack of structure, distractions, or unclear direction."
     )
 
@@ -188,6 +207,17 @@ def solve_problem():
     data = request.get_json()
     text = data.get("text", "").strip()
 
+    # 🚫 ABUSE CHECK
+    if not is_clean(text):
+        return jsonify({
+            "suggestions": [
+                "Please use respectful language.",
+                "Describe your problem without offensive words."
+            ],
+            "similar": [],
+            "history": []
+        })
+
     # validation
     if not is_valid_problem(text):
         return jsonify({
@@ -206,15 +236,18 @@ def solve_problem():
             "history": []
         })
 
-    # save safely
+    # 🔥 NORMALIZED STORAGE
     if problems_collection is not None:
-        if not problems_collection.find_one({"problem": text}):
+        normalized = re.sub(r'\s+', ' ', clean_text(text))
+
+        if not problems_collection.find_one({"problem": normalized}):
             problems_collection.insert_one({
-                "problem": text,
+                "problem": normalized,
+                "original": text,
                 "timestamp": datetime.now(timezone.utc)
             })
 
-    # get suggestions
+    # processing
     suggestions, similar = get_suggestions(text)
     response = format_response(text, suggestions)
 
@@ -222,7 +255,7 @@ def solve_problem():
     history = []
     if problems_collection is not None:
         recent = problems_collection.find().sort("timestamp", -1).limit(3)
-        history = [r["problem"] for r in recent]
+        history = [r.get("original", r["problem"]) for r in recent]
 
     return jsonify({
         "suggestions": response,
@@ -240,19 +273,29 @@ def search():
     data = request.get_json()
     query = clean_text(data.get("query", ""))
 
+    if len(query) < 2:
+        return jsonify({"results": []})
+
+    if not is_clean(query):
+        return jsonify({"results": []})
+
     results = []
 
     for category in knowledge_base:
         for item in knowledge_base[category]:
 
-            score = fuzz.token_set_ratio(query, clean_text(item["problem"]))
+            db_problem = clean_text(item["problem"])
+
+            score = max(
+                fuzz.token_set_ratio(query, db_problem),
+                fuzz.partial_ratio(query, db_problem)
+            )
 
             if score > 50:
                 results.append((score, item["problem"]))
 
     results.sort(reverse=True, key=lambda x: x[0])
 
-    # remove duplicates
     seen = set()
     final = []
 
@@ -293,7 +336,7 @@ def recent():
     data = problems_collection.find().sort("timestamp", -1).limit(5)
 
     return jsonify({
-        "problems": [d["problem"] for d in data]
+        "problems": [d.get("original", d["problem"]) for d in data]
     })
 
 

@@ -96,7 +96,7 @@ def is_hinglish(text):
     words = text.lower().split()
     score = sum(1 for w in words if w in hinglish_words)
 
-    return score >= 2
+    return score >= 1
 
 
 # =========================
@@ -147,14 +147,14 @@ BAD_WORDS = [
 def is_clean(text):
     text = text.lower()
 
-    # direct phrase check
+    # normalize FIRST (critical fix)
+    text = text.replace("1", "i").replace("5", "s").replace("0", "o")
+    text = re.sub(r'[^a-zA-Z\s]', '', text)
+
+    # phrase check AFTER normalization
     for bad in BAD_WORDS:
         if bad in text:
             return False
-
-    # normalize tricks
-    text = text.replace("1", "i").replace("5", "s").replace("0", "o")
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
 
     words = re.findall(r'[a-zA-Z]+', text)
 
@@ -281,7 +281,9 @@ def solve_problem():
 
     lang = detect_language(original)
 
-    text = translate_to_english(original) if lang == "hi" else original
+    text = original
+    if lang != "en":
+        text = translate_to_english(original)
 
     # 🚫 ABUSE
     if not is_clean(text):
@@ -332,11 +334,19 @@ def solve_problem():
         response = [translate_from_english(r, "hi") for r in response]
         similar = [translate_from_english(s, "hi") for s in similar]
 
+    history = []
+    if problems_collection is not None:
+        try:
+            recent = problems_collection.find().sort("time", -1).limit(3)
+            history = [r.get("text", "") for r in recent]
+        except:
+            history = []
+
     return jsonify({
         "type": "normal",
         "suggestions": response,
         "similar": similar,
-        "history": []
+        "history": history
     })
 
 

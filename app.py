@@ -1,7 +1,7 @@
 import os
 import json
 import re
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from flask import Flask, request, jsonify, render_template
 from rapidfuzz import fuzz
 from textblob import TextBlob
@@ -86,27 +86,33 @@ def is_valid_problem(text):
 # 🧠 HINGLISH DETECTION
 # =========================
 def is_hinglish(text):
-    words_set = {
+    hinglish_words = {
         "hai","nahi","kyu","kaise","bekar","acha","kharab",
-        "jarurat","mujhe","tum","ye","wo","kya","kar","raha",
-        "rahi","mere","apne","apka","apki","kuch","bhi",
-        "mai","hum","aap","kaun","kahan","kab","kyon",
-        "thoda","zyada","bahut","kam","sahi","galat",
-        "dost","yaar","bhai","behen","pata","samajh"
+        "jarurat","mujhe","tum","ye","wo","kya","kar",
+        "raha","rahi","mai","hum","aap","samajh"
     }
 
     words = text.lower().split()
-    return sum(1 for w in words if w in words_set) >= 2
+    score = sum(1 for w in words if w in hinglish_words)
+
+    return score >= 2
 
 
 # =========================
-# 🌐 LANGUAGE
+# 🌐 LANGUAGE CONTROL
 # =========================
 def detect_language(text):
     try:
         if is_hinglish(text):
             return "hi"
-        return detect(text)
+
+        detected = detect(text)
+
+        if detected not in ["en", "hi"]:
+            return "en"
+
+        return detected
+
     except:
         return "en"
 
@@ -131,10 +137,9 @@ def translate_from_english(text, lang):
 # 🚫 ABUSE FILTER
 # =========================
 BAD_WORDS = [
-    "madarchod", "behenchod", "bhosdike", "chutiya", "gandu",
-    "loda", "randi", "harami", "kaminey", "mc", "bc", "bkl", "bsdk",
-    "mutthi maroge", "goli maaro", "maro goli", "goli maar", "maar goli",
-    "muthi", "tere ma ka bhosada", "bhosada", "teri maa ki choot", "teri ma ki chut"
+    "madarchod","behenchod","bhosdike","chutiya","gandu",
+    "loda","randi","harami","kaminey","mc","bc","bkl","bsdk",
+    "kill","die","hate","stupid","idiot","dumb"
 ]
 
 def is_clean(text):
@@ -145,6 +150,7 @@ def is_clean(text):
         if bad in text:
             return False
 
+    # normalize tricks
     text = text.replace("1", "i").replace("5", "s").replace("0", "o")
     text = re.sub(r'[^a-zA-Z\s]', '', text)
 
@@ -198,7 +204,7 @@ def negative_response():
 
 
 # =========================
-# 🧠 MATCHING
+# 🧠 MATCHING ENGINE
 # =========================
 def get_suggestions(problem_text):
     if not knowledge_base:
@@ -255,7 +261,7 @@ def home():
 
 
 # =========================
-# 🔥 MAIN
+# 🔥 MAIN ROUTE
 # =========================
 @app.route("/problem", methods=["POST"])
 def solve_problem():
@@ -271,10 +277,16 @@ def solve_problem():
             "history": []
         })
 
+    # language control
     lang = detect_language(original)
 
-    text = translate_to_english(original) if lang != "en" else original
+    # translate ONLY if Hindi
+    if lang == "hi":
+        text = translate_to_english(original)
+    else:
+        text = original
 
+    # abuse
     if not is_clean(text):
         return jsonify({
             "type": "abuse",
@@ -286,6 +298,7 @@ def solve_problem():
             "history": []
         })
 
+    # negative
     if is_negative_sentiment(text):
         return jsonify({
             "type": "negative",
@@ -294,6 +307,7 @@ def solve_problem():
             "history": []
         })
 
+    # validation
     if not is_valid_problem(text):
         return jsonify({
             "type": "error",
@@ -302,11 +316,14 @@ def solve_problem():
             "history": []
         })
 
+    # suggestions
     suggestions, similar = get_suggestions(text)
     response = format_response(text, suggestions)
 
-    response = [translate_from_english(r, lang) for r in response]
-    similar = [translate_from_english(s, lang) for s in similar]
+    # translate back ONLY if Hindi
+    if lang == "hi":
+        response = [translate_from_english(r, "hi") for r in response]
+        similar = [translate_from_english(s, "hi") for s in similar]
 
     return jsonify({
         "type": "normal",
@@ -327,7 +344,10 @@ def search():
 
     lang = detect_language(original_query)
 
-    query = translate_to_english(original_query) if lang != "en" else original_query
+    if lang == "hi":
+        query = translate_to_english(original_query)
+    else:
+        query = original_query
 
     if not query:
         return jsonify({"results": []})
@@ -358,9 +378,11 @@ def search():
             seen.add(p)
             final.append(p)
 
-    final = [translate_from_english(r, lang) for r in final[:5]]
+    # translate back if Hindi
+    if lang == "hi":
+        final = [translate_from_english(r, "hi") for r in final]
 
-    return jsonify({"results": final})
+    return jsonify({"results": final[:5]})
 
 
 # =========================

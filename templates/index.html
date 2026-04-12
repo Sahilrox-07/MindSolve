@@ -68,18 +68,20 @@ MAIN LAYOUT
         <div class="section">
             <h2>Enter Your Problem</h2>
 
-            <textarea id="problemInput" enterkeyhint="send" placeholder="Example: I can't focus while studying..."></textarea>
+            <textarea id="problemInput" placeholder="Example: I can't focus while studying..." enterkeyhint="send"></textarea>
 
-            <button id="submitBtn">Submit Problem</button>
-            <button id="clearBtn">Clear</button>
+            <div class="btn-group">
+                <button id="submitBtn" class="btn">Submit Problem</button>
+                <button id="clearBtn" class="btn">Clear</button>
+            </div>
 
-            <div id="message"></div>
+            <p id="message"></p>
         </div>
 
         <!-- =========================
         SUGGESTIONS (IMPORTANT FOR SCROLL)
         ========================= -->
-        <div id="suggestionsSection" class="section">
+        <div class="section" id="suggestionsSection">
             <h2>💡 Suggested Solutions</h2>
             <ul id="suggestions"></ul>
         </div>
@@ -90,6 +92,22 @@ MAIN LAYOUT
         <div class="section">
             <h2>🔎 Similar Problems</h2>
             <ul id="similarProblems"></ul>
+        </div>
+        
+        <!-- =========================
+        FEEDBACK BLOCK
+        ========================= -->
+        <div class="section" id="feedbackBox" style="display: none;">
+            <h2>📝 Feedback</h2>
+
+            <textarea id="feedbackInput" placeholder="Was the solution helpful? Any suggestions?"></textarea>
+
+            <button id="sendFeedbackBtn">
+                <span id="btnText">Submit Feedback</span>
+            </button>
+
+            <p id="feedbackStatus"></p>
+            <ul id="feedbackHistory"></ul>
         </div>
 
         <!-- =========================

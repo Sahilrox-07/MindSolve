@@ -25,6 +25,7 @@ try:
 
         db = client["mindsolve"]
         problems_collection = db["problems"]
+        feedback_collection = db["feedback"]
 
         print("✅ MongoDB Connected")
     else:
@@ -366,6 +367,57 @@ def trending():
         "trending": [r["_id"] for r in results]
     })
 
+# =========================
+# 📝 Feedback
+# =========================
+
+@app.route("/feedback", methods=["POST"])
+def handle_feedback():
+
+    if feedback_collection is None:
+        return jsonify({"status": "error", "message": "Feedback system unavailable"})
+
+    data = request.get_json()
+    text = data.get("feedback", "").strip()
+
+    #validation
+    if not text or len(text) < 3:
+        return jsonify({"status": "error", "message": "Feedback too short"})
+
+    #optional : Block abusive feedback
+    if not is_clean(text):
+        return jsonify({"status": "error", "message": "Inappropriate feedback"})    
+
+    try:
+        normalized = re.sub(r'\s+', ' ', text.lower())
+        if not feedback_collection.find_one({"feedback": normalized}):
+            feedback_collection.insert_one({
+                "feedback": normalized,
+                "original": text,
+                "timestamp": datetime.now(timezone.utc)
+            })
+
+        return jsonify({"status": "success", "message": "Feedback received"})
+    
+    except Exception as e:
+        print("❌ Feedback Error:", e)
+        return jsonify({"status": "error", "message": "Failed to save feedback"})   
+
+# =========================
+# 📂 GET FEEBACK HISTORY
+# =========================
+
+@app.route("/feedback/history")
+def feedback_history():
+
+    if feedback_collection is None:
+        return jsonify({"feedback": []})
+
+    data = feedback_collection.find().sort("timestamp", -1).limit(5)
+
+    return jsonify({
+        "feedback": [d.get("original", d["feedback"]) for d in data]
+    })
 
 # =========================
 # 🚀 RUN

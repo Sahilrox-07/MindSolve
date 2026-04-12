@@ -1,3 +1,4 @@
+from email.mime import text
 import os
 import json
 import re
@@ -94,15 +95,41 @@ BAD_WORDS = [
 def is_clean(text):
     text = text.lower()
 
-    # remove symbols
-    cleaned = re.sub(r'[^a-zA-Z\s]', '', text)
+    # normalize numbers FIRST
+    text = text.replace("1", "i").replace("5", "s").replace("0", "o")
 
-    for word in BAD_WORDS:
-        if word in cleaned:
-            return False
+    # clean symbols
+    text = re.sub(r'[^a-zA-Z\s]', '', text)
+
+    words = re.findall(r'[a-zA-Z]+', text)
+
+    for input_word in words:
+        for bad_word in BAD_WORDS:
+            if fuzz.ratio(input_word, bad_word) > 85:
+                return False
+
+    return True
+    
 
     return True
 
+
+# =========================
+# Sentiment Analysis (Optional)
+# =========================
+
+def is_negative_sentiment(text):
+    try:
+        polarity = TextBlob(text).sentiment.polarity
+
+        complaint_words = ["sucks", "bad", "worst", "useless", "hate"]
+
+        if any(word in text.lower() for word in complaint_words):
+            return True
+
+        return polarity < -0.4
+    except:
+        return False
 
 # =========================
 # 🧠 INTENT DETECTION
@@ -128,6 +155,16 @@ def basic_response():
         "Try something like: 'I can't focus while studying'"
     ]
 
+# =========================
+# Smart Negative Response (Optional)
+# =========================
+
+def negative_response():
+    return [
+        "It seems like you're having a frustrating experience.",
+        "We're here to help improve things for you.",
+        "You can share what exactly went wrong, and we’ll try to guide you better."
+    ]
 
 # =========================
 # 🧠 MATCHING ENGINE
@@ -152,7 +189,7 @@ def get_suggestions(problem_text):
                 fuzz.partial_ratio(corrected, db_problem)
             )
 
-            if score > 55:
+            if score > 70:
                 matches.append((score, item))
 
     matches.sort(reverse=True, key=lambda x: x[0])
@@ -213,13 +250,22 @@ def solve_problem():
     # 🚫 ABUSE CHECK
     if not is_clean(text):
         return jsonify({
-            "suggestions": [
-                "Please use respectful language.",
-                "Describe your problem without offensive words."
-            ],
-            "similar": [],
-            "history": []
-        })
+        "suggestions": [
+            "We understand you might be frustrated.",
+            "Please describe your issue clearly so we can help you better.",
+            "Avoid using offensive language."
+        ],
+        "similar": [],
+        "history": []
+    })
+
+    # 😐 NEGATIVE SENTIMENT (SOFT)
+    if is_negative_sentiment(text):
+        return jsonify({
+        "suggestions": negative_response(),
+        "similar": [],
+        "history": []
+    })
 
     # validation
     if not is_valid_problem(text):

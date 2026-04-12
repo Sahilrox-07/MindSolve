@@ -1,5 +1,6 @@
 let timeout = null;
 let controller = null;
+let isProcessing = false; // 🔒 processing lock
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -30,13 +31,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // =========================
+    // SIDEBAR CLICK FIX (NO onclick)
+    // =========================
+    document.querySelectorAll(".sidebar li").forEach(li => {
+        li.addEventListener("click", function () {
+            const category = this.dataset.category;
+            if (category) {
+                toggleCategory(this, category);
+            }
+        });
+    });
+
+    // =========================
     // CLEAR BUTTON
     // =========================
     clearBtn.addEventListener("click", () => {
         problemInput.value = "";
         suggestions.innerHTML = "";
         similar.innerHTML = "";
-        document.getElementById("feedbackBox").style.display = "none";
+        document.getElementById("feedbackBox").classList.add("hidden");
         resultsBox.style.display = "none";
     });
 
@@ -58,7 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
     searchBar.addEventListener("input", function () {
 
         const query = this.value.trim();
-
         clearTimeout(timeout);
 
         timeout = setTimeout(async () => {
@@ -138,9 +150,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // =========================
-// SUBMIT FUNCTION
+// 🔥 SUBMIT FUNCTION (FIXED)
 // =========================
 async function submitProblem() {
+
+    if (isProcessing) return; // 🔒 prevent spam
 
     const input = document.getElementById("problemInput");
     const message = document.getElementById("message");
@@ -152,7 +166,8 @@ async function submitProblem() {
     const text = input.value.trim();
     if (!text) return;
 
-    // loading state
+    isProcessing = true;
+
     submitBtn.disabled = true;
     submitBtn.innerText = "Processing...";
     message.innerText = "Processing...";
@@ -169,22 +184,18 @@ async function submitProblem() {
         // reset UI
         suggestions.innerHTML = "";
         similar.innerHTML = "";
-        feedbackBox.style.display = "none";
+        feedbackBox.classList.add("hidden");
 
-        // detect response type
-        const firstLine = data.suggestions[0] || "";
+        // 🧠 USE TYPE INSTEAD OF STRING MATCH
+        const type = data.type || "normal";
 
-        const isAbuse = firstLine.includes("Please describe your issue clearly");
-        const isNegative = firstLine.includes("frustrating experience");
-
-        // show feedback only for valid problems
-        if (!isAbuse && !isNegative) {
-            feedbackBox.style.display = "block";
+        if (type === "normal") {
+            feedbackBox.classList.remove("hidden");
             loadFeedbackHistory();
         }
 
         // suggestions
-        data.suggestions.forEach(s => {
+        (data.suggestions || []).forEach(s => {
             const li = document.createElement("li");
             li.innerText = s;
             li.style.whiteSpace = "pre-line";
@@ -209,37 +220,18 @@ async function submitProblem() {
             similar.innerHTML = "<li>No similar problems found</li>";
         }
 
-        // memory
-        const memoryList = document.getElementById("memoryList");
-        if (memoryList && data.history) {
-            memoryList.innerHTML = "";
-
-            data.history.forEach(item => {
-                const li = document.createElement("li");
-                li.innerText = "🧠 " + item;
-
-                li.onclick = () => {
-                    input.value = item;
-                    submitProblem();
-                };
-
-                memoryList.appendChild(li);
-            });
-        }
-
-        // scroll fix
-        document.getElementById("suggestionsSection")
-            .scrollIntoView({ behavior: "smooth", block: "start" });
-
         message.innerText = "";
 
+        document.getElementById("suggestionsSection")
+            .scrollIntoView({ behavior: "smooth" });
+
     } catch {
-        message.innerText = "Error occurred";
+        message.innerText = "Something broke. Try again.";
     }
 
-    // restore button
     submitBtn.disabled = false;
     submitBtn.innerText = "Submit Problem";
+    isProcessing = false;
 }
 
 
@@ -267,12 +259,12 @@ async function sendFeedback() {
 
         const data = await res.json();
 
-        if (data.status === "success") {
+        if (data.status === "ok") {
             status.innerText = "Feedback sent ✅";
             input.value = "";
             loadFeedbackHistory();
         } else {
-            status.innerText = data.message || "Failed";
+            status.innerText = "Failed to send";
         }
 
     } catch {
@@ -297,7 +289,7 @@ async function loadFeedbackHistory() {
 
         list.innerHTML = "";
 
-        data.feedback.forEach(f => {
+        (data.feedback || []).forEach(f => {
             const li = document.createElement("li");
             li.innerText = f;
             list.appendChild(li);
@@ -320,7 +312,7 @@ async function loadRecent() {
 
         feed.innerHTML = "";
 
-        data.problems.forEach(p => {
+        (data.problems || []).forEach(p => {
             const li = document.createElement("li");
             li.innerText = p;
 
@@ -349,7 +341,7 @@ async function loadTrending() {
 
         list.innerHTML = "";
 
-        data.trending.forEach(t => {
+        (data.trending || []).forEach(t => {
             const li = document.createElement("li");
             li.innerText = t;
 

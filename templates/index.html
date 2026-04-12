@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindSolve</title>
+
     <link rel="stylesheet" href="/static/style.css">
     <link rel="icon" href="/static/favicon.ico">
 </head>
@@ -17,7 +18,13 @@ NAVBAR
     <div class="logo">🧠 MindSolve</div>
 
     <div class="search-container">
-        <input type="text" id="searchBar" class="search-bar" placeholder="Search problems...">
+        <input 
+            type="text" 
+            id="searchBar" 
+            class="search-bar" 
+            placeholder="Search problems..." 
+            autocomplete="off"
+        >
 
         <div id="searchResultsBox">
             <ul id="searchResults"></ul>
@@ -35,22 +42,22 @@ MAIN LAYOUT
     ========================= -->
     <ul class="sidebar">
 
-        <li onclick="toggleCategory(this, 'study')">
+        <li data-category="study">
             📚 Study
             <ul class="sub-list"></ul>
         </li>
 
-        <li onclick="toggleCategory(this, 'career')">
+        <li data-category="career">
             💼 Career
             <ul class="sub-list"></ul>
         </li>
 
-        <li onclick="toggleCategory(this, 'productivity')">
+        <li data-category="productivity">
             ⏱ Productivity
             <ul class="sub-list"></ul>
         </li>
 
-        <li onclick="toggleCategory(this, 'health')">
+        <li data-category="health">
             🏥 Health
             <ul class="sub-list"></ul>
         </li>
@@ -66,20 +73,32 @@ MAIN LAYOUT
         INPUT SECTION
         ========================= -->
         <div class="section">
+
             <h2>Enter Your Problem</h2>
 
-            <textarea id="problemInput" placeholder="Example: I can't focus while studying..." enterkeyhint="send"></textarea>
+            <form id="problemForm">
 
-            <div class="btn-group">
-                <button id="submitBtn" class="btn">Submit Problem</button>
-                <button id="clearBtn" class="btn">Clear</button>
-            </div>
+                <label for="problemInput">Describe your problem</label>
+
+                <textarea 
+                    id="problemInput" 
+                    placeholder="Example: I can't focus while studying..."
+                    enterkeyhint="send"
+                ></textarea>
+
+                <div class="btn-group">
+                    <button type="submit" id="submitBtn">Submit Problem</button>
+                    <button type="button" id="clearBtn">Clear</button>
+                </div>
+
+            </form>
 
             <p id="message"></p>
+
         </div>
 
         <!-- =========================
-        SUGGESTIONS (IMPORTANT FOR SCROLL)
+        SUGGESTIONS
         ========================= -->
         <div class="section" id="suggestionsSection">
             <h2>💡 Suggested Solutions</h2>
@@ -93,21 +112,26 @@ MAIN LAYOUT
             <h2>🔎 Similar Problems</h2>
             <ul id="similarProblems"></ul>
         </div>
-        
+
         <!-- =========================
-        FEEDBACK BLOCK
+        FEEDBACK
         ========================= -->
-        <div class="section" id="feedbackBox" style="display: none;">
+        <div class="section hidden" id="feedbackBox">
+
             <h2>📝 Feedback</h2>
 
-            <textarea id="feedbackInput" placeholder="Was the solution helpful? Any suggestions?"></textarea>
+            <label for="feedbackInput">Your feedback</label>
 
-            <button id="sendFeedbackBtn">
-                <span id="btnText">Submit Feedback</span>
-            </button>
+            <textarea 
+                id="feedbackInput" 
+                placeholder="Was the solution helpful? Any suggestions?"
+            ></textarea>
+
+            <button id="sendFeedbackBtn">Submit Feedback</button>
 
             <p id="feedbackStatus"></p>
             <ul id="feedbackHistory"></ul>
+
         </div>
 
         <!-- =========================

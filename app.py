@@ -86,19 +86,17 @@ def is_valid_problem(text):
 # 🧠 HINGLISH DETECTION
 # =========================
 def is_hinglish(text):
-    hinglish_words = [
-        "hai", "nahi", "kyu", "kaise", "bekar", "acha", "kharab",
-        "jarurat", "mujhe", "tum", "ye", "wo", "kya", "kar", "raha",
-        "rahi", "hai", "nahi", "kyu", "kaise", "bekar", "acha", "kharab",
-        "mere", "apne", "apka", "apki", "kuch", "bhi", "sab", "sabhi",
-        "mai", "hum", "aap", "kaun", "kahan", "kab", "kyon", "kaunse", "kaunsi",
-        "kuchh", "thoda", "zyada", "bahut", "kam", "zyada", "thoda", "bahut",
-        "sahi", "galat", "sabka", "sabka", "dost", "yaar", "bhai", "behen",
-        "pata", "nahi", "samajh", "nahi aata"
-    ]
+    words_set = {
+        "hai","nahi","kyu","kaise","bekar","acha","kharab",
+        "jarurat","mujhe","tum","ye","wo","kya","kar","raha",
+        "rahi","mere","apne","apka","apki","kuch","bhi",
+        "mai","hum","aap","kaun","kahan","kab","kyon",
+        "thoda","zyada","bahut","kam","sahi","galat",
+        "dost","yaar","bhai","behen","pata","samajh"
+    }
 
     words = text.lower().split()
-    return sum(1 for w in words if w in hinglish_words) >= 2
+    return sum(1 for w in words if w in words_set) >= 2
 
 
 # =========================
@@ -136,13 +134,16 @@ BAD_WORDS = [
     "madarchod", "behenchod", "bhosdike", "chutiya", "gandu",
     "loda", "randi", "harami", "kaminey", "mc", "bc", "bkl", "bsdk",
     "mutthi maroge", "goli maaro", "maro goli", "goli maar", "maar goli",
-    "muthi", "tere ma ka bhosada", "bhosada", "teri maa ki choot", "teri ma ki chut",
-    "bhen ki chut", "bhen ki choot", "bhenchod", "madarchod", "chutiya",
-    "kill", "die"
+    "muthi", "tere ma ka bhosada", "bhosada", "teri maa ki choot", "teri ma ki chut"
 ]
 
 def is_clean(text):
     text = text.lower()
+
+    # direct phrase check
+    for bad in BAD_WORDS:
+        if bad in text:
+            return False
 
     text = text.replace("1", "i").replace("5", "s").replace("0", "o")
     text = re.sub(r'[^a-zA-Z\s]', '', text)
@@ -164,11 +165,12 @@ def is_negative_sentiment(text):
     try:
         polarity = TextBlob(text).sentiment.polarity
 
-        complaint_words = ["sucks", "bad", "worst", "useless", "hate",
-                           "terrible", "awful", "frustrating", "disappointing",
-                           "annoying", "horrible", "lame", "garbage"]
+        negative_words = [
+            "sucks","bad","worst","useless","hate",
+            "terrible","awful","frustrating","annoying"
+        ]
 
-        if any(w in text.lower() for w in complaint_words):
+        if any(w in text.lower() for w in negative_words):
             return True
 
         return polarity < -0.4
@@ -219,7 +221,7 @@ def get_suggestions(problem_text):
             if score > 70:
                 matches.append((score, item))
 
-    matches.sort(reverse=True, key=lambda x: x[0])
+    matches.sort(key=lambda x: x[0], reverse=True)
 
     if not matches:
         return [
@@ -261,19 +263,32 @@ def solve_problem():
     data = request.get_json()
     original = data.get("text", "").strip()
 
+    if not original:
+        return jsonify({
+            "type": "error",
+            "suggestions": ["Please enter a problem"],
+            "similar": [],
+            "history": []
+        })
+
     lang = detect_language(original)
 
     text = translate_to_english(original) if lang != "en" else original
 
     if not is_clean(text):
         return jsonify({
-            "suggestions": ["Avoid offensive language"],
+            "type": "abuse",
+            "suggestions": [
+                "Please avoid offensive language.",
+                "Describe your issue clearly."
+            ],
             "similar": [],
             "history": []
         })
 
     if is_negative_sentiment(text):
         return jsonify({
+            "type": "negative",
             "suggestions": negative_response(),
             "similar": [],
             "history": []
@@ -281,6 +296,7 @@ def solve_problem():
 
     if not is_valid_problem(text):
         return jsonify({
+            "type": "error",
             "suggestions": ["Invalid input"],
             "similar": [],
             "history": []
@@ -289,11 +305,11 @@ def solve_problem():
     suggestions, similar = get_suggestions(text)
     response = format_response(text, suggestions)
 
-    # translate back
     response = [translate_from_english(r, lang) for r in response]
     similar = [translate_from_english(s, lang) for s in similar]
 
     return jsonify({
+        "type": "normal",
         "suggestions": response,
         "similar": similar,
         "history": []
@@ -311,7 +327,7 @@ def search():
 
     lang = detect_language(original_query)
 
-    query = translate_to_english(original_query)
+    query = translate_to_english(original_query) if lang != "en" else original_query
 
     if not query:
         return jsonify({"results": []})
@@ -332,17 +348,16 @@ def search():
             if score > 50:
                 results.append((score, item["problem"]))
 
-    results.sort(reverse=True)
+    results.sort(key=lambda x: x[0], reverse=True)
 
-    final = []
     seen = set()
+    final = []
 
     for _, p in results:
         if p not in seen:
             seen.add(p)
             final.append(p)
 
-    # translate results
     final = [translate_from_english(r, lang) for r in final[:5]]
 
     return jsonify({"results": final})
@@ -363,16 +378,19 @@ def feedback():
     if not text or not is_clean(text):
         return jsonify({"status": "error"})
 
-    feedback_collection.insert_one({
-        "text": text,
-        "time": datetime.now(timezone.utc)
-    })
-
-    return jsonify({"status": "ok"})
+    try:
+        feedback_collection.insert_one({
+            "text": text,
+            "time": datetime.now(timezone.utc)
+        })
+        return jsonify({"status": "ok"})
+    except:
+        return jsonify({"status": "error"})
 
 
 # =========================
 # 🚀 RUN
 # =========================
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

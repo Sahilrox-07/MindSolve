@@ -15,14 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const clearBtn = document.getElementById("clearBtn");
     const submitBtn = document.getElementById("submitBtn");
     const feedbackBtn = document.getElementById("sendFeedbackBtn");
-    const problemForm = document.getElementById("problemForm");
-
-    if (problemForm) {
-        problemForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            submitProblem();
-        });
-    }
 
     // ENTER KEY SUBMIT
     problemInput.addEventListener("keydown", (e) => {
@@ -243,13 +235,9 @@ async function sendFeedback() {
 
     const input = document.getElementById("feedbackInput");
     const status = document.getElementById("feedbackStatus");
-    const btn = document.getElementById("sendFeedbackBtn");
 
     const text = input.value.trim();
     if (!text) return;
-
-    btn.disabled = true;
-    status.innerText = "Sending...";
 
     try {
         const res = await fetch("/feedback", {
@@ -257,8 +245,6 @@ async function sendFeedback() {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ feedback: text })
         });
-
-        if (!res.ok) throw new Error("Feedback failed");
 
         const data = await res.json();
 
@@ -273,8 +259,6 @@ async function sendFeedback() {
     } catch {
         status.innerText = "Error sending feedback";
     }
-
-    btn.disabled = false;
 }
 
 

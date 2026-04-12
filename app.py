@@ -1,4 +1,3 @@
-from email.mime import text
 import os
 import json
 import re
@@ -8,6 +7,8 @@ from rapidfuzz import fuzz
 from textblob import TextBlob
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from langdetect import detect
+from deep_translator import GoogleTranslator
 
 load_dotenv()
 app = Flask(__name__)
@@ -16,6 +17,7 @@ app = Flask(__name__)
 # 🔗 MONGODB
 # =========================
 problems_collection = None
+feedback_collection = None
 
 try:
     mongo_uri = os.getenv("MONGO_URI")
@@ -45,7 +47,7 @@ knowledge_base = {}
 try:
     with open(os.path.join(BASE_DIR, "data.json"), encoding="utf-8") as f:
         knowledge_base = json.load(f)
-except FileNotFoundError:
+except:
     print("❌ data.json not found")
 
 
@@ -72,107 +74,133 @@ def autocorrect_text(text):
 
 
 def is_valid_problem(text):
-    if not text or len(text) < 5 or len(text) > 200:
-        return False
-    if len(set(text)) <= 2:
-        return False
-    if not any(c.isalpha() for c in text):
-        return False
-    return True
+    return (
+        text
+        and 5 <= len(text) <= 200
+        and len(set(text)) > 2
+        and any(c.isalpha() for c in text)
+    )
+
+
+# =========================
+# 🧠 HINGLISH DETECTION
+# =========================
+def is_hinglish(text):
+    hinglish_words = [
+        "hai", "nahi", "kyu", "kaise", "bekar", "acha", "kharab",
+        "jarurat", "mujhe", "tum", "ye", "wo", "kya", "kar", "raha",
+        "rahi", "hai", "nahi", "kyu", "kaise", "bekar", "acha", "kharab",
+        "mere", "apne", "apka", "apki", "kuch", "bhi", "sab", "sabhi",
+        "mai", "hum", "aap", "kaun", "kahan", "kab", "kyon", "kaunse", "kaunsi",
+        "kuchh", "thoda", "zyada", "bahut", "kam", "zyada", "thoda", "bahut",
+        "sahi", "galat", "sabka", "sabka", "dost", "yaar", "bhai", "behen",
+        "pata", "nahi", "samajh", "nahi aata"
+    ]
+
+    words = text.lower().split()
+    return sum(1 for w in words if w in hinglish_words) >= 2
+
+
+# =========================
+# 🌐 LANGUAGE
+# =========================
+def detect_language(text):
+    try:
+        if is_hinglish(text):
+            return "hi"
+        return detect(text)
+    except:
+        return "en"
+
+
+def translate_to_english(text):
+    try:
+        return GoogleTranslator(source='auto', target='en').translate(text)
+    except:
+        return text
+
+
+def translate_from_english(text, lang):
+    try:
+        if lang == "en":
+            return text
+        return GoogleTranslator(source='en', target=lang).translate(text)
+    except:
+        return text
 
 
 # =========================
 # 🚫 ABUSE FILTER
 # =========================
 BAD_WORDS = [
-    "hate", "stupid", "idiot", "dumb", "kill", "useless",
     "madarchod", "behenchod", "bhosdike", "chutiya", "gandu",
     "loda", "randi", "harami", "kaminey", "mc", "bc", "bkl", "bsdk",
     "mutthi maroge", "goli maaro", "maro goli", "goli maar", "maar goli",
-    "muthi", "tere ma ka bhosada", "bhosada", "teri maa ki choot", "teri ma ki chut"
+    "muthi", "tere ma ka bhosada", "bhosada", "teri maa ki choot", "teri ma ki chut",
+    "bhen ki chut", "bhen ki choot", "bhenchod", "madarchod", "chutiya",
+    "kill", "die"
 ]
 
 def is_clean(text):
     text = text.lower()
 
-    # normalize numbers FIRST
     text = text.replace("1", "i").replace("5", "s").replace("0", "o")
-
-    # clean symbols
     text = re.sub(r'[^a-zA-Z\s]', '', text)
 
     words = re.findall(r'[a-zA-Z]+', text)
 
-    for input_word in words:
-        for bad_word in BAD_WORDS:
-            if fuzz.ratio(input_word, bad_word) > 85:
+    for w in words:
+        for bad in BAD_WORDS:
+            if fuzz.ratio(w, bad) > 85:
                 return False
 
     return True
-    
-
-    return True
 
 
 # =========================
-# Sentiment Analysis (Optional)
+# 😐 SENTIMENT
 # =========================
-
 def is_negative_sentiment(text):
     try:
         polarity = TextBlob(text).sentiment.polarity
 
-        complaint_words = ["sucks", "bad", "worst", "useless", "hate"]
+        complaint_words = ["sucks", "bad", "worst", "useless", "hate",
+                           "terrible", "awful", "frustrating", "disappointing",
+                           "annoying", "horrible", "lame", "garbage"]
 
-        if any(word in text.lower() for word in complaint_words):
+        if any(w in text.lower() for w in complaint_words):
             return True
 
         return polarity < -0.4
     except:
         return False
 
-# =========================
-# 🧠 INTENT DETECTION
-# =========================
-def detect_intent(text):
-    text = text.lower().strip()
-
-    greetings = ["hello", "hi", "hey", "what is this", "who are you"]
-
-    if any(text.startswith(g) for g in greetings) and len(text.split()) <= 3:
-        return "basic"
-
-    return "problem"
-
 
 # =========================
-# 🤖 BASIC RESPONSE
+# 🤖 RESPONSES
 # =========================
 def basic_response():
     return [
         "I'm MindSolve — a system designed to help you solve real-life problems.",
-        "You can describe any issue you're facing and I'll guide you with practical solutions.",
-        "Try something like: 'I can't focus while studying'"
+        "Describe your issue and I’ll guide you.",
+        "Example: I can't focus while studying"
     ]
 
-# =========================
-# Smart Negative Response (Optional)
-# =========================
 
 def negative_response():
     return [
         "It seems like you're having a frustrating experience.",
-        "We're here to help improve things for you.",
-        "You can share what exactly went wrong, and we’ll try to guide you better."
+        "We’re here to help improve things.",
+        "Tell us what went wrong so we can assist better."
     ]
 
+
 # =========================
-# 🧠 MATCHING ENGINE
+# 🧠 MATCHING
 # =========================
 def get_suggestions(problem_text):
-
     if not knowledge_base:
-        return ["System is currently unavailable. Please try again later."], []
+        return ["System unavailable"], []
 
     problem_text = clean_text(problem_text)
     corrected = autocorrect_text(problem_text)
@@ -181,7 +209,6 @@ def get_suggestions(problem_text):
 
     for category in knowledge_base:
         for item in knowledge_base[category]:
-
             db_problem = clean_text(item["problem"])
 
             score = max(
@@ -196,10 +223,9 @@ def get_suggestions(problem_text):
 
     if not matches:
         return [
-            "Break the problem into smaller parts",
-            "Identify what's causing the issue",
-            "Start with one small action",
-            "Consider seeking help from others"
+            "Break problem into smaller parts",
+            "Identify root cause",
+            "Start with one small step"
         ], []
 
     best = matches[0][1]
@@ -208,26 +234,14 @@ def get_suggestions(problem_text):
     return best["solutions"], similar
 
 
-# =========================
-# 🧠 RESPONSE FORMAT
-# =========================
 def format_response(problem, solutions):
+    explanation = f"You're dealing with: '{problem}'."
 
-    explanation = (
-        f"It looks like you're dealing with this issue: '{problem}'. "
-        "This usually happens due to lack of structure, distractions, or unclear direction."
-    )
-
-    steps = "Here’s what you can do:\n"
+    steps = "Steps:\n"
     for i, s in enumerate(solutions, 1):
-        steps += f"{i}. {s.capitalize()}.\n"
+        steps += f"{i}. {s}\n"
 
-    plan = (
-        "\nStart with one step today. Keep it simple and stay consistent. "
-        "Improvement comes from repetition, not perfection."
-    )
-
-    return [explanation, steps.strip(), plan]
+    return [explanation, steps]
 
 
 # =========================
@@ -239,35 +253,32 @@ def home():
 
 
 # =========================
-# 🔥 MAIN ROUTE
+# 🔥 MAIN
 # =========================
 @app.route("/problem", methods=["POST"])
 def solve_problem():
 
     data = request.get_json()
-    text = data.get("text", "").strip()
+    original = data.get("text", "").strip()
 
-    # 🚫 ABUSE CHECK
+    lang = detect_language(original)
+
+    text = translate_to_english(original) if lang != "en" else original
+
     if not is_clean(text):
         return jsonify({
-        "suggestions": [
-            "We understand you might be frustrated.",
-            "Please describe your issue clearly so we can help you better.",
-            "Avoid using offensive language."
-        ],
-        "similar": [],
-        "history": []
-    })
+            "suggestions": ["Avoid offensive language"],
+            "similar": [],
+            "history": []
+        })
 
-    # 😐 NEGATIVE SENTIMENT (SOFT)
     if is_negative_sentiment(text):
         return jsonify({
-        "suggestions": negative_response(),
-        "similar": [],
-        "history": []
-    })
+            "suggestions": negative_response(),
+            "similar": [],
+            "history": []
+        })
 
-    # validation
     if not is_valid_problem(text):
         return jsonify({
             "suggestions": ["Invalid input"],
@@ -275,41 +286,17 @@ def solve_problem():
             "history": []
         })
 
-    # intent
-    intent = detect_intent(text)
-
-    if intent == "basic":
-        return jsonify({
-            "suggestions": basic_response(),
-            "similar": [],
-            "history": []
-        })
-
-    # 🔥 NORMALIZED STORAGE
-    if problems_collection is not None:
-        normalized = re.sub(r'\s+', ' ', clean_text(text))
-
-        if not problems_collection.find_one({"problem": normalized}):
-            problems_collection.insert_one({
-                "problem": normalized,
-                "original": text,
-                "timestamp": datetime.now(timezone.utc)
-            })
-
-    # processing
     suggestions, similar = get_suggestions(text)
     response = format_response(text, suggestions)
 
-    # memory
-    history = []
-    if problems_collection is not None:
-        recent = problems_collection.find().sort("timestamp", -1).limit(3)
-        history = [r.get("original", r["problem"]) for r in recent]
+    # translate back
+    response = [translate_from_english(r, lang) for r in response]
+    similar = [translate_from_english(s, lang) for s in similar]
 
     return jsonify({
         "suggestions": response,
         "similar": similar,
-        "history": history
+        "history": []
     })
 
 
@@ -320,153 +307,72 @@ def solve_problem():
 def search():
 
     data = request.get_json()
-    query = clean_text(data.get("query", ""))
+    original_query = data.get("query", "")
 
-    if len(query) < 2:
+    lang = detect_language(original_query)
+
+    query = translate_to_english(original_query)
+
+    if not query:
         return jsonify({"results": []})
 
-    if not is_clean(query):
+    query = clean_text(query)
+
+    if len(query) < 2 or not is_clean(query):
         return jsonify({"results": []})
 
     results = []
 
     for category in knowledge_base:
         for item in knowledge_base[category]:
-
             db_problem = clean_text(item["problem"])
 
-            score = max(
-                fuzz.token_set_ratio(query, db_problem),
-                fuzz.partial_ratio(query, db_problem)
-            )
+            score = fuzz.token_set_ratio(query, db_problem)
 
             if score > 50:
                 results.append((score, item["problem"]))
 
-    results.sort(reverse=True, key=lambda x: x[0])
+    results.sort(reverse=True)
 
-    seen = set()
     final = []
+    seen = set()
 
-    for score, problem in results:
-        if problem not in seen:
-            seen.add(problem)
-            final.append(problem)
+    for _, p in results:
+        if p not in seen:
+            seen.add(p)
+            final.append(p)
 
-    return jsonify({"results": final[:5]})
+    # translate results
+    final = [translate_from_english(r, lang) for r in final[:5]]
 
-
-# =========================
-# 📂 CATEGORY
-# =========================
-@app.route("/category", methods=["POST"])
-def category():
-
-    data = request.get_json()
-    cat = data.get("category", "").lower()
-
-    if cat not in knowledge_base:
-        return jsonify({"problems": []})
-
-    return jsonify({
-        "problems": [item["problem"] for item in knowledge_base[cat][:5]]
-    })
+    return jsonify({"results": final})
 
 
 # =========================
-# 🧠 RECENT
+# 📝 FEEDBACK
 # =========================
-@app.route("/recent")
-def recent():
-
-    if problems_collection is None:
-        return jsonify({"problems": []})
-
-    data = problems_collection.find().sort("timestamp", -1).limit(5)
-
-    return jsonify({
-        "problems": [d.get("original", d["problem"]) for d in data]
-    })
-
-
-# =========================
-# 📈 TRENDING
-# =========================
-@app.route("/trending")
-def trending():
-
-    if problems_collection is None:
-        return jsonify({"trending": []})
-
-    last_week = datetime.now(timezone.utc) - timedelta(days=7)
-
-    pipeline = [
-        {"$match": {"timestamp": {"$gte": last_week}}},
-        {"$group": {"_id": "$problem", "count": {"$sum": 1}}},
-        {"$sort": {"count": -1}},
-        {"$limit": 5}
-    ]
-
-    results = list(problems_collection.aggregate(pipeline))
-
-    return jsonify({
-        "trending": [r["_id"] for r in results]
-    })
-
-# =========================
-# 📝 Feedback
-# =========================
-
 @app.route("/feedback", methods=["POST"])
-def handle_feedback():
+def feedback():
 
     if feedback_collection is None:
-        return jsonify({"status": "error", "message": "Feedback system unavailable"})
+        return jsonify({"status": "error"})
 
     data = request.get_json()
     text = data.get("feedback", "").strip()
 
-    #validation
-    if not text or len(text) < 3:
-        return jsonify({"status": "error", "message": "Feedback too short"})
+    if not text or not is_clean(text):
+        return jsonify({"status": "error"})
 
-    #optional : Block abusive feedback
-    if not is_clean(text):
-        return jsonify({"status": "error", "message": "Inappropriate feedback"})    
-
-    try:
-        normalized = re.sub(r'\s+', ' ', text.lower())
-        if not feedback_collection.find_one({"feedback": normalized}):
-            feedback_collection.insert_one({
-                "feedback": normalized,
-                "original": text,
-                "timestamp": datetime.now(timezone.utc)
-            })
-
-        return jsonify({"status": "success", "message": "Feedback received"})
-    
-    except Exception as e:
-        print("❌ Feedback Error:", e)
-        return jsonify({"status": "error", "message": "Failed to save feedback"})   
-
-# =========================
-# 📂 GET FEEBACK HISTORY
-# =========================
-
-@app.route("/feedback/history")
-def feedback_history():
-
-    if feedback_collection is None:
-        return jsonify({"feedback": []})
-
-    data = feedback_collection.find().sort("timestamp", -1).limit(5)
-
-    return jsonify({
-        "feedback": [d.get("original", d["feedback"]) for d in data]
+    feedback_collection.insert_one({
+        "text": text,
+        "time": datetime.now(timezone.utc)
     })
+
+    return jsonify({"status": "ok"})
+
 
 # =========================
 # 🚀 RUN
 # =========================
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(debug=True)

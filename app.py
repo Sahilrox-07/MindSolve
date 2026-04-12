@@ -1,7 +1,7 @@
 import os
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from flask import Flask, request, jsonify, render_template
 from rapidfuzz import fuzz
 from textblob import TextBlob
@@ -89,7 +89,8 @@ def is_hinglish(text):
     hinglish_words = {
         "hai","nahi","kyu","kaise","bekar","acha","kharab",
         "jarurat","mujhe","tum","ye","wo","kya","kar",
-        "raha","rahi","mai","hum","aap","samajh"
+        "raha","rahi","mai","hum","aap","samajh",
+        "bekar", "bhai", "sahi", "kaam", "help chahiye"
     }
 
     words = text.lower().split()
@@ -137,9 +138,10 @@ def translate_from_english(text, lang):
 # 🚫 ABUSE FILTER
 # =========================
 BAD_WORDS = [
-    "madarchod","behenchod","bhosdike","chutiya","gandu",
-    "loda","randi","harami","kaminey","mc","bc","bkl","bsdk",
-    "kill","die","hate","stupid","idiot","dumb"
+    "madarchod", "behenchod", "bhosdike", "chutiya", "gandu",
+    "loda", "randi", "harami", "kaminey", "mc", "bc", "bkl", "bsdk",
+    "mutthi maroge", "goli maaro", "maro goli", "goli maar", "maar goli",
+    "muthi", "tere ma ka bhosada", "bhosada", "teri maa ki choot", "teri ma ki chut"
 ]
 
 def is_clean(text):
@@ -261,7 +263,7 @@ def home():
 
 
 # =========================
-# 🔥 MAIN ROUTE
+# 🔥 MAIN ROUTE (UPDATED)
 # =========================
 @app.route("/problem", methods=["POST"])
 def solve_problem():
@@ -277,16 +279,11 @@ def solve_problem():
             "history": []
         })
 
-    # language control
     lang = detect_language(original)
 
-    # translate ONLY if Hindi
-    if lang == "hi":
-        text = translate_to_english(original)
-    else:
-        text = original
+    text = translate_to_english(original) if lang == "hi" else original
 
-    # abuse
+    # 🚫 ABUSE
     if not is_clean(text):
         return jsonify({
             "type": "abuse",
@@ -298,7 +295,7 @@ def solve_problem():
             "history": []
         })
 
-    # negative
+    # 😐 NEGATIVE
     if is_negative_sentiment(text):
         return jsonify({
             "type": "negative",
@@ -307,7 +304,7 @@ def solve_problem():
             "history": []
         })
 
-    # validation
+    # ❌ INVALID
     if not is_valid_problem(text):
         return jsonify({
             "type": "error",
@@ -316,11 +313,21 @@ def solve_problem():
             "history": []
         })
 
-    # suggestions
+    # ✅ STORE PROBLEM (YOU WERE MISSING THIS)
+    if problems_collection is not None:
+        try:
+            problems_collection.insert_one({
+                "text": original,
+                "time": datetime.now(timezone.utc)
+            })
+        except:
+            pass
+
+    # 🔍 PROCESS
     suggestions, similar = get_suggestions(text)
     response = format_response(text, suggestions)
 
-    # translate back ONLY if Hindi
+    # 🌐 TRANSLATE BACK
     if lang == "hi":
         response = [translate_from_english(r, "hi") for r in response]
         similar = [translate_from_english(s, "hi") for s in similar]
@@ -330,6 +337,66 @@ def solve_problem():
         "suggestions": response,
         "similar": similar,
         "history": []
+    })
+
+
+# =========================
+# 🧾 RECENT (NEW)
+# =========================
+@app.route("/recent")
+def recent():
+
+    if problems_collection is None:
+        return jsonify({"problems": []})
+
+    data = problems_collection.find().sort("time", -1).limit(5)
+
+    return jsonify({
+        "problems": [d.get("text", "") for d in data]
+    })
+
+
+# =========================
+# 📈 TRENDING (NEW SIMPLE VERSION)
+# =========================
+@app.route("/trending")
+def trending():
+
+    if problems_collection is None:
+        return jsonify({"trending": []})
+
+    last_week = datetime.now(timezone.utc) - timedelta(days=7)
+
+    try:
+        pipeline = [
+            {"$match": {"time": {"$gte": last_week}}},
+            {"$group": {"_id": "$text", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}},
+            {"$limit": 5}
+        ]
+
+        results = list(problems_collection.aggregate(pipeline))
+
+        return jsonify({
+            "trending": [r["_id"] for r in results]
+        })
+    except:
+        return jsonify({"trending": []})
+
+
+# =========================
+# 📂 FEEDBACK HISTORY (NEW)
+# =========================
+@app.route("/feedback/history")
+def feedback_history():
+
+    if feedback_collection is None:
+        return jsonify({"feedback": []})
+
+    data = feedback_collection.find().sort("time", -1).limit(5)
+
+    return jsonify({
+        "feedback": [d.get("text", "") for d in data]
     })
 
 

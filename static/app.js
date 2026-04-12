@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // =========================
 async function submitProblem() {
 
-    if (isProcessing) return; // 🔒 prevent spam
+    if (isProcessing) return;
 
     const input = document.getElementById("problemInput");
     const message = document.getElementById("message");
@@ -165,6 +165,12 @@ async function submitProblem() {
 
     const text = input.value.trim();
     if (!text) return;
+
+    // 🔥 CRITICAL FIX (YOU WERE MISSING THIS)
+    suggestions.innerHTML = "";
+    similar.innerHTML = "";
+    feedbackBox.classList.add("hidden");
+    message.innerText = "";
 
     isProcessing = true;
 
@@ -181,12 +187,6 @@ async function submitProblem() {
 
         const data = await res.json();
 
-        // reset UI
-        suggestions.innerHTML = "";
-        similar.innerHTML = "";
-        feedbackBox.classList.add("hidden");
-
-        // 🧠 USE TYPE INSTEAD OF STRING MATCH
         const type = data.type || "normal";
 
         if (type === "normal") {
@@ -194,7 +194,6 @@ async function submitProblem() {
             loadFeedbackHistory();
         }
 
-        // suggestions
         (data.suggestions || []).forEach(s => {
             const li = document.createElement("li");
             li.innerText = s;
@@ -203,7 +202,6 @@ async function submitProblem() {
             suggestions.appendChild(li);
         });
 
-        // similar
         if (data.similar && data.similar.length) {
             data.similar.forEach(s => {
                 const li = document.createElement("li");
@@ -232,46 +230,6 @@ async function submitProblem() {
     submitBtn.disabled = false;
     submitBtn.innerText = "Submit Problem";
     isProcessing = false;
-}
-
-
-// =========================
-// FEEDBACK
-// =========================
-async function sendFeedback() {
-
-    const input = document.getElementById("feedbackInput");
-    const status = document.getElementById("feedbackStatus");
-    const btn = document.getElementById("sendFeedbackBtn");
-
-    const text = input.value.trim();
-    if (!text) return;
-
-    btn.disabled = true;
-    status.innerText = "Sending...";
-
-    try {
-        const res = await fetch("/feedback", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ feedback: text })
-        });
-
-        const data = await res.json();
-
-        if (data.status === "ok") {
-            status.innerText = "Feedback sent ✅";
-            input.value = "";
-            loadFeedbackHistory();
-        } else {
-            status.innerText = "Failed to send";
-        }
-
-    } catch {
-        status.innerText = "Error sending feedback";
-    }
-
-    btn.disabled = false;
 }
 
 

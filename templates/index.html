@@ -18,6 +18,10 @@ NAVBAR
     <div class="logo">🧠 MindSolve</div>
 
     <div class="search-container">
+
+        <!-- Accessibility fix -->
+        <label for="searchBar" class="hidden">Search</label>
+
         <input 
             type="text" 
             id="searchBar" 
@@ -102,7 +106,9 @@ MAIN LAYOUT
         ========================= -->
         <div class="section" id="suggestionsSection">
             <h2>💡 Suggested Solutions</h2>
-            <ul id="suggestions"></ul>
+            <ul id="suggestions">
+                <li style="opacity:0.6;">Your suggestions will appear here</li>
+            </ul>
         </div>
 
         <!-- =========================
@@ -110,7 +116,9 @@ MAIN LAYOUT
         ========================= -->
         <div class="section">
             <h2>🔎 Similar Problems</h2>
-            <ul id="similarProblems"></ul>
+            <ul id="similarProblems">
+                <li style="opacity:0.6;">No suggestions yet</li>
+            </ul>
         </div>
 
         <!-- =========================
@@ -127,7 +135,7 @@ MAIN LAYOUT
                 placeholder="Was the solution helpful? Any suggestions?"
             ></textarea>
 
-            <button id="sendFeedbackBtn">Submit Feedback</button>
+            <button type="button" id="sendFeedbackBtn">Submit Feedback</button>
 
             <p id="feedbackStatus"></p>
             <ul id="feedbackHistory"></ul>
@@ -139,7 +147,9 @@ MAIN LAYOUT
         ========================= -->
         <div class="section">
             <h2>🧾 Recent Problems</h2>
-            <ul id="problemFeed"></ul>
+            <ul id="problemFeed">
+                <li style="opacity:0.6;">No recent activity</li>
+            </ul>
         </div>
 
         <!-- =========================
@@ -147,7 +157,9 @@ MAIN LAYOUT
         ========================= -->
         <div class="section">
             <h2>🧠 Your Activity</h2>
-            <ul id="memoryList"></ul>
+            <ul id="memoryList">
+                <li style="opacity:0.6;">Nothing yet</li>
+            </ul>
         </div>
 
         <!-- =========================
@@ -155,7 +167,9 @@ MAIN LAYOUT
         ========================= -->
         <div class="section">
             <h2>📈 Trending Problems</h2>
-            <ul id="trendingList"></ul>
+            <ul id="trendingList">
+                <li style="opacity:0.6;">No trends yet</li>
+            </ul>
         </div>
 
     </div>

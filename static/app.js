@@ -16,18 +16,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const clearBtn = document.getElementById("clearBtn");
     const submitBtn = document.getElementById("submitBtn");
+    const message = document.getElementById("message");
+
+    // 🔥 FEEDBACK
+    const feedbackBox = document.getElementById("feedbackBox");
+    const feedbackInput = document.getElementById("feedbackInput");
+    const sendFeedbackBtn = document.getElementById("sendFeedbackBtn");
+    const feedbackStatus = document.getElementById("feedbackStatus");
+    const feedbackHistory = document.getElementById("feedbackHistory");
+    const btnText = document.getElementById("btnText");
 
     // =========================
     // ENTER KEY SUBMIT
     // =========================
     problemInput.addEventListener("keydown", function (e) {
-
-    if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault(); // stop new line
-        submitProblem();
-    }
-
-});
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            submitProblem();
+        }
+    });
 
     // =========================
     // CLEAR BUTTON
@@ -36,6 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
         problemInput.value = "";
         suggestions.innerHTML = "";
         similar.innerHTML = "";
+        message.innerText = "";
+        feedbackBox.style.display = "none";
         resultsBox.style.display = "none";
     });
 
@@ -45,12 +54,11 @@ document.addEventListener("DOMContentLoaded", () => {
     submitBtn.addEventListener("click", submitProblem);
 
     // =========================
-    // LIVE SEARCH (DEBOUNCE + CANCEL)
+    // LIVE SEARCH
     // =========================
     searchBar.addEventListener("input", function () {
 
         const query = this.value.trim();
-
         clearTimeout(timeout);
 
         timeout = setTimeout(async () => {
@@ -101,12 +109,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-        }, 400); // debounce delay
+        }, 400);
 
     });
 
     // =========================
-    // CLICK OUTSIDE = CLOSE SEARCH + RESET CATEGORY
+    // CLICK OUTSIDE
     // =========================
     document.addEventListener("click", (e) => {
 
@@ -114,13 +122,49 @@ document.addEventListener("DOMContentLoaded", () => {
             resultsBox.style.display = "none";
         }
 
-        // reset category
         document.querySelectorAll(".sidebar li").forEach(li => {
             li.classList.remove("active");
             const ul = li.querySelector(".sub-list");
             if (ul) ul.innerHTML = "";
         });
 
+    });
+
+    // =========================
+    // FEEDBACK SYSTEM
+    // =========================
+    sendFeedbackBtn.addEventListener("click", async () => {
+
+        const text = feedbackInput.value.trim();
+        if (!text) return;
+
+        sendFeedbackBtn.disabled = true;
+        btnText.innerText = "Sending...";
+
+        try {
+            const res = await fetch("/feedback", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ feedback: text })
+            });
+
+            const data = await res.json();
+
+            feedbackStatus.innerText = "Feedback sent ✅";
+            feedbackStatus.style.display = "block";
+
+            const li = document.createElement("li");
+            li.innerText = text;
+            feedbackHistory.prepend(li);
+
+            feedbackInput.value = "";
+
+        } catch {
+            feedbackStatus.innerText = "Failed ❌";
+        }
+
+        sendFeedbackBtn.disabled = false;
+        btnText.innerText = "Send Feedback";
     });
 
     // =========================
@@ -140,6 +184,7 @@ async function submitProblem() {
     const message = document.getElementById("message");
     const suggestions = document.getElementById("suggestions");
     const similar = document.getElementById("similarProblems");
+    const feedbackBox = document.getElementById("feedbackBox");
 
     const text = input.value.trim();
     if (!text) return;
@@ -167,7 +212,7 @@ async function submitProblem() {
             suggestions.appendChild(li);
         });
 
-        // similar problems
+        // similar
         if (data.similar && data.similar.length) {
             data.similar.forEach(s => {
                 const li = document.createElement("li");
@@ -182,6 +227,13 @@ async function submitProblem() {
             });
         } else {
             similar.innerHTML = "<li>No similar problems found</li>";
+        }
+
+        // 🔥 SHOW FEEDBACK IF NEGATIVE
+        if (data.suggestions[0].toLowerCase().includes("sorry")) {
+            feedbackBox.style.display = "block";
+        } else {
+            feedbackBox.style.display = "none";
         }
 
         // memory
@@ -202,7 +254,7 @@ async function submitProblem() {
             });
         }
 
-        // 🔥 SCROLL TO RESULT (FIX YOUR ISSUE)
+        // scroll fix
         document.getElementById("suggestionsSection").scrollIntoView({
             behavior: "smooth"
         });
@@ -219,7 +271,6 @@ async function submitProblem() {
 // RECENT
 // =========================
 async function loadRecent() {
-
     const feed = document.getElementById("problemFeed");
 
     try {
@@ -248,7 +299,6 @@ async function loadRecent() {
 // TRENDING
 // =========================
 async function loadTrending() {
-
     const list = document.getElementById("trendingList");
 
     try {

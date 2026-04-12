@@ -16,15 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const clearBtn = document.getElementById("clearBtn");
     const submitBtn = document.getElementById("submitBtn");
-    const message = document.getElementById("message");
 
-    // 🔥 FEEDBACK
-    const feedbackBox = document.getElementById("feedbackBox");
-    const feedbackInput = document.getElementById("feedbackInput");
-    const sendFeedbackBtn = document.getElementById("sendFeedbackBtn");
-    const feedbackStatus = document.getElementById("feedbackStatus");
-    const feedbackHistory = document.getElementById("feedbackHistory");
-    const btnText = document.getElementById("btnText");
+    const feedbackBtn = document.getElementById("sendFeedbackBtn");
 
     // =========================
     // ENTER KEY SUBMIT
@@ -43,15 +36,21 @@ document.addEventListener("DOMContentLoaded", () => {
         problemInput.value = "";
         suggestions.innerHTML = "";
         similar.innerHTML = "";
-        message.innerText = "";
-        feedbackBox.style.display = "none";
+        document.getElementById("feedbackBox").style.display = "none";
         resultsBox.style.display = "none";
     });
 
     // =========================
-    // SUBMIT
+    // SUBMIT BUTTON
     // =========================
     submitBtn.addEventListener("click", submitProblem);
+
+    // =========================
+    // FEEDBACK BUTTON
+    // =========================
+    if (feedbackBtn) {
+        feedbackBtn.addEventListener("click", sendFeedback);
+    }
 
     // =========================
     // LIVE SEARCH
@@ -59,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchBar.addEventListener("input", function () {
 
         const query = this.value.trim();
+
         clearTimeout(timeout);
 
         timeout = setTimeout(async () => {
@@ -110,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
         }, 400);
-
     });
 
     // =========================
@@ -131,43 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // =========================
-    // FEEDBACK SYSTEM
-    // =========================
-    sendFeedbackBtn.addEventListener("click", async () => {
-
-        const text = feedbackInput.value.trim();
-        if (!text) return;
-
-        sendFeedbackBtn.disabled = true;
-        btnText.innerText = "Sending...";
-
-        try {
-            const res = await fetch("/feedback", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ feedback: text })
-            });
-
-            const data = await res.json();
-
-            feedbackStatus.innerText = "Feedback sent ✅";
-            feedbackStatus.style.display = "block";
-
-            const li = document.createElement("li");
-            li.innerText = text;
-            feedbackHistory.prepend(li);
-
-            feedbackInput.value = "";
-
-        } catch {
-            feedbackStatus.innerText = "Failed ❌";
-        }
-
-        sendFeedbackBtn.disabled = false;
-        btnText.innerText = "Send Feedback";
-    });
-
-    // =========================
     // INITIAL LOAD
     // =========================
     loadRecent();
@@ -185,10 +147,14 @@ async function submitProblem() {
     const suggestions = document.getElementById("suggestions");
     const similar = document.getElementById("similarProblems");
     const feedbackBox = document.getElementById("feedbackBox");
+    const submitBtn = document.getElementById("submitBtn");
 
     const text = input.value.trim();
     if (!text) return;
 
+    // loading state
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Processing...";
     message.innerText = "Processing...";
 
     try {
@@ -200,8 +166,22 @@ async function submitProblem() {
 
         const data = await res.json();
 
+        // reset UI
         suggestions.innerHTML = "";
         similar.innerHTML = "";
+        feedbackBox.style.display = "none";
+
+        // detect response type
+        const firstLine = data.suggestions[0] || "";
+
+        const isAbuse = firstLine.includes("Please describe your issue clearly");
+        const isNegative = firstLine.includes("frustrating experience");
+
+        // show feedback only for valid problems
+        if (!isAbuse && !isNegative) {
+            feedbackBox.style.display = "block";
+            loadFeedbackHistory();
+        }
 
         // suggestions
         data.suggestions.forEach(s => {
@@ -229,13 +209,6 @@ async function submitProblem() {
             similar.innerHTML = "<li>No similar problems found</li>";
         }
 
-        // 🔥 SHOW FEEDBACK IF NEGATIVE
-        if (data.suggestions[0].toLowerCase().includes("sorry")) {
-            feedbackBox.style.display = "block";
-        } else {
-            feedbackBox.style.display = "none";
-        }
-
         // memory
         const memoryList = document.getElementById("memoryList");
         if (memoryList && data.history) {
@@ -255,15 +228,82 @@ async function submitProblem() {
         }
 
         // scroll fix
-        document.getElementById("suggestionsSection").scrollIntoView({
-            behavior: "smooth"
-        });
+        document.getElementById("suggestionsSection")
+            .scrollIntoView({ behavior: "smooth", block: "start" });
 
-        setTimeout(() => message.innerText = "", 800);
+        message.innerText = "";
 
     } catch {
-        message.innerText = "Error";
+        message.innerText = "Error occurred";
     }
+
+    // restore button
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Submit Problem";
+}
+
+
+// =========================
+// FEEDBACK
+// =========================
+async function sendFeedback() {
+
+    const input = document.getElementById("feedbackInput");
+    const status = document.getElementById("feedbackStatus");
+    const btn = document.getElementById("sendFeedbackBtn");
+
+    const text = input.value.trim();
+    if (!text) return;
+
+    btn.disabled = true;
+    status.innerText = "Sending...";
+
+    try {
+        const res = await fetch("/feedback", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ feedback: text })
+        });
+
+        const data = await res.json();
+
+        if (data.status === "success") {
+            status.innerText = "Feedback sent ✅";
+            input.value = "";
+            loadFeedbackHistory();
+        } else {
+            status.innerText = data.message || "Failed";
+        }
+
+    } catch {
+        status.innerText = "Error sending feedback";
+    }
+
+    btn.disabled = false;
+}
+
+
+// =========================
+// FEEDBACK HISTORY
+// =========================
+async function loadFeedbackHistory() {
+
+    try {
+        const res = await fetch("/feedback/history");
+        const data = await res.json();
+
+        const list = document.getElementById("feedbackHistory");
+        if (!list) return;
+
+        list.innerHTML = "";
+
+        data.feedback.forEach(f => {
+            const li = document.createElement("li");
+            li.innerText = f;
+            list.appendChild(li);
+        });
+
+    } catch {}
 }
 
 
@@ -271,6 +311,7 @@ async function submitProblem() {
 // RECENT
 // =========================
 async function loadRecent() {
+
     const feed = document.getElementById("problemFeed");
 
     try {
@@ -299,6 +340,7 @@ async function loadRecent() {
 // TRENDING
 // =========================
 async function loadTrending() {
+
     const list = document.getElementById("trendingList");
 
     try {

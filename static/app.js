@@ -187,11 +187,13 @@ async function submitProblem() {
 
         // SUGGESTIONS
         (data.suggestions || []).forEach(s => {
-            const li = document.createElement("li");
-            li.innerText = s;
-            li.style.whiteSpace = "pre-line";
-            li.classList.add("fade-in");
-            suggestions.appendChild(li);
+
+            const block = document.createElement("div");
+            block.classList.add("solution-block", "fade-in");
+            
+            block.innerText = s; // keeps formatting clean
+
+            suggestions.appendChild(block);
         });
 
         // SIMILAR
@@ -245,6 +247,10 @@ async function sendFeedback() {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({ feedback: text })
         });
+
+        if (res.status === 429) {
+            throw new Error("Too many requests. Please wait a moment.");
+        }
 
         const data = await res.json();
 

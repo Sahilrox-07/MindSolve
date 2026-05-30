@@ -1,6 +1,9 @@
 from pymongo import MongoClient
+from dotenv import load_dotenv
 import os
 import logging
+
+load_dotenv()
 
 # =========================
 # 📦 MONGODB
@@ -10,6 +13,9 @@ problems_collection = None
 feedback_collection = None
 
 try:
+
+    print("MONGO_URI =", os.getenv("MONGO_URI"))
+
     mongo_uri = os.getenv("MONGO_URI")
 
     if mongo_uri:

@@ -88,12 +88,23 @@ def solve_problem():
         if not is_valid_problem(text):
             continue
 
-        category = classify_problem(text)
+        category_result = classify_problem(text)
 
-        cause = detect_cause(text)
+        cause_result = detect_cause(text)
 
-        print("Category:", category)
-        print("Cause:", cause)
+        category = category_result["category"]
+        category_confidence = category_result["confidence"]
+
+        cause = cause_result["cause"]
+        cause_confidence = cause_result["confidence"]
+
+        print("=" * 50)
+        print("TEXT:", text)
+        print("CATEGORY:", category)
+        print("CATEGORY CONFIDENCE:", category_confidence)
+        print("CAUSE:", cause)
+        print("CAUSE CONFIDENCE:", cause_confidence)
+        print("=" * 50)
                 
         suggestions, similar = get_suggestions(
             text,

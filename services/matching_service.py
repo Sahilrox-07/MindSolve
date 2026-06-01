@@ -12,18 +12,18 @@ def get_suggestions(problem_text, category="general"):
 
     matches = []
 
-    for category in knowledge_base:
-        for item in knowledge_base[category]:
+    for kb_category in knowledge_base:
+            for item in knowledge_base[kb_category]:
 
-            db_problem = clean_text(item["problem"])
+                db_problem = clean_text(item["problem"])
 
-            score = max(
-                fuzz.token_set_ratio(problem_text, db_problem),
-                fuzz.partial_ratio(problem_text, db_problem)
-            )
+                score = max(
+                    fuzz.token_set_ratio(problem_text, db_problem),
+                    fuzz.partial_ratio(problem_text, db_problem)
+                )
 
-            if score >= 70:
-                matches.append((score, item))
+                if score >= 70:
+                    matches.append((score, item))
 
     matches.sort(key=lambda x: x[0], reverse=True)
 
@@ -36,28 +36,28 @@ def get_suggestions(problem_text, category="general"):
             "Review your progress regularly"
         ], []
 
-    elif category == "career":
-        return [
+        elif category == "career":
+            return [
             "Identify the main career challenge you're facing",
             "Research possible career paths and opportunities",
             "Seek guidance from mentors or professionals"
         ], []
 
-    elif category == "health":
-        return [
+        elif category == "health":
+            return [
             "Pay attention to your sleep and daily routine",
             "Try stress-management techniques",
             "Consider consulting a healthcare professional if needed"
         ], []
 
-    elif category == "productivity":
-        return [
+        elif category == "productivity":
+            return [
             "Remove distractions from your environment",
             "Set one small achievable goal",
             "Track your progress consistently"
         ], []
 
-    return [
+        return [
         "Break problem into smaller parts",
         "Identify root cause",
         "Start with one small step"

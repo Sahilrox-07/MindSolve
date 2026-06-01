@@ -3,7 +3,7 @@ from services.text_service import clean_text
 from utils.data_loader import knowledge_base
 
 
-def get_suggestions(problem_text):
+def get_suggestions(problem_text, category="general"):
 
     if not knowledge_base:
         return ["System unavailable"], []
@@ -28,11 +28,40 @@ def get_suggestions(problem_text):
     matches.sort(key=lambda x: x[0], reverse=True)
 
     if not matches:
-        return [
-            "Break problem into smaller parts",
-            "Identify root cause",
-            "Start with one small step"
+
+        if category == "study":
+            return [
+            "Create a study plan and break topics into smaller sections",
+            "Focus on one subject at a time",
+            "Review your progress regularly"
         ], []
+
+    elif category == "career":
+        return [
+            "Identify the main career challenge you're facing",
+            "Research possible career paths and opportunities",
+            "Seek guidance from mentors or professionals"
+        ], []
+
+    elif category == "health":
+        return [
+            "Pay attention to your sleep and daily routine",
+            "Try stress-management techniques",
+            "Consider consulting a healthcare professional if needed"
+        ], []
+
+    elif category == "productivity":
+        return [
+            "Remove distractions from your environment",
+            "Set one small achievable goal",
+            "Track your progress consistently"
+        ], []
+
+    return [
+        "Break problem into smaller parts",
+        "Identify root cause",
+        "Start with one small step"
+    ], []
 
     best = matches[0][1]
     similar = [m[1]["problem"] for m in matches[1:4]]

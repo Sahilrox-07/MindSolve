@@ -9,6 +9,11 @@ from services.text_service import (
     is_negative_sentiment
 )
 
+from services.classification_service import (
+    classify_problem, 
+    detect_cause
+)
+
 from services.matching_service import (
     get_suggestions,
     format_response
@@ -83,7 +88,17 @@ def solve_problem():
         if not is_valid_problem(text):
             continue
 
-        suggestions, similar = get_suggestions(text)
+        category = classify_problem(text)
+
+        cause = detect_cause(text)
+
+        print("Category:", category)
+        print("Cause:", cause)
+                
+        suggestions, similar = get_suggestions(
+            text,
+            category
+        )
         formatted = format_response(text, suggestions)
 
         all_suggestions.extend(formatted)

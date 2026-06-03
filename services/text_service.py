@@ -44,11 +44,25 @@ def translate_to_english(text):
 # =========================
 def is_hinglish(text):
     hinglish_words = {
-        "hai","nahi","kyu","kaise","bekar","acha","kharab",
-        "jarurat","mujhe","tum","ye","wo","kya","kar",
-        "raha","rahi","mai","hum","aap","samajh",
-        "bhai","sahi","kaam"
-    }
+
+    "hai","nahi","kyu","kaise",
+    "mujhe","mera","meri","mere",
+    "tum","aap","hum","mai",
+    "main","padhai","college",
+    "school","kaam","job",
+    "career","future","focus",
+    "dhyan","samajh","problem",
+    "pareshan","tension","stress",
+    "thak","thaka","thaki",
+    "soch","sochna","dimag",
+    "paisa","salary","interview",
+    "padh","padhta","padhti",
+    "samasya","madad","karna",
+    "kar","raha","rahi",
+    "ho","gaya","gayi",
+    "nhi","nahin","acha",
+    "kharab","bhai","yaar"
+}
 
     words = text.lower().split()
     score = sum(1 for w in words if w in hinglish_words)

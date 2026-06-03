@@ -22,7 +22,7 @@ def get_suggestions(problem_text, category="general"):
                     fuzz.partial_ratio(problem_text, db_problem)
                 )
 
-                if score >= 70:
+                if score >= 65:
                     matches.append((score, item))
 
     matches.sort(key=lambda x: x[0], reverse=True)

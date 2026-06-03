@@ -9,6 +9,8 @@ from services.text_service import (
     is_negative_sentiment
 )
 
+from services.spell_service import correct_text
+
 from services.classification_service import (
     classify_problem, 
     detect_cause
@@ -18,6 +20,9 @@ from services.matching_service import (
     get_suggestions,
     format_response
 )
+
+from services.recommendation_service import get_cause_solutions
+
 
 from utils.database import problems_collection
 
@@ -49,6 +54,8 @@ def solve_problem():
                 lang = detect_language(line)
                 text = translate_to_english(line) if lang != "en" else line
 
+                text = correct_text(text)
+
                 if not is_clean(text):
                     continue
 
@@ -77,6 +84,8 @@ def solve_problem():
         lang = detect_language(line)
         text = translate_to_english(line) if lang != "en" else line
 
+        text = correct_text(text)
+
         if not is_clean(text):
             abuse_detected = True
             continue
@@ -94,6 +103,8 @@ def solve_problem():
 
         category = category_result["category"]
         category_confidence = category_result["confidence"]
+        category_matches = category_result["matched_words"]
+        cause_matches = cause_result["matched_words"]
 
         cause = cause_result["cause"]
         cause_confidence = cause_result["confidence"]
@@ -104,12 +115,20 @@ def solve_problem():
         print("CATEGORY CONFIDENCE:", category_confidence)
         print("CAUSE:", cause)
         print("CAUSE CONFIDENCE:", cause_confidence)
+        print("CATEGORY MATCHES:", category_matches)
+        print("CAUSE MATCHES:", cause_matches)
         print("=" * 50)
                 
         suggestions, similar = get_suggestions(
             text,
             category
         )
+
+        cause_suggestions = get_cause_solutions(cause)
+
+        if cause_suggestions:
+            suggestions = cause_suggestions
+            
         formatted = format_response(text, suggestions)
 
         all_suggestions.extend(formatted)

@@ -22,7 +22,13 @@ CAUSE_SOLUTIONS = {
         "Take regular short breaks",
         "Practice breathing exercises",
         "Avoid multitasking excessively"
-    ]
+    ],
+
+    "lack_of_energy": [
+    "Maintain a consistent sleep schedule",
+    "Take short breaks instead of pushing through exhaustion",
+    "Eat balanced meals and stay hydrated"
+    ],
 }
 
 

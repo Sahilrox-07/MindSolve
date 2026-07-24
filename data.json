@@ -1,7 +1,34 @@
 {
   "study": [
     {
+      "id": "ST001",
       "problem": "i can't focus while studying",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "study",
+        "focus",
+        "concentration",
+        "attention",
+        "reading",
+        "exam",
+        "revision",
+        "memory",
+        "distraction",
+        "learning"
+      ],
+      "tags": [
+        "student",
+        "education",
+        "focus",
+        "learning"
+      ],
+      "related_causes": [
+        "phone_addiction",
+        "stress",
+        "poor_sleep"
+      ],
       "solutions": [
         "use the pomodoro technique with 25 minute focus sessions",
         "remove phone and distractions from your study area",
@@ -9,7 +36,33 @@
       ]
     },
     {
+      "id": "ST002",
       "problem": "i forget what i study quickly",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "forget",
+        "memory",
+        "revision",
+        "study",
+        "recall",
+        "retention",
+        "notes",
+        "learning",
+        "practice",
+        "remember"
+      ],
+      "tags": [
+        "student",
+        "memory",
+        "learning",
+        "education"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "stress"
+      ],
       "solutions": [
         "revise within 24 hours of studying",
         "use active recall instead of passive reading",
@@ -17,7 +70,34 @@
       ]
     },
     {
+      "id": "ST003",
       "problem": "i feel sleepy while studying",
+      "category": "study",
+      "cause": "lack_of_energy",
+      "difficulty": "easy",
+      "keywords": [
+        "sleepy",
+        "tired",
+        "fatigue",
+        "study",
+        "energy",
+        "drowsy",
+        "lecture",
+        "sleep",
+        "lazy",
+        "reading"
+      ],
+      "tags": [
+        "student",
+        "health",
+        "sleep",
+        "energy"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "poor_nutrition",
+        "lack_of_exercise"
+      ],
       "solutions": [
         "study sitting upright instead of lying down",
         "take short breaks every 30 minutes",
@@ -25,7 +105,33 @@
       ]
     },
     {
+      "id": "ST004",
       "problem": "i can't understand difficult concepts",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "concept",
+        "understand",
+        "topic",
+        "theory",
+        "confused",
+        "study",
+        "learning",
+        "subject",
+        "education",
+        "difficult"
+      ],
+      "tags": [
+        "student",
+        "learning",
+        "education",
+        "focus"
+      ],
+      "related_causes": [
+        "stress",
+        "poor_sleep"
+      ],
       "solutions": [
         "break the concept into smaller parts",
         "watch videos or visual explanations",
@@ -33,140 +139,3897 @@
       ]
     },
     {
+      "id": "ST005",
       "problem": "i procrastinate studying",
+      "category": "study",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "procrastination",
+        "delay",
+        "study",
+        "motivation",
+        "discipline",
+        "revision",
+        "exam",
+        "homework",
+        "avoid",
+        "lazy"
+      ],
+      "tags": [
+        "student",
+        "productivity",
+        "discipline",
+        "habits"
+      ],
+      "related_causes": [
+        "phone_addiction",
+        "poor_time_management",
+        "stress"
+      ],
       "solutions": [
         "start with just 5 minutes to reduce resistance",
         "set clear small goals instead of big tasks",
         "reward yourself after completing tasks"
       ]
+    },
+    {
+      "id": "ST006",
+      "problem": "i get distracted by my phone while studying",
+      "category": "study",
+      "cause": "phone_addiction",
+      "difficulty": "moderate",
+      "keywords": [
+        "phone",
+        "mobile",
+        "instagram",
+        "youtube",
+        "social media",
+        "notification",
+        "study",
+        "focus",
+        "distraction",
+        "scrolling"
+      ],
+      "tags": [
+        "student",
+        "phone",
+        "social_media",
+        "focus"
+      ],
+      "related_causes": [
+        "lack_of_focus",
+        "procrastination"
+      ],
+      "solutions": [
+        "keep your phone in another room",
+        "use app blockers during study sessions",
+        "reward yourself with phone time after finishing work"
+      ]
+    },
+    {
+      "id": "ST007",
+      "problem": "i panic before exams",
+      "category": "study",
+      "cause": "stress",
+      "difficulty": "moderate",
+      "keywords": [
+        "panic",
+        "exam",
+        "stress",
+        "fear",
+        "nervous",
+        "anxiety",
+        "test",
+        "pressure",
+        "student",
+        "performance"
+      ],
+      "tags": [
+        "student",
+        "stress",
+        "anxiety",
+        "education"
+      ],
+      "related_causes": [
+        "lack_of_focus",
+        "poor_sleep"
+      ],
+      "solutions": [
+        "practice mock tests regularly",
+        "prepare revision plans early",
+        "use breathing exercises before exams"
+      ]
+    },
+    {
+      "id": "ST008",
+      "problem": "i study for hours but remember nothing",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "study",
+        "memory",
+        "forget",
+        "recall",
+        "learning",
+        "revision",
+        "focus",
+        "retention",
+        "reading",
+        "exam"
+      ],
+      "tags": [
+        "student",
+        "memory",
+        "learning",
+        "focus"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "stress"
+      ],
+      "solutions": [
+        "test yourself frequently",
+        "use active recall techniques",
+        "take short revision breaks"
+      ]
+    },
+    {
+      "id": "ST009",
+      "problem": "i always leave studying until the last minute",
+      "category": "study",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "last minute",
+        "delay",
+        "study",
+        "exam",
+        "revision",
+        "deadline",
+        "lazy",
+        "avoid",
+        "procrastination",
+        "planning"
+      ],
+      "tags": [
+        "student",
+        "discipline",
+        "time_management",
+        "productivity"
+      ],
+      "related_causes": [
+        "poor_time_management",
+        "phone_addiction",
+        "stress"
+      ],
+      "solutions": [
+        "break work into smaller tasks",
+        "set mini deadlines",
+        "start with just five minutes"
+      ]
+    },
+    {
+      "id": "ST010",
+      "problem": "i get anxious during exams",
+      "category": "study",
+      "cause": "stress",
+      "difficulty": "moderate",
+      "keywords": [
+        "exam",
+        "anxiety",
+        "stress",
+        "fear",
+        "pressure",
+        "nervous",
+        "performance",
+        "student",
+        "test",
+        "confidence"
+      ],
+      "tags": [
+        "student",
+        "stress",
+        "anxiety",
+        "confidence"
+      ],
+      "related_causes": [
+        "lack_of_focus",
+        "poor_sleep"
+      ],
+      "solutions": [
+        "practice under timed conditions",
+        "focus on preparation instead of outcomes",
+        "avoid comparing yourself to others"
+      ]
+    },
+    {
+      "id": "ST011",
+      "problem": "i lose motivation to study after a few days",
+      "category": "study",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "motivation",
+        "study",
+        "consistency",
+        "discipline",
+        "routine",
+        "habit",
+        "learning",
+        "goal",
+        "student",
+        "progress"
+      ],
+      "tags": [
+        "student",
+        "motivation",
+        "discipline",
+        "habits"
+      ],
+      "related_causes": [
+        "poor_time_management",
+        "stress",
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "set weekly study goals instead of relying on motivation",
+        "track daily progress to build consistency",
+        "reward yourself after completing study sessions"
+      ]
+    },
+    {
+      "id": "ST012",
+      "problem": "i can't wake up early to study",
+      "category": "study",
+      "cause": "poor_sleep",
+      "difficulty": "easy",
+      "keywords": [
+        "wake up",
+        "morning",
+        "study",
+        "sleep",
+        "alarm",
+        "routine",
+        "schedule",
+        "fatigue",
+        "energy",
+        "student"
+      ],
+      "tags": [
+        "student",
+        "sleep",
+        "habits",
+        "discipline"
+      ],
+      "related_causes": [
+        "lack_of_energy",
+        "poor_nutrition"
+      ],
+      "solutions": [
+        "sleep at a consistent time every night",
+        "keep your phone away before bedtime",
+        "prepare your study desk the night before"
+      ]
+    },
+    {
+      "id": "ST013",
+      "problem": "i get bored while studying",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "easy",
+      "keywords": [
+        "bored",
+        "boring",
+        "study",
+        "interest",
+        "focus",
+        "learning",
+        "subject",
+        "reading",
+        "motivation",
+        "attention"
+      ],
+      "tags": [
+        "student",
+        "focus",
+        "learning",
+        "motivation"
+      ],
+      "related_causes": [
+        "phone_addiction",
+        "procrastination"
+      ],
+      "solutions": [
+        "alternate between different subjects",
+        "use videos and diagrams while learning",
+        "study in short focused sessions"
+      ]
+    },
+    {
+      "id": "ST014",
+      "problem": "i can't manage multiple subjects",
+      "category": "study",
+      "cause": "poor_time_management",
+      "difficulty": "moderate",
+      "keywords": [
+        "subjects",
+        "schedule",
+        "planning",
+        "study",
+        "time",
+        "exam",
+        "routine",
+        "priority",
+        "student",
+        "management"
+      ],
+      "tags": [
+        "student",
+        "time_management",
+        "planning",
+        "productivity"
+      ],
+      "related_causes": [
+        "stress",
+        "procrastination"
+      ],
+      "solutions": [
+        "create a weekly timetable",
+        "prioritize weaker subjects",
+        "review your schedule every weekend"
+      ]
+    },
+    {
+      "id": "ST015",
+      "problem": "i can't complete my syllabus on time",
+      "category": "study",
+      "cause": "poor_time_management",
+      "difficulty": "moderate",
+      "keywords": [
+        "syllabus",
+        "complete",
+        "deadline",
+        "exam",
+        "study",
+        "planning",
+        "time",
+        "revision",
+        "student",
+        "goal"
+      ],
+      "tags": [
+        "student",
+        "planning",
+        "time_management",
+        "discipline"
+      ],
+      "related_causes": [
+        "procrastination",
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "divide the syllabus into weekly targets",
+        "track completed topics daily",
+        "keep buffer days for revision"
+      ]
+    },
+    {
+      "id": "ST016",
+      "problem": "i get distracted by noise while studying",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "easy",
+      "keywords": [
+        "noise",
+        "distraction",
+        "study",
+        "focus",
+        "environment",
+        "room",
+        "music",
+        "attention",
+        "learning",
+        "student"
+      ],
+      "tags": [
+        "student",
+        "focus",
+        "environment",
+        "learning"
+      ],
+      "related_causes": [
+        "stress",
+        "phone_addiction"
+      ],
+      "solutions": [
+        "use noise-cancelling headphones or earplugs",
+        "study in a quiet place",
+        "play instrumental background music if it helps"
+      ]
+    },
+    {
+      "id": "ST017",
+      "problem": "i can't remember formulas",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "formula",
+        "math",
+        "physics",
+        "memory",
+        "revision",
+        "study",
+        "recall",
+        "practice",
+        "exam",
+        "learning"
+      ],
+      "tags": [
+        "student",
+        "memory",
+        "learning",
+        "education"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "stress"
+      ],
+      "solutions": [
+        "create a separate formula notebook",
+        "practice using formulas instead of memorizing only",
+        "revise formulas every day"
+      ]
+    },
+    {
+      "id": "ST018",
+      "problem": "i get low marks even after studying",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "hard",
+      "keywords": [
+        "marks",
+        "exam",
+        "score",
+        "study",
+        "result",
+        "mistakes",
+        "learning",
+        "performance",
+        "revision",
+        "student"
+      ],
+      "tags": [
+        "student",
+        "performance",
+        "learning",
+        "education"
+      ],
+      "related_causes": [
+        "stress",
+        "poor_time_management"
+      ],
+      "solutions": [
+        "analyze previous mistakes carefully",
+        "solve more mock papers under timed conditions",
+        "focus on understanding rather than memorization"
+      ]
+    },
+    {
+      "id": "ST019",
+      "problem": "i compare myself with other students",
+      "category": "study",
+      "cause": "stress",
+      "difficulty": "moderate",
+      "keywords": [
+        "comparison",
+        "student",
+        "marks",
+        "confidence",
+        "stress",
+        "competition",
+        "motivation",
+        "self esteem",
+        "exam",
+        "performance"
+      ],
+      "tags": [
+        "student",
+        "confidence",
+        "stress",
+        "mental_health"
+      ],
+      "related_causes": [
+        "low_confidence",
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "measure your progress against your past performance",
+        "avoid unhealthy academic comparisons",
+        "focus on improving one subject at a time"
+      ]
+    },
+    {
+      "id": "ST020",
+      "problem": "i don't know how to start studying",
+      "category": "study",
+      "cause": "procrastination",
+      "difficulty": "easy",
+      "keywords": [
+        "start",
+        "study",
+        "begin",
+        "motivation",
+        "planning",
+        "routine",
+        "discipline",
+        "student",
+        "goal",
+        "learning"
+      ],
+      "tags": [
+        "student",
+        "discipline",
+        "productivity",
+        "habits"
+      ],
+      "related_causes": [
+        "poor_time_management",
+        "phone_addiction",
+        "stress"
+      ],
+      "solutions": [
+        "begin with the easiest topic for five minutes",
+        "prepare a simple study checklist",
+        "remove distractions before starting"
+      ]
+    },
+    {
+      "id": "ST021",
+      "problem": "i can't stay consistent with my study routine",
+      "category": "study",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "consistency",
+        "routine",
+        "study",
+        "habit",
+        "discipline",
+        "schedule",
+        "student",
+        "motivation",
+        "learning",
+        "daily"
+      ],
+      "tags": [
+        "student",
+        "discipline",
+        "habits",
+        "productivity"
+      ],
+      "related_causes": [
+        "poor_time_management",
+        "phone_addiction",
+        "stress"
+      ],
+      "solutions": [
+        "study at the same time every day",
+        "track your study streak on a calendar",
+        "never skip two consecutive study sessions"
+      ]
+    },
+    {
+      "id": "ST022",
+      "problem": "i get confused about what to study first",
+      "category": "study",
+      "cause": "poor_time_management",
+      "difficulty": "easy",
+      "keywords": [
+        "priority",
+        "study",
+        "planning",
+        "subject",
+        "schedule",
+        "exam",
+        "revision",
+        "goal",
+        "student",
+        "time"
+      ],
+      "tags": [
+        "student",
+        "planning",
+        "time_management",
+        "education"
+      ],
+      "related_causes": [
+        "procrastination",
+        "stress"
+      ],
+      "solutions": [
+        "list all topics by importance",
+        "finish difficult subjects during your most productive hours",
+        "review your priorities every week"
+      ]
+    },
+    {
+      "id": "ST023",
+      "problem": "i can't concentrate during online classes",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "online class",
+        "focus",
+        "lecture",
+        "learning",
+        "attention",
+        "study",
+        "zoom",
+        "student",
+        "teacher",
+        "screen"
+      ],
+      "tags": [
+        "student",
+        "focus",
+        "learning",
+        "education"
+      ],
+      "related_causes": [
+        "phone_addiction",
+        "poor_sleep"
+      ],
+      "solutions": [
+        "keep your camera on if possible",
+        "take handwritten notes during class",
+        "close unrelated browser tabs"
+      ]
+    },
+    {
+      "id": "ST024",
+      "problem": "i don't revise regularly",
+      "category": "study",
+      "cause": "poor_time_management",
+      "difficulty": "easy",
+      "keywords": [
+        "revision",
+        "study",
+        "review",
+        "exam",
+        "memory",
+        "schedule",
+        "student",
+        "practice",
+        "learning",
+        "recall"
+      ],
+      "tags": [
+        "student",
+        "memory",
+        "time_management",
+        "education"
+      ],
+      "related_causes": [
+        "procrastination",
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "reserve one day each week only for revision",
+        "review notes after every study session",
+        "use flashcards for important concepts"
+      ]
+    },
+    {
+      "id": "ST025",
+      "problem": "i spend too much time making notes",
+      "category": "study",
+      "cause": "poor_time_management",
+      "difficulty": "easy",
+      "keywords": [
+        "notes",
+        "study",
+        "writing",
+        "time",
+        "revision",
+        "learning",
+        "student",
+        "planning",
+        "summary",
+        "productivity"
+      ],
+      "tags": [
+        "student",
+        "productivity",
+        "learning",
+        "time_management"
+      ],
+      "related_causes": [
+        "procrastination",
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "write only short summary notes",
+        "highlight key concepts instead of copying everything",
+        "use diagrams where possible"
+      ]
+    },
+    {
+      "id": "ST026",
+      "problem": "i can't solve numerical problems",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "hard",
+      "keywords": [
+        "numerical",
+        "math",
+        "calculation",
+        "problem solving",
+        "physics",
+        "practice",
+        "study",
+        "formula",
+        "exam",
+        "student"
+      ],
+      "tags": [
+        "student",
+        "learning",
+        "education",
+        "focus"
+      ],
+      "related_causes": [
+        "stress",
+        "poor_time_management"
+      ],
+      "solutions": [
+        "practice easy questions before difficult ones",
+        "understand the concept behind each formula",
+        "solve problems daily instead of only before exams"
+      ]
+    },
+    {
+      "id": "ST027",
+      "problem": "i keep making silly mistakes in exams",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "mistakes",
+        "exam",
+        "careless",
+        "focus",
+        "accuracy",
+        "student",
+        "paper",
+        "performance",
+        "revision",
+        "attention"
+      ],
+      "tags": [
+        "student",
+        "focus",
+        "performance",
+        "education"
+      ],
+      "related_causes": [
+        "stress",
+        "poor_sleep"
+      ],
+      "solutions": [
+        "leave time to review your answers",
+        "underline important keywords in questions",
+        "practice solving papers under exam conditions"
+      ]
+    },
+    {
+      "id": "ST028",
+      "problem": "i lose confidence after getting poor marks",
+      "category": "study",
+      "cause": "low_confidence",
+      "difficulty": "moderate",
+      "keywords": [
+        "confidence",
+        "marks",
+        "failure",
+        "exam",
+        "student",
+        "motivation",
+        "self esteem",
+        "learning",
+        "performance",
+        "study"
+      ],
+      "tags": [
+        "student",
+        "confidence",
+        "mental_health",
+        "education"
+      ],
+      "related_causes": [
+        "stress",
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "identify specific mistakes instead of blaming yourself",
+        "set realistic improvement goals",
+        "celebrate small academic progress"
+      ]
+    },
+    {
+      "id": "ST029",
+      "problem": "i can't balance studies with other responsibilities",
+      "category": "study",
+      "cause": "poor_time_management",
+      "difficulty": "hard",
+      "keywords": [
+        "balance",
+        "study",
+        "work",
+        "family",
+        "time",
+        "schedule",
+        "priority",
+        "student",
+        "planning",
+        "routine"
+      ],
+      "tags": [
+        "student",
+        "time_management",
+        "productivity",
+        "planning"
+      ],
+      "related_causes": [
+        "stress",
+        "procrastination",
+        "lack_of_energy"
+      ],
+      "solutions": [
+        "plan your week in advance",
+        "focus on high-priority tasks first",
+        "avoid multitasking while studying"
+      ]
+    },
+    {
+      "id": "ST030",
+      "problem": "i don't know the best way to study",
+      "category": "study",
+      "cause": "lack_of_focus",
+      "difficulty": "easy",
+      "keywords": [
+        "study method",
+        "learning",
+        "revision",
+        "student",
+        "technique",
+        "education",
+        "exam",
+        "practice",
+        "strategy",
+        "study"
+      ],
+      "tags": [
+        "student",
+        "learning",
+        "education",
+        "productivity"
+      ],
+      "related_causes": [
+        "poor_time_management"
+      ],
+      "solutions": [
+        "experiment with active recall and spaced repetition",
+        "identify which learning style works best for you",
+        "review your progress and adjust your study method regularly"
+      ]
     }
   ],
-
   "career": [
     {
-      "problem": "i don't know which career to choose",
+      "id": "CR001",
+      "problem": "i don't know which career is right for me",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "hard",
+      "keywords": [
+        "career",
+        "choice",
+        "future",
+        "job",
+        "profession",
+        "skills",
+        "interest",
+        "student",
+        "planning",
+        "guidance"
+      ],
+      "tags": [
+        "career",
+        "career_growth",
+        "planning",
+        "student"
+      ],
+      "related_causes": [
+        "low_confidence",
+        "stress"
+      ],
       "solutions": [
-        "list your interests and strengths",
-        "research careers related to your skills",
-        "try internships or short courses"
+        "list your interests, strengths, and long-term goals",
+        "research careers that match your skills",
+        "talk to professionals or mentors in your preferred field"
       ]
     },
     {
-      "problem": "i am not confident in interviews",
+      "id": "CR002",
+      "problem": "i keep getting rejected from jobs",
+      "category": "career",
+      "cause": "low_confidence",
+      "difficulty": "hard",
+      "keywords": [
+        "job",
+        "rejection",
+        "career",
+        "employment",
+        "interview",
+        "resume",
+        "application",
+        "skills",
+        "company",
+        "hiring"
+      ],
+      "tags": [
+        "career",
+        "job_search",
+        "interview",
+        "confidence"
+      ],
+      "related_causes": [
+        "career_confusion",
+        "stress"
+      ],
       "solutions": [
-        "practice common interview questions",
-        "record yourself and improve communication",
-        "prepare examples of your past work"
+        "review and improve your resume",
+        "ask for feedback after interviews whenever possible",
+        "continue applying while improving your skills"
       ]
     },
     {
-      "problem": "i keep getting rejected in jobs",
+      "id": "CR003",
+      "problem": "i don't have enough skills for the job i want",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "moderate",
+      "keywords": [
+        "skills",
+        "career",
+        "job",
+        "learning",
+        "course",
+        "experience",
+        "training",
+        "employment",
+        "qualification",
+        "growth"
+      ],
+      "tags": [
+        "career",
+        "learning",
+        "career_growth",
+        "skills"
+      ],
+      "related_causes": [
+        "low_confidence",
+        "stress"
+      ],
       "solutions": [
-        "improve your resume and tailor it for each job",
-        "work on communication and soft skills",
-        "apply consistently and track feedback"
+        "identify the required skills from job descriptions",
+        "take relevant online courses and certifications",
+        "build projects to demonstrate your abilities"
       ]
     },
     {
-      "problem": "i don't have enough skills for a job",
+      "id": "CR004",
+      "problem": "i get nervous during interviews",
+      "category": "career",
+      "cause": "stress",
+      "difficulty": "moderate",
+      "keywords": [
+        "interview",
+        "nervous",
+        "stress",
+        "job",
+        "questions",
+        "confidence",
+        "career",
+        "communication",
+        "anxiety",
+        "hiring"
+      ],
+      "tags": [
+        "career",
+        "interview",
+        "stress",
+        "communication"
+      ],
+      "related_causes": [
+        "low_confidence",
+        "career_confusion"
+      ],
       "solutions": [
-        "identify required skills from job descriptions",
-        "take online courses and build projects",
-        "practice daily and track progress"
+        "practice mock interviews regularly",
+        "prepare answers for common interview questions",
+        "focus on speaking clearly rather than perfectly"
       ]
     },
     {
-      "problem": "i feel stuck in my career",
+      "id": "CR005",
+      "problem": "my resume is not getting shortlisted",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "moderate",
+      "keywords": [
+        "resume",
+        "cv",
+        "job",
+        "application",
+        "career",
+        "ats",
+        "skills",
+        "experience",
+        "employment",
+        "shortlist"
+      ],
+      "tags": [
+        "career",
+        "resume",
+        "job_search",
+        "career_growth"
+      ],
+      "related_causes": [
+        "low_confidence"
+      ],
       "solutions": [
-        "learn new skills relevant to your field",
-        "seek mentorship or guidance",
-        "set clear short term and long term goals"
+        "customize your resume for each job",
+        "highlight measurable achievements",
+        "keep the resume concise and error free"
+      ]
+    },
+    {
+      "id": "CR006",
+      "problem": "i don't have any work experience",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "moderate",
+      "keywords": [
+        "experience",
+        "fresher",
+        "job",
+        "internship",
+        "career",
+        "employment",
+        "skills",
+        "graduate",
+        "portfolio",
+        "learning"
+      ],
+      "tags": [
+        "career",
+        "job_search",
+        "career_growth",
+        "learning"
+      ],
+      "related_causes": [
+        "low_confidence"
+      ],
+      "solutions": [
+        "apply for internships and freelance projects",
+        "build a portfolio showcasing your work",
+        "participate in open-source or volunteer projects"
+      ]
+    },
+    {
+      "id": "CR007",
+      "problem": "i don't know how to prepare for interviews",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "easy",
+      "keywords": [
+        "interview",
+        "preparation",
+        "questions",
+        "job",
+        "career",
+        "practice",
+        "communication",
+        "confidence",
+        "company",
+        "research"
+      ],
+      "tags": [
+        "career",
+        "interview",
+        "learning",
+        "communication"
+      ],
+      "related_causes": [
+        "stress",
+        "low_confidence"
+      ],
+      "solutions": [
+        "research the company before the interview",
+        "practice common HR and technical questions",
+        "prepare examples from your own experience"
+      ]
+    },
+    {
+      "id": "CR008",
+      "problem": "i am afraid of changing my career",
+      "category": "career",
+      "cause": "stress",
+      "difficulty": "hard",
+      "keywords": [
+        "career change",
+        "fear",
+        "future",
+        "job",
+        "transition",
+        "planning",
+        "risk",
+        "career",
+        "growth",
+        "confidence"
+      ],
+      "tags": [
+        "career",
+        "career_growth",
+        "confidence",
+        "planning"
+      ],
+      "related_causes": [
+        "career_confusion",
+        "low_confidence"
+      ],
+      "solutions": [
+        "research your target field thoroughly",
+        "learn the required skills before switching",
+        "make the transition gradually if possible"
+      ]
+    },
+    {
+      "id": "CR009",
+      "problem": "i don't know what skills employers want",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "easy",
+      "keywords": [
+        "skills",
+        "employer",
+        "job",
+        "career",
+        "requirements",
+        "technology",
+        "communication",
+        "learning",
+        "industry",
+        "employment"
+      ],
+      "tags": [
+        "career",
+        "career_growth",
+        "learning",
+        "skills"
+      ],
+      "related_causes": [
+        "low_confidence"
+      ],
+      "solutions": [
+        "read multiple job descriptions in your field",
+        "identify the most common required skills",
+        "prioritize learning those high-demand skills"
+      ]
+    },
+    {
+      "id": "CR010",
+      "problem": "i feel like i am not good enough for my dream job",
+      "category": "career",
+      "cause": "low_confidence",
+      "difficulty": "moderate",
+      "keywords": [
+        "confidence",
+        "career",
+        "dream job",
+        "skills",
+        "self doubt",
+        "employment",
+        "future",
+        "growth",
+        "motivation",
+        "career goals"
+      ],
+      "tags": [
+        "career",
+        "confidence",
+        "mental_health",
+        "career_growth"
+      ],
+      "related_causes": [
+        "stress",
+        "career_confusion"
+      ],
+      "solutions": [
+        "focus on improving one skill at a time",
+        "keep a record of your achievements",
+        "remember that expertise develops through consistent practice"
+      ]
+    },
+    {
+      "id": "CR011",
+      "problem": "i am not getting interview calls",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "moderate",
+      "keywords": [
+        "interview",
+        "job",
+        "resume",
+        "application",
+        "career",
+        "shortlist",
+        "employment",
+        "company",
+        "hiring",
+        "cv"
+      ],
+      "tags": [
+        "career",
+        "job_search",
+        "resume",
+        "interview"
+      ],
+      "related_causes": [
+        "low_confidence"
+      ],
+      "solutions": [
+        "tailor your resume for every application",
+        "apply to jobs that match your current skills",
+        "improve your LinkedIn profile and portfolio"
+      ]
+    },
+    {
+      "id": "CR012",
+      "problem": "i don't know how to write a good resume",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "easy",
+      "keywords": [
+        "resume",
+        "cv",
+        "career",
+        "job",
+        "application",
+        "skills",
+        "experience",
+        "employment",
+        "ats",
+        "writing"
+      ],
+      "tags": [
+        "career",
+        "resume",
+        "job_search",
+        "learning"
+      ],
+      "related_causes": [
+        "low_confidence"
+      ],
+      "solutions": [
+        "keep your resume limited to relevant information",
+        "highlight measurable achievements",
+        "use a clean and ATS-friendly format"
+      ]
+    },
+    {
+      "id": "CR013",
+      "problem": "i don't know how to build a portfolio",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "easy",
+      "keywords": [
+        "portfolio",
+        "projects",
+        "career",
+        "job",
+        "github",
+        "design",
+        "developer",
+        "experience",
+        "skills",
+        "resume"
+      ],
+      "tags": [
+        "career",
+        "career_growth",
+        "learning",
+        "projects"
+      ],
+      "related_causes": [
+        "low_confidence"
+      ],
+      "solutions": [
+        "include your best projects with clear descriptions",
+        "show measurable results wherever possible",
+        "keep your portfolio updated regularly"
+      ]
+    },
+    {
+      "id": "CR014",
+      "problem": "i feel underqualified for job applications",
+      "category": "career",
+      "cause": "low_confidence",
+      "difficulty": "moderate",
+      "keywords": [
+        "underqualified",
+        "job",
+        "career",
+        "confidence",
+        "application",
+        "skills",
+        "employment",
+        "experience",
+        "future",
+        "growth"
+      ],
+      "tags": [
+        "career",
+        "confidence",
+        "job_search",
+        "career_growth"
+      ],
+      "related_causes": [
+        "career_confusion",
+        "stress"
+      ],
+      "solutions": [
+        "apply if you meet most important requirements",
+        "focus on demonstrating transferable skills",
+        "continue learning while applying"
+      ]
+    },
+    {
+      "id": "CR015",
+      "problem": "i keep failing technical interviews",
+      "category": "career",
+      "cause": "stress",
+      "difficulty": "hard",
+      "keywords": [
+        "technical interview",
+        "coding",
+        "job",
+        "career",
+        "questions",
+        "programming",
+        "skills",
+        "practice",
+        "interview",
+        "employment"
+      ],
+      "tags": [
+        "career",
+        "interview",
+        "learning",
+        "career_growth"
+      ],
+      "related_causes": [
+        "low_confidence",
+        "career_confusion"
+      ],
+      "solutions": [
+        "practice coding problems consistently",
+        "review fundamental concepts regularly",
+        "simulate interview conditions before the actual interview"
+      ]
+    },
+    {
+      "id": "CR016",
+      "problem": "i don't know how to negotiate my salary",
+      "category": "career",
+      "cause": "low_confidence",
+      "difficulty": "moderate",
+      "keywords": [
+        "salary",
+        "negotiation",
+        "job",
+        "career",
+        "offer",
+        "employment",
+        "pay",
+        "company",
+        "communication",
+        "confidence"
+      ],
+      "tags": [
+        "career",
+        "communication",
+        "confidence",
+        "career_growth"
+      ],
+      "related_causes": [
+        "stress"
+      ],
+      "solutions": [
+        "research the market salary for your role",
+        "highlight your skills and achievements",
+        "negotiate politely using facts instead of emotions"
+      ]
+    },
+    {
+      "id": "CR017",
+      "problem": "i want to switch careers but don't know where to begin",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "hard",
+      "keywords": [
+        "career switch",
+        "change",
+        "future",
+        "job",
+        "planning",
+        "learning",
+        "transition",
+        "skills",
+        "career",
+        "growth"
+      ],
+      "tags": [
+        "career",
+        "planning",
+        "career_growth",
+        "learning"
+      ],
+      "related_causes": [
+        "stress",
+        "low_confidence"
+      ],
+      "solutions": [
+        "identify transferable skills from your current role",
+        "learn the essential skills for your target career",
+        "network with professionals in the new field"
+      ]
+    },
+    {
+      "id": "CR018",
+      "problem": "i feel stuck in my current job",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "moderate",
+      "keywords": [
+        "stuck",
+        "job",
+        "career",
+        "promotion",
+        "growth",
+        "future",
+        "employment",
+        "motivation",
+        "skills",
+        "planning"
+      ],
+      "tags": [
+        "career",
+        "career_growth",
+        "motivation",
+        "planning"
+      ],
+      "related_causes": [
+        "stress",
+        "low_confidence"
+      ],
+      "solutions": [
+        "identify skills needed for your next role",
+        "discuss growth opportunities with your manager",
+        "create a long-term career development plan"
+      ]
+    },
+    {
+      "id": "CR019",
+      "problem": "i don't have confidence while speaking in interviews",
+      "category": "career",
+      "cause": "low_confidence",
+      "difficulty": "moderate",
+      "keywords": [
+        "confidence",
+        "communication",
+        "interview",
+        "job",
+        "career",
+        "speaking",
+        "presentation",
+        "employment",
+        "anxiety",
+        "questions"
+      ],
+      "tags": [
+        "career",
+        "communication",
+        "confidence",
+        "interview"
+      ],
+      "related_causes": [
+        "stress"
+      ],
+      "solutions": [
+        "practice answering questions aloud",
+        "record yourself and review your responses",
+        "maintain eye contact and speak at a steady pace"
+      ]
+    },
+    {
+      "id": "CR020",
+      "problem": "i don't know how to network professionally",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "easy",
+      "keywords": [
+        "networking",
+        "linkedin",
+        "career",
+        "connections",
+        "professional",
+        "job",
+        "communication",
+        "industry",
+        "employment",
+        "growth"
+      ],
+      "tags": [
+        "career",
+        "communication",
+        "career_growth",
+        "job_search"
+      ],
+      "related_causes": [
+        "low_confidence"
+      ],
+      "solutions": [
+        "connect with professionals in your field on LinkedIn",
+        "attend industry events and webinars",
+        "build genuine relationships instead of asking for jobs immediately"
+      ]
+    },
+    {
+      "id": "CR021",
+      "problem": "i don't know which companies i should apply to",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "easy",
+      "keywords": [
+        "companies",
+        "job",
+        "career",
+        "application",
+        "employment",
+        "industry",
+        "research",
+        "opportunities",
+        "planning",
+        "future"
+      ],
+      "tags": [
+        "career",
+        "job_search",
+        "planning",
+        "career_growth"
+      ],
+      "related_causes": [
+        "low_confidence"
+      ],
+      "solutions": [
+        "make a list of companies in your preferred industry",
+        "compare job descriptions and growth opportunities",
+        "apply to companies that match your skills and interests"
+      ]
+    },
+    {
+      "id": "CR022",
+      "problem": "i am confused between two career options",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "hard",
+      "keywords": [
+        "career",
+        "choice",
+        "decision",
+        "future",
+        "profession",
+        "planning",
+        "skills",
+        "interest",
+        "comparison",
+        "goal"
+      ],
+      "tags": [
+        "career",
+        "planning",
+        "career_growth",
+        "student"
+      ],
+      "related_causes": [
+        "stress",
+        "low_confidence"
+      ],
+      "solutions": [
+        "compare both careers based on your interests and long-term goals",
+        "research salary, growth, and work-life balance",
+        "talk to professionals working in both fields"
+      ]
+    },
+    {
+      "id": "CR023",
+      "problem": "i don't know how to answer hr interview questions",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "easy",
+      "keywords": [
+        "hr",
+        "interview",
+        "questions",
+        "communication",
+        "job",
+        "career",
+        "preparation",
+        "confidence",
+        "employment",
+        "practice"
+      ],
+      "tags": [
+        "career",
+        "interview",
+        "communication",
+        "learning"
+      ],
+      "related_causes": [
+        "stress",
+        "low_confidence"
+      ],
+      "solutions": [
+        "prepare answers using real examples",
+        "practice with a friend or mentor",
+        "keep your answers honest and concise"
+      ]
+    },
+    {
+      "id": "CR024",
+      "problem": "i struggle to communicate during meetings",
+      "category": "career",
+      "cause": "low_confidence",
+      "difficulty": "moderate",
+      "keywords": [
+        "meeting",
+        "communication",
+        "confidence",
+        "office",
+        "career",
+        "presentation",
+        "speaking",
+        "team",
+        "discussion",
+        "workplace"
+      ],
+      "tags": [
+        "career",
+        "communication",
+        "confidence",
+        "career_growth"
+      ],
+      "related_causes": [
+        "stress"
+      ],
+      "solutions": [
+        "prepare key points before meetings",
+        "start by contributing small ideas",
+        "practice speaking clearly and confidently"
+      ]
+    },
+    {
+      "id": "CR025",
+      "problem": "i am not getting promoted",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "hard",
+      "keywords": [
+        "promotion",
+        "career",
+        "growth",
+        "office",
+        "performance",
+        "manager",
+        "skills",
+        "workplace",
+        "job",
+        "development"
+      ],
+      "tags": [
+        "career",
+        "career_growth",
+        "planning",
+        "performance"
+      ],
+      "related_causes": [
+        "low_confidence",
+        "stress"
+      ],
+      "solutions": [
+        "ask for constructive feedback from your manager",
+        "improve skills required for the next role",
+        "document your achievements throughout the year"
+      ]
+    },
+    {
+      "id": "CR026",
+      "problem": "i don't know how to ask for a promotion",
+      "category": "career",
+      "cause": "low_confidence",
+      "difficulty": "moderate",
+      "keywords": [
+        "promotion",
+        "salary",
+        "manager",
+        "career",
+        "confidence",
+        "communication",
+        "growth",
+        "office",
+        "performance",
+        "discussion"
+      ],
+      "tags": [
+        "career",
+        "communication",
+        "confidence",
+        "career_growth"
+      ],
+      "related_causes": [
+        "stress"
+      ],
+      "solutions": [
+        "schedule a professional discussion with your manager",
+        "present evidence of your contributions",
+        "be prepared to discuss your future goals"
+      ]
+    },
+    {
+      "id": "CR027",
+      "problem": "i feel burned out because of work",
+      "category": "career",
+      "cause": "stress",
+      "difficulty": "hard",
+      "keywords": [
+        "burnout",
+        "stress",
+        "work",
+        "career",
+        "office",
+        "fatigue",
+        "mental health",
+        "workload",
+        "balance",
+        "employee"
+      ],
+      "tags": [
+        "career",
+        "stress",
+        "mental_health",
+        "health"
+      ],
+      "related_causes": [
+        "lack_of_energy",
+        "poor_sleep"
+      ],
+      "solutions": [
+        "take regular breaks during work",
+        "set healthy work boundaries",
+        "discuss workload concerns with your manager if needed"
+      ]
+    },
+    {
+      "id": "CR028",
+      "problem": "i have conflicts with my coworkers",
+      "category": "career",
+      "cause": "stress",
+      "difficulty": "moderate",
+      "keywords": [
+        "coworkers",
+        "team",
+        "office",
+        "conflict",
+        "communication",
+        "career",
+        "workplace",
+        "argument",
+        "employee",
+        "relationship"
+      ],
+      "tags": [
+        "career",
+        "communication",
+        "stress",
+        "workplace"
+      ],
+      "related_causes": [
+        "low_confidence"
+      ],
+      "solutions": [
+        "address issues calmly and respectfully",
+        "focus on solving problems instead of assigning blame",
+        "seek mediation from your manager if necessary"
+      ]
+    },
+    {
+      "id": "CR029",
+      "problem": "i don't know how to improve my communication skills",
+      "category": "career",
+      "cause": "low_confidence",
+      "difficulty": "easy",
+      "keywords": [
+        "communication",
+        "speaking",
+        "confidence",
+        "career",
+        "presentation",
+        "interview",
+        "english",
+        "professional",
+        "conversation",
+        "skills"
+      ],
+      "tags": [
+        "career",
+        "communication",
+        "confidence",
+        "learning"
+      ],
+      "related_causes": [
+        "stress"
+      ],
+      "solutions": [
+        "practice speaking every day",
+        "record yourself to identify areas for improvement",
+        "join public speaking or discussion groups"
+      ]
+    },
+    {
+      "id": "CR030",
+      "problem": "i don't have a clear long-term career plan",
+      "category": "career",
+      "cause": "career_confusion",
+      "difficulty": "hard",
+      "keywords": [
+        "career plan",
+        "future",
+        "goal",
+        "planning",
+        "career",
+        "growth",
+        "development",
+        "profession",
+        "success",
+        "roadmap"
+      ],
+      "tags": [
+        "career",
+        "planning",
+        "career_growth",
+        "future"
+      ],
+      "related_causes": [
+        "low_confidence",
+        "stress"
+      ],
+      "solutions": [
+        "define your 1-year, 3-year, and 5-year career goals",
+        "identify the skills required for each milestone",
+        "review and update your career plan every six months"
       ]
     }
   ],
-
   "productivity": [
     {
-      "problem": "i waste too much time on phone",
+      "id": "PR001",
+      "problem": "i waste too much time every day",
+      "category": "productivity",
+      "cause": "poor_time_management",
+      "difficulty": "moderate",
+      "keywords": [
+        "time",
+        "waste",
+        "productivity",
+        "routine",
+        "schedule",
+        "daily",
+        "planning",
+        "focus",
+        "discipline",
+        "efficiency"
+      ],
+      "tags": [
+        "productivity",
+        "time_management",
+        "discipline",
+        "habits"
+      ],
+      "related_causes": [
+        "phone_addiction",
+        "procrastination"
+      ],
       "solutions": [
-        "use app blockers during work time",
-        "keep phone in another room",
-        "set specific time slots for phone usage"
+        "track how you spend your time for one week",
+        "plan your day the night before",
+        "prioritize high-impact tasks first"
       ]
     },
     {
-      "problem": "i can't stay consistent",
+      "id": "PR002",
+      "problem": "i keep procrastinating important work",
+      "category": "productivity",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "procrastination",
+        "delay",
+        "tasks",
+        "work",
+        "deadline",
+        "motivation",
+        "discipline",
+        "productivity",
+        "planning",
+        "focus"
+      ],
+      "tags": [
+        "productivity",
+        "discipline",
+        "habits",
+        "time_management"
+      ],
+      "related_causes": [
+        "phone_addiction",
+        "poor_time_management",
+        "stress"
+      ],
       "solutions": [
-        "start with small habits",
-        "track progress daily",
-        "avoid setting unrealistic goals"
+        "break big tasks into smaller actions",
+        "start with just five minutes of work",
+        "set deadlines for each small task"
       ]
     },
     {
-      "problem": "i feel lazy all the time",
+      "id": "PR003",
+      "problem": "i get distracted by social media",
+      "category": "productivity",
+      "cause": "phone_addiction",
+      "difficulty": "moderate",
+      "keywords": [
+        "social media",
+        "instagram",
+        "youtube",
+        "facebook",
+        "phone",
+        "distraction",
+        "focus",
+        "productivity",
+        "scrolling",
+        "notifications"
+      ],
+      "tags": [
+        "productivity",
+        "phone",
+        "social_media",
+        "focus"
+      ],
+      "related_causes": [
+        "lack_of_focus",
+        "procrastination"
+      ],
       "solutions": [
-        "break tasks into smaller steps",
-        "start with the easiest task",
-        "create a routine and stick to it"
+        "use app blockers during work hours",
+        "disable unnecessary notifications",
+        "keep your phone away while working"
       ]
     },
     {
-      "problem": "i get distracted easily",
+      "id": "PR004",
+      "problem": "i can't stay consistent with my goals",
+      "category": "productivity",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "consistency",
+        "goals",
+        "discipline",
+        "routine",
+        "habit",
+        "progress",
+        "motivation",
+        "daily",
+        "productivity",
+        "success"
+      ],
+      "tags": [
+        "productivity",
+        "discipline",
+        "habits",
+        "motivation"
+      ],
+      "related_causes": [
+        "poor_time_management",
+        "stress"
+      ],
       "solutions": [
-        "work in a distraction free environment",
-        "use noise cancelling or focus music",
-        "set clear time blocks for tasks"
+        "focus on daily habits instead of motivation",
+        "track your progress visually",
+        "avoid missing two consecutive days"
       ]
     },
     {
-      "problem": "i don't complete what i start",
+      "id": "PR005",
+      "problem": "i have too many unfinished tasks",
+      "category": "productivity",
+      "cause": "poor_time_management",
+      "difficulty": "moderate",
+      "keywords": [
+        "unfinished",
+        "tasks",
+        "projects",
+        "work",
+        "planning",
+        "priority",
+        "productivity",
+        "time",
+        "organization",
+        "schedule"
+      ],
+      "tags": [
+        "productivity",
+        "planning",
+        "time_management",
+        "discipline"
+      ],
+      "related_causes": [
+        "procrastination",
+        "lack_of_focus"
+      ],
       "solutions": [
-        "set deadlines for tasks",
-        "focus on one task at a time",
-        "track completion progress"
+        "finish one important task before starting another",
+        "limit your daily task list",
+        "review unfinished work every evening"
+      ]
+    },
+    {
+      "id": "PR006",
+      "problem": "i can't manage my daily schedule",
+      "category": "productivity",
+      "cause": "poor_time_management",
+      "difficulty": "easy",
+      "keywords": [
+        "schedule",
+        "routine",
+        "planning",
+        "calendar",
+        "daily",
+        "time",
+        "organization",
+        "productivity",
+        "tasks"
+      ],
+      "tags": [
+        "productivity",
+        "planning",
+        "time_management",
+        "habits"
+      ],
+      "related_causes": [
+        "procrastination"
+      ],
+      "solutions": [
+        "plan your next day before sleeping",
+        "assign time blocks to important tasks",
+        "leave buffer time for unexpected work"
+      ]
+    },
+    {
+      "id": "PR007",
+      "problem": "i always miss deadlines",
+      "category": "productivity",
+      "cause": "poor_time_management",
+      "difficulty": "hard",
+      "keywords": [
+        "deadline",
+        "late",
+        "time",
+        "planning",
+        "work",
+        "schedule",
+        "productivity",
+        "organization",
+        "priority",
+        "tasks"
+      ],
+      "tags": [
+        "productivity",
+        "time_management",
+        "planning",
+        "discipline"
+      ],
+      "related_causes": [
+        "procrastination",
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "start tasks earlier than necessary",
+        "set personal deadlines before official ones",
+        "track deadlines using a calendar"
+      ]
+    },
+    {
+      "id": "PR008",
+      "problem": "i can't stop overthinking before starting work",
+      "category": "productivity",
+      "cause": "stress",
+      "difficulty": "moderate",
+      "keywords": [
+        "overthinking",
+        "stress",
+        "work",
+        "thinking",
+        "focus",
+        "decision",
+        "productivity",
+        "anxiety",
+        "planning",
+        "mind"
+      ],
+      "tags": [
+        "productivity",
+        "stress",
+        "mental_health",
+        "focus"
+      ],
+      "related_causes": [
+        "procrastination",
+        "low_confidence"
+      ],
+      "solutions": [
+        "start working before trying to feel ready",
+        "write your thoughts on paper",
+        "focus only on the next small step"
+      ]
+    },
+    {
+      "id": "PR009",
+      "problem": "i lose focus while working",
+      "category": "productivity",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "focus",
+        "work",
+        "attention",
+        "distraction",
+        "productivity",
+        "concentration",
+        "tasks",
+        "thinking",
+        "efficiency",
+        "performance"
+      ],
+      "tags": [
+        "productivity",
+        "focus",
+        "discipline",
+        "work"
+      ],
+      "related_causes": [
+        "phone_addiction",
+        "poor_sleep",
+        "stress"
+      ],
+      "solutions": [
+        "work in 25 to 50 minute focus blocks",
+        "remove distractions before starting",
+        "work on one task at a time"
+      ]
+    },
+    {
+      "id": "PR010",
+      "problem": "i don't know how to prioritize my work",
+      "category": "productivity",
+      "cause": "poor_time_management",
+      "difficulty": "easy",
+      "keywords": [
+        "priority",
+        "planning",
+        "tasks",
+        "work",
+        "organization",
+        "schedule",
+        "important",
+        "urgent",
+        "productivity",
+        "time"
+      ],
+      "tags": [
+        "productivity",
+        "planning",
+        "time_management",
+        "discipline"
+      ],
+      "related_causes": [
+        "procrastination",
+        "stress"
+      ],
+      "solutions": [
+        "use the urgent-important matrix",
+        "complete the most important task first",
+        "review priorities every morning"
+      ]
+    },
+    {
+      "id": "PR011",
+      "problem": "i keep multitasking and never finish anything",
+      "category": "productivity",
+      "cause": "poor_time_management",
+      "difficulty": "moderate",
+      "keywords": [
+        "multitasking",
+        "focus",
+        "tasks",
+        "productivity",
+        "attention",
+        "work",
+        "efficiency",
+        "switching",
+        "planning",
+        "performance"
+      ],
+      "tags": [
+        "productivity",
+        "focus",
+        "time_management",
+        "discipline"
+      ],
+      "related_causes": [
+        "lack_of_focus",
+        "procrastination"
+      ],
+      "solutions": [
+        "work on one task until completion before switching",
+        "keep only one active priority at a time",
+        "disable unnecessary interruptions"
+      ]
+    },
+    {
+      "id": "PR012",
+      "problem": "i keep checking my phone while working",
+      "category": "productivity",
+      "cause": "phone_addiction",
+      "difficulty": "moderate",
+      "keywords": [
+        "phone",
+        "mobile",
+        "notifications",
+        "distraction",
+        "work",
+        "focus",
+        "productivity",
+        "scrolling",
+        "social media",
+        "habit"
+      ],
+      "tags": [
+        "productivity",
+        "phone",
+        "focus",
+        "habits"
+      ],
+      "related_causes": [
+        "lack_of_focus",
+        "procrastination"
+      ],
+      "solutions": [
+        "keep your phone outside your workspace",
+        "check notifications only during scheduled breaks",
+        "enable focus mode while working"
+      ]
+    },
+    {
+      "id": "PR013",
+      "problem": "i don't know how to build good habits",
+      "category": "productivity",
+      "cause": "procrastination",
+      "difficulty": "easy",
+      "keywords": [
+        "habits",
+        "routine",
+        "discipline",
+        "consistency",
+        "daily",
+        "productivity",
+        "goal",
+        "behavior",
+        "improvement",
+        "planning"
+      ],
+      "tags": [
+        "productivity",
+        "habits",
+        "discipline",
+        "motivation"
+      ],
+      "related_causes": [
+        "poor_time_management"
+      ],
+      "solutions": [
+        "start with one small habit at a time",
+        "attach new habits to existing routines",
+        "track your progress every day"
+      ]
+    },
+    {
+      "id": "PR014",
+      "problem": "i quit after making good progress",
+      "category": "productivity",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "quit",
+        "consistency",
+        "progress",
+        "habit",
+        "discipline",
+        "motivation",
+        "goal",
+        "routine",
+        "productivity",
+        "success"
+      ],
+      "tags": [
+        "productivity",
+        "discipline",
+        "habits",
+        "motivation"
+      ],
+      "related_causes": [
+        "stress",
+        "low_confidence"
+      ],
+      "solutions": [
+        "expect motivation to fluctuate",
+        "focus on maintaining routines instead of chasing motivation",
+        "review your reasons for starting"
+      ]
+    },
+    {
+      "id": "PR015",
+      "problem": "i spend too much time planning instead of doing",
+      "category": "productivity",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "planning",
+        "overplanning",
+        "action",
+        "productivity",
+        "execution",
+        "tasks",
+        "goal",
+        "routine",
+        "organization",
+        "progress"
+      ],
+      "tags": [
+        "productivity",
+        "planning",
+        "discipline",
+        "time_management"
+      ],
+      "related_causes": [
+        "stress",
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "limit planning time to a fixed duration",
+        "begin executing immediately after planning",
+        "review plans weekly instead of constantly"
+      ]
+    },
+    {
+      "id": "PR016",
+      "problem": "i get overwhelmed by a large workload",
+      "category": "productivity",
+      "cause": "stress",
+      "difficulty": "hard",
+      "keywords": [
+        "workload",
+        "stress",
+        "tasks",
+        "pressure",
+        "productivity",
+        "planning",
+        "deadline",
+        "priority",
+        "organization",
+        "work"
+      ],
+      "tags": [
+        "productivity",
+        "stress",
+        "planning",
+        "time_management"
+      ],
+      "related_causes": [
+        "poor_time_management",
+        "procrastination"
+      ],
+      "solutions": [
+        "break large workloads into smaller milestones",
+        "prioritize the highest-impact tasks",
+        "delegate work where appropriate"
+      ]
+    },
+    {
+      "id": "PR017",
+      "problem": "i keep postponing difficult tasks",
+      "category": "productivity",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "difficult tasks",
+        "avoidance",
+        "delay",
+        "procrastination",
+        "work",
+        "focus",
+        "discipline",
+        "planning",
+        "productivity",
+        "goal"
+      ],
+      "tags": [
+        "productivity",
+        "discipline",
+        "time_management",
+        "habits"
+      ],
+      "related_causes": [
+        "stress",
+        "low_confidence"
+      ],
+      "solutions": [
+        "do the hardest task first each day",
+        "reduce large tasks into manageable steps",
+        "reward yourself after completion"
+      ]
+    },
+    {
+      "id": "PR018",
+      "problem": "i don't know how to stay productive while working from home",
+      "category": "productivity",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "work from home",
+        "remote work",
+        "home",
+        "focus",
+        "routine",
+        "workspace",
+        "productivity",
+        "discipline",
+        "schedule",
+        "office"
+      ],
+      "tags": [
+        "productivity",
+        "focus",
+        "habits",
+        "time_management"
+      ],
+      "related_causes": [
+        "phone_addiction",
+        "poor_time_management"
+      ],
+      "solutions": [
+        "create a dedicated workspace",
+        "follow fixed working hours",
+        "avoid household distractions during work time"
+      ]
+    },
+    {
+      "id": "PR019",
+      "problem": "i keep forgetting important tasks",
+      "category": "productivity",
+      "cause": "poor_time_management",
+      "difficulty": "easy",
+      "keywords": [
+        "forget",
+        "tasks",
+        "reminder",
+        "planning",
+        "productivity",
+        "schedule",
+        "organization",
+        "memory",
+        "work",
+        "daily"
+      ],
+      "tags": [
+        "productivity",
+        "planning",
+        "time_management",
+        "organization"
+      ],
+      "related_causes": [
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "maintain a single task list",
+        "set reminders for important deadlines",
+        "review your tasks every morning and evening"
+      ]
+    },
+    {
+      "id": "PR020",
+      "problem": "i struggle to finish what i start",
+      "category": "productivity",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "finish",
+        "complete",
+        "tasks",
+        "focus",
+        "discipline",
+        "consistency",
+        "projects",
+        "productivity",
+        "goal",
+        "progress"
+      ],
+      "tags": [
+        "productivity",
+        "focus",
+        "discipline",
+        "habits"
+      ],
+      "related_causes": [
+        "procrastination",
+        "poor_time_management"
+      ],
+      "solutions": [
+        "finish one project before starting another",
+        "set clear completion milestones",
+        "track completed work to build momentum"
+      ]
+    },
+    {
+      "id": "PR021",
+      "problem": "i can't stick to my daily routine",
+      "category": "productivity",
+      "cause": "poor_time_management",
+      "difficulty": "moderate",
+      "keywords": [
+        "routine",
+        "daily",
+        "schedule",
+        "habit",
+        "discipline",
+        "consistency",
+        "planning",
+        "productivity",
+        "time",
+        "organization"
+      ],
+      "tags": [
+        "productivity",
+        "habits",
+        "discipline",
+        "time_management"
+      ],
+      "related_causes": [
+        "procrastination",
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "follow the same wake-up and sleep schedule",
+        "build routines around fixed daily events",
+        "review your routine every week and adjust it gradually"
+      ]
+    },
+    {
+      "id": "PR022",
+      "problem": "i get mentally exhausted before finishing my work",
+      "category": "productivity",
+      "cause": "lack_of_energy",
+      "difficulty": "hard",
+      "keywords": [
+        "mental fatigue",
+        "energy",
+        "focus",
+        "work",
+        "burnout",
+        "productivity",
+        "tired",
+        "concentration",
+        "performance",
+        "efficiency"
+      ],
+      "tags": [
+        "productivity",
+        "health",
+        "focus",
+        "energy"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "stress"
+      ],
+      "solutions": [
+        "take short recovery breaks between focus sessions",
+        "schedule demanding work during your peak energy hours",
+        "maintain healthy sleep and hydration"
+      ]
+    },
+    {
+      "id": "PR023",
+      "problem": "i keep changing my goals",
+      "category": "productivity",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "goals",
+        "planning",
+        "consistency",
+        "focus",
+        "direction",
+        "discipline",
+        "productivity",
+        "decision",
+        "future",
+        "priority"
+      ],
+      "tags": [
+        "productivity",
+        "planning",
+        "focus",
+        "discipline"
+      ],
+      "related_causes": [
+        "low_confidence",
+        "stress"
+      ],
+      "solutions": [
+        "commit to one goal for a fixed period",
+        "write down why the goal matters",
+        "review progress before changing direction"
+      ]
+    },
+    {
+      "id": "PR024",
+      "problem": "i spend too much time on unimportant tasks",
+      "category": "productivity",
+      "cause": "poor_time_management",
+      "difficulty": "moderate",
+      "keywords": [
+        "priority",
+        "time",
+        "tasks",
+        "busy",
+        "important",
+        "urgent",
+        "planning",
+        "productivity",
+        "organization",
+        "efficiency"
+      ],
+      "tags": [
+        "productivity",
+        "planning",
+        "time_management",
+        "discipline"
+      ],
+      "related_causes": [
+        "lack_of_focus",
+        "procrastination"
+      ],
+      "solutions": [
+        "identify your three most important tasks each day",
+        "complete important work before minor tasks",
+        "avoid spending excessive time on low-value activities"
+      ]
+    },
+    {
+      "id": "PR025",
+      "problem": "i wait until i feel motivated to start working",
+      "category": "productivity",
+      "cause": "procrastination",
+      "difficulty": "easy",
+      "keywords": [
+        "motivation",
+        "start",
+        "discipline",
+        "work",
+        "productivity",
+        "habit",
+        "consistency",
+        "routine",
+        "focus",
+        "action"
+      ],
+      "tags": [
+        "productivity",
+        "motivation",
+        "discipline",
+        "habits"
+      ],
+      "related_causes": [
+        "low_confidence"
+      ],
+      "solutions": [
+        "start working before you feel motivated",
+        "build habits that don't rely on emotions",
+        "celebrate completing small actions consistently"
+      ]
+    },
+    {
+      "id": "PR026",
+      "problem": "i keep getting interrupted while working",
+      "category": "productivity",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "interruptions",
+        "focus",
+        "work",
+        "notifications",
+        "office",
+        "productivity",
+        "attention",
+        "distraction",
+        "environment",
+        "tasks"
+      ],
+      "tags": [
+        "productivity",
+        "focus",
+        "work",
+        "time_management"
+      ],
+      "related_causes": [
+        "phone_addiction"
+      ],
+      "solutions": [
+        "schedule uninterrupted focus blocks",
+        "inform others when you need focused work time",
+        "mute unnecessary notifications"
+      ]
+    },
+    {
+      "id": "PR027",
+      "problem": "i don't know how to organize my tasks",
+      "category": "productivity",
+      "cause": "poor_time_management",
+      "difficulty": "easy",
+      "keywords": [
+        "organization",
+        "tasks",
+        "planning",
+        "schedule",
+        "priority",
+        "list",
+        "productivity",
+        "workflow",
+        "routine",
+        "time"
+      ],
+      "tags": [
+        "productivity",
+        "planning",
+        "organization",
+        "time_management"
+      ],
+      "related_causes": [
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "maintain one centralized task list",
+        "group similar tasks together",
+        "review and organize tasks at the end of each day"
+      ]
+    },
+    {
+      "id": "PR028",
+      "problem": "i struggle to maintain a work life balance",
+      "category": "productivity",
+      "cause": "stress",
+      "difficulty": "hard",
+      "keywords": [
+        "work life balance",
+        "stress",
+        "health",
+        "time",
+        "routine",
+        "productivity",
+        "burnout",
+        "family",
+        "rest",
+        "career"
+      ],
+      "tags": [
+        "productivity",
+        "health",
+        "stress",
+        "habits"
+      ],
+      "related_causes": [
+        "lack_of_energy",
+        "poor_sleep"
+      ],
+      "solutions": [
+        "set clear work ending times",
+        "schedule personal and family time",
+        "avoid checking work after working hours whenever possible"
+      ]
+    },
+    {
+      "id": "PR029",
+      "problem": "i keep delaying small tasks until they become big problems",
+      "category": "productivity",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "delay",
+        "small tasks",
+        "procrastination",
+        "planning",
+        "discipline",
+        "deadline",
+        "work",
+        "productivity",
+        "organization",
+        "habit"
+      ],
+      "tags": [
+        "productivity",
+        "discipline",
+        "time_management",
+        "habits"
+      ],
+      "related_causes": [
+        "poor_time_management"
+      ],
+      "solutions": [
+        "finish small tasks immediately when possible",
+        "schedule recurring maintenance work",
+        "review pending tasks every evening"
+      ]
+    },
+    {
+      "id": "PR030",
+      "problem": "i don't know why i am not productive",
+      "category": "productivity",
+      "cause": "lack_of_focus",
+      "difficulty": "hard",
+      "keywords": [
+        "productivity",
+        "performance",
+        "focus",
+        "routine",
+        "discipline",
+        "habits",
+        "time",
+        "efficiency",
+        "goal",
+        "improvement"
+      ],
+      "tags": [
+        "productivity",
+        "focus",
+        "habits",
+        "discipline"
+      ],
+      "related_causes": [
+        "poor_time_management",
+        "procrastination",
+        "poor_sleep",
+        "phone_addiction",
+        "stress"
+      ],
+      "solutions": [
+        "track your daily activities for one week",
+        "identify your biggest productivity obstacles",
+        "improve one limiting habit at a time instead of changing everything"
       ]
     }
   ],
-
   "health": [
     {
+      "id": "HL001",
       "problem": "i can't sleep at night",
+      "category": "health",
+      "cause": "poor_sleep",
+      "difficulty": "hard",
+      "keywords": [
+        "sleep",
+        "insomnia",
+        "night",
+        "bed",
+        "rest",
+        "health",
+        "tired",
+        "fatigue",
+        "routine",
+        "sleep schedule"
+      ],
+      "tags": [
+        "health",
+        "sleep",
+        "habits"
+      ],
+      "related_causes": [
+        "stress",
+        "phone_addiction"
+      ],
       "solutions": [
-        "avoid screens 30 minutes before sleep",
-        "maintain a fixed sleep schedule",
-        "reduce caffeine intake in evening"
+        "maintain a consistent bedtime",
+        "avoid screens one hour before sleeping",
+        "keep your bedroom dark and quiet"
       ]
     },
     {
-      "problem": "i feel stressed all the time",
+      "id": "HL002",
+      "problem": "i always wake up feeling tired",
+      "category": "health",
+      "cause": "poor_sleep",
+      "difficulty": "moderate",
+      "keywords": [
+        "wake up",
+        "tired",
+        "fatigue",
+        "sleep",
+        "morning",
+        "energy",
+        "rest",
+        "health",
+        "routine",
+        "exhausted"
+      ],
+      "tags": [
+        "health",
+        "sleep",
+        "energy"
+      ],
+      "related_causes": [
+        "poor_nutrition",
+        "lack_of_exercise"
+      ],
       "solutions": [
-        "practice deep breathing or meditation",
-        "take short breaks during the day",
-        "talk to someone you trust"
+        "sleep for 7 to 9 hours regularly",
+        "avoid caffeine late in the day",
+        "wake up at the same time every morning"
       ]
     },
     {
-      "problem": "i have no energy during the day",
+      "id": "HL003",
+      "problem": "i feel tired all day",
+      "category": "health",
+      "cause": "lack_of_energy",
+      "difficulty": "moderate",
+      "keywords": [
+        "tired",
+        "fatigue",
+        "energy",
+        "health",
+        "weakness",
+        "sleep",
+        "nutrition",
+        "exercise",
+        "routine",
+        "daily"
+      ],
+      "tags": [
+        "health",
+        "energy",
+        "nutrition",
+        "exercise"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "poor_nutrition"
+      ],
       "solutions": [
-        "get enough sleep at night",
-        "eat balanced meals regularly",
-        "exercise lightly every day"
+        "eat balanced meals throughout the day",
+        "exercise regularly",
+        "improve your sleep schedule"
       ]
     },
     {
-      "problem": "i overthink everything",
+      "id": "HL004",
+      "problem": "i don't drink enough water",
+      "category": "health",
+      "cause": "poor_nutrition",
+      "difficulty": "easy",
+      "keywords": [
+        "water",
+        "hydration",
+        "health",
+        "dehydration",
+        "drink",
+        "habit",
+        "daily",
+        "nutrition",
+        "body",
+        "energy"
+      ],
+      "tags": [
+        "health",
+        "nutrition",
+        "habits"
+      ],
+      "related_causes": [
+        "lack_of_energy"
+      ],
       "solutions": [
-        "write down your thoughts",
-        "focus on what you can control",
-        "limit overanalysis by setting time limits"
+        "carry a reusable water bottle",
+        "set reminders to drink water",
+        "drink water before every meal"
       ]
     },
     {
-      "problem": "i feel anxious in social situations",
+      "id": "HL005",
+      "problem": "i skip breakfast every day",
+      "category": "health",
+      "cause": "poor_nutrition",
+      "difficulty": "easy",
+      "keywords": [
+        "breakfast",
+        "nutrition",
+        "meal",
+        "food",
+        "health",
+        "morning",
+        "energy",
+        "diet",
+        "habit",
+        "daily"
+      ],
+      "tags": [
+        "health",
+        "nutrition",
+        "habits"
+      ],
+      "related_causes": [
+        "poor_time_management"
+      ],
       "solutions": [
-        "start with small interactions",
-        "prepare topics to talk about",
-        "practice breathing techniques"
+        "prepare breakfast the night before",
+        "choose simple healthy meals",
+        "eat something within two hours of waking"
+      ]
+    },
+    {
+      "id": "HL006",
+      "problem": "i eat too much junk food",
+      "category": "health",
+      "cause": "poor_nutrition",
+      "difficulty": "moderate",
+      "keywords": [
+        "junk food",
+        "fast food",
+        "nutrition",
+        "diet",
+        "health",
+        "snacks",
+        "eating",
+        "food",
+        "habit",
+        "weight"
+      ],
+      "tags": [
+        "health",
+        "nutrition",
+        "habits"
+      ],
+      "related_causes": [
+        "stress"
+      ],
+      "solutions": [
+        "replace unhealthy snacks with healthier alternatives",
+        "avoid buying excessive junk food",
+        "plan your meals in advance"
+      ]
+    },
+    {
+      "id": "HL007",
+      "problem": "i don't exercise regularly",
+      "category": "health",
+      "cause": "lack_of_exercise",
+      "difficulty": "easy",
+      "keywords": [
+        "exercise",
+        "fitness",
+        "workout",
+        "health",
+        "activity",
+        "walking",
+        "gym",
+        "routine",
+        "body",
+        "movement"
+      ],
+      "tags": [
+        "health",
+        "exercise",
+        "habits"
+      ],
+      "related_causes": [
+        "lack_of_energy",
+        "procrastination"
+      ],
+      "solutions": [
+        "start with 20 minutes of walking",
+        "exercise at the same time every day",
+        "choose activities you enjoy"
+      ]
+    },
+    {
+      "id": "HL008",
+      "problem": "i have back pain from sitting too long",
+      "category": "health",
+      "cause": "lack_of_exercise",
+      "difficulty": "moderate",
+      "keywords": [
+        "back pain",
+        "sitting",
+        "posture",
+        "health",
+        "desk",
+        "computer",
+        "exercise",
+        "body",
+        "pain",
+        "office"
+      ],
+      "tags": [
+        "health",
+        "exercise",
+        "posture"
+      ],
+      "related_causes": [
+        "lack_of_energy"
+      ],
+      "solutions": [
+        "stand up every 30 to 60 minutes",
+        "improve your sitting posture",
+        "stretch your back regularly"
+      ]
+    },
+    {
+      "id": "HL009",
+      "problem": "my eyes hurt after using my phone or computer",
+      "category": "health",
+      "cause": "phone_addiction",
+      "difficulty": "easy",
+      "keywords": [
+        "eye strain",
+        "screen",
+        "phone",
+        "computer",
+        "vision",
+        "health",
+        "eyes",
+        "display",
+        "digital",
+        "pain"
+      ],
+      "tags": [
+        "health",
+        "phone",
+        "screen_time"
+      ],
+      "related_causes": [
+        "lack_of_focus"
+      ],
+      "solutions": [
+        "follow the 20-20-20 rule",
+        "reduce screen brightness when appropriate",
+        "take regular screen breaks"
+      ]
+    },
+    {
+      "id": "HL010",
+      "problem": "i get headaches frequently",
+      "category": "health",
+      "cause": "stress",
+      "difficulty": "moderate",
+      "keywords": [
+        "headache",
+        "pain",
+        "stress",
+        "health",
+        "migraine",
+        "sleep",
+        "hydration",
+        "fatigue",
+        "body",
+        "wellness"
+      ],
+      "tags": [
+        "health",
+        "stress",
+        "wellness"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "poor_nutrition"
+      ],
+      "solutions": [
+        "stay hydrated throughout the day",
+        "maintain regular sleep habits",
+        "consult a healthcare professional if headaches are severe or persistent"
+      ]
+    },
+    {
+      "id": "HL011",
+      "problem": "i spend too much time sitting every day",
+      "category": "health",
+      "cause": "lack_of_exercise",
+      "difficulty": "easy",
+      "keywords": [
+        "sitting",
+        "sedentary",
+        "exercise",
+        "movement",
+        "desk",
+        "health",
+        "body",
+        "activity",
+        "routine",
+        "fitness"
+      ],
+      "tags": [
+        "health",
+        "exercise",
+        "habits"
+      ],
+      "related_causes": [
+        "lack_of_energy"
+      ],
+      "solutions": [
+        "stand and stretch every hour",
+        "take short walking breaks",
+        "include light physical activity in your daily routine"
+      ]
+    },
+    {
+      "id": "HL012",
+      "problem": "i have poor posture while sitting",
+      "category": "health",
+      "cause": "lack_of_exercise",
+      "difficulty": "easy",
+      "keywords": [
+        "posture",
+        "back",
+        "neck",
+        "sitting",
+        "health",
+        "desk",
+        "spine",
+        "body",
+        "ergonomics",
+        "pain"
+      ],
+      "tags": [
+        "health",
+        "exercise",
+        "posture"
+      ],
+      "related_causes": [
+        "lack_of_energy"
+      ],
+      "solutions": [
+        "sit with your back supported",
+        "keep your screen at eye level",
+        "strengthen your core and back muscles"
+      ]
+    },
+    {
+      "id": "HL013",
+      "problem": "i don't get enough sunlight",
+      "category": "health",
+      "cause": "lack_of_exercise",
+      "difficulty": "easy",
+      "keywords": [
+        "sunlight",
+        "vitamin d",
+        "outside",
+        "health",
+        "morning",
+        "energy",
+        "exercise",
+        "routine",
+        "body",
+        "fresh air"
+      ],
+      "tags": [
+        "health",
+        "exercise",
+        "energy"
+      ],
+      "related_causes": [
+        "lack_of_energy"
+      ],
+      "solutions": [
+        "spend 15 to 30 minutes outdoors daily",
+        "combine sunlight exposure with walking",
+        "consult a doctor if vitamin D deficiency is suspected"
+      ]
+    },
+    {
+      "id": "HL014",
+      "problem": "i eat late at night",
+      "category": "health",
+      "cause": "poor_nutrition",
+      "difficulty": "easy",
+      "keywords": [
+        "late night",
+        "eating",
+        "food",
+        "nutrition",
+        "dinner",
+        "snacks",
+        "health",
+        "sleep",
+        "diet",
+        "habit"
+      ],
+      "tags": [
+        "health",
+        "nutrition",
+        "habits"
+      ],
+      "related_causes": [
+        "poor_sleep"
+      ],
+      "solutions": [
+        "eat dinner earlier whenever possible",
+        "avoid heavy meals before bedtime",
+        "plan healthy evening snacks if needed"
+      ]
+    },
+    {
+      "id": "HL015",
+      "problem": "i snack constantly even when i am not hungry",
+      "category": "health",
+      "cause": "poor_nutrition",
+      "difficulty": "moderate",
+      "keywords": [
+        "snacking",
+        "food",
+        "nutrition",
+        "eating",
+        "cravings",
+        "health",
+        "habit",
+        "diet",
+        "hunger",
+        "weight"
+      ],
+      "tags": [
+        "health",
+        "nutrition",
+        "habits"
+      ],
+      "related_causes": [
+        "stress"
+      ],
+      "solutions": [
+        "identify emotional eating triggers",
+        "keep healthy snacks available",
+        "drink water before reaching for snacks"
+      ]
+    },
+    {
+      "id": "HL016",
+      "problem": "i feel stressed most of the time",
+      "category": "health",
+      "cause": "stress",
+      "difficulty": "hard",
+      "keywords": [
+        "stress",
+        "mental health",
+        "pressure",
+        "anxiety",
+        "health",
+        "mind",
+        "tension",
+        "daily",
+        "wellbeing",
+        "relaxation"
+      ],
+      "tags": [
+        "health",
+        "stress",
+        "mental_health"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "lack_of_energy"
+      ],
+      "solutions": [
+        "practice relaxation techniques daily",
+        "exercise regularly",
+        "seek support if stress becomes overwhelming"
+      ]
+    },
+    {
+      "id": "HL017",
+      "problem": "i don't take breaks while working",
+      "category": "health",
+      "cause": "lack_of_energy",
+      "difficulty": "easy",
+      "keywords": [
+        "breaks",
+        "work",
+        "fatigue",
+        "focus",
+        "health",
+        "productivity",
+        "energy",
+        "routine",
+        "desk",
+        "burnout"
+      ],
+      "tags": [
+        "health",
+        "energy",
+        "habits"
+      ],
+      "related_causes": [
+        "stress"
+      ],
+      "solutions": [
+        "take a short break every hour",
+        "stretch during breaks",
+        "avoid working continuously for long periods"
+      ]
+    },
+    {
+      "id": "HL018",
+      "problem": "i don't know how to eat a balanced diet",
+      "category": "health",
+      "cause": "poor_nutrition",
+      "difficulty": "easy",
+      "keywords": [
+        "balanced diet",
+        "nutrition",
+        "food",
+        "healthy eating",
+        "protein",
+        "vegetables",
+        "health",
+        "meal",
+        "diet",
+        "planning"
+      ],
+      "tags": [
+        "health",
+        "nutrition",
+        "habits"
+      ],
+      "related_causes": [
+        "lack_of_energy"
+      ],
+      "solutions": [
+        "include fruits and vegetables in every meal",
+        "eat enough protein and whole grains",
+        "plan meals before grocery shopping"
+      ]
+    },
+    {
+      "id": "HL019",
+      "problem": "i rely too much on caffeine to stay awake",
+      "category": "health",
+      "cause": "poor_sleep",
+      "difficulty": "moderate",
+      "keywords": [
+        "caffeine",
+        "coffee",
+        "energy",
+        "sleep",
+        "health",
+        "fatigue",
+        "drinks",
+        "alertness",
+        "habit",
+        "daily"
+      ],
+      "tags": [
+        "health",
+        "sleep",
+        "nutrition"
+      ],
+      "related_causes": [
+        "lack_of_energy"
+      ],
+      "solutions": [
+        "reduce caffeine gradually",
+        "avoid caffeine late in the day",
+        "improve your sleep schedule instead of relying on stimulants"
+      ]
+    },
+    {
+      "id": "HL020",
+      "problem": "i feel physically weak most of the time",
+      "category": "health",
+      "cause": "lack_of_energy",
+      "difficulty": "moderate",
+      "keywords": [
+        "weakness",
+        "energy",
+        "fatigue",
+        "health",
+        "body",
+        "strength",
+        "nutrition",
+        "exercise",
+        "wellbeing",
+        "daily"
+      ],
+      "tags": [
+        "health",
+        "energy",
+        "exercise",
+        "nutrition"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "poor_nutrition",
+        "lack_of_exercise"
+      ],
+      "solutions": [
+        "eat nutritious meals consistently",
+        "exercise according to your fitness level",
+        "consult a healthcare professional if the weakness persists or worsens"
+      ]
+    },
+    {
+      "id": "HL021",
+      "problem": "i don't know how much sleep i actually need",
+      "category": "health",
+      "cause": "poor_sleep",
+      "difficulty": "easy",
+      "keywords": [
+        "sleep",
+        "sleep hours",
+        "rest",
+        "health",
+        "bedtime",
+        "routine",
+        "recovery",
+        "fatigue",
+        "sleep duration",
+        "wellness"
+      ],
+      "tags": [
+        "health",
+        "sleep",
+        "habits"
+      ],
+      "related_causes": [
+        "lack_of_energy"
+      ],
+      "solutions": [
+        "aim for 7 to 9 hours of sleep each night",
+        "maintain a consistent sleep schedule",
+        "adjust your sleep duration based on how rested you feel"
+      ]
+    },
+    {
+      "id": "HL022",
+      "problem": "i forget to take my medicines on time",
+      "category": "health",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "medicine",
+        "medication",
+        "reminder",
+        "health",
+        "treatment",
+        "routine",
+        "forget",
+        "daily",
+        "prescription",
+        "habit"
+      ],
+      "tags": [
+        "health",
+        "habits",
+        "focus"
+      ],
+      "related_causes": [
+        "poor_time_management"
+      ],
+      "solutions": [
+        "set daily medication reminders",
+        "use a pill organizer",
+        "take medicines at the same time each day"
+      ]
+    },
+    {
+      "id": "HL023",
+      "problem": "i breathe through my mouth while sleeping",
+      "category": "health",
+      "cause": "poor_sleep",
+      "difficulty": "moderate",
+      "keywords": [
+        "mouth breathing",
+        "sleep",
+        "breathing",
+        "health",
+        "night",
+        "snoring",
+        "airway",
+        "rest",
+        "sleep quality",
+        "nose"
+      ],
+      "tags": [
+        "health",
+        "sleep"
+      ],
+      "related_causes": [
+        "stress"
+      ],
+      "solutions": [
+        "sleep on your side if comfortable",
+        "address nasal congestion if present",
+        "consult a healthcare professional if it continues"
+      ]
+    },
+    {
+      "id": "HL024",
+      "problem": "i ignore my health until i get sick",
+      "category": "health",
+      "cause": "lack_of_focus",
+      "difficulty": "moderate",
+      "keywords": [
+        "prevention",
+        "health",
+        "checkup",
+        "routine",
+        "wellness",
+        "care",
+        "habits",
+        "healthy",
+        "lifestyle",
+        "awareness"
+      ],
+      "tags": [
+        "health",
+        "habits",
+        "wellness"
+      ],
+      "related_causes": [
+        "poor_time_management"
+      ],
+      "solutions": [
+        "schedule regular health checkups",
+        "pay attention to early symptoms",
+        "build healthy habits before problems appear"
+      ]
+    },
+    {
+      "id": "HL025",
+      "problem": "i don't know how to reduce my screen time",
+      "category": "health",
+      "cause": "phone_addiction",
+      "difficulty": "moderate",
+      "keywords": [
+        "screen time",
+        "phone",
+        "mobile",
+        "digital",
+        "health",
+        "social media",
+        "habit",
+        "technology",
+        "usage",
+        "device"
+      ],
+      "tags": [
+        "health",
+        "phone",
+        "habits"
+      ],
+      "related_causes": [
+        "lack_of_focus",
+        "poor_sleep"
+      ],
+      "solutions": [
+        "set daily screen time limits",
+        "keep devices away during meals and before bedtime",
+        "replace screen time with offline activities"
+      ]
+    },
+    {
+      "id": "HL026",
+      "problem": "i don't know how to build healthier daily habits",
+      "category": "health",
+      "cause": "lack_of_focus",
+      "difficulty": "easy",
+      "keywords": [
+        "healthy habits",
+        "routine",
+        "health",
+        "lifestyle",
+        "daily",
+        "discipline",
+        "wellness",
+        "improvement",
+        "consistency",
+        "habit"
+      ],
+      "tags": [
+        "health",
+        "habits",
+        "wellness"
+      ],
+      "related_causes": [
+        "procrastination"
+      ],
+      "solutions": [
+        "change one habit at a time",
+        "track healthy behaviors daily",
+        "focus on consistency instead of perfection"
+      ]
+    },
+    {
+      "id": "HL027",
+      "problem": "i don't spend enough time outdoors",
+      "category": "health",
+      "cause": "lack_of_exercise",
+      "difficulty": "easy",
+      "keywords": [
+        "outdoors",
+        "nature",
+        "walking",
+        "fresh air",
+        "health",
+        "exercise",
+        "sunlight",
+        "routine",
+        "activity",
+        "wellbeing"
+      ],
+      "tags": [
+        "health",
+        "exercise",
+        "wellness"
+      ],
+      "related_causes": [
+        "lack_of_energy"
+      ],
+      "solutions": [
+        "take a daily walk outside",
+        "combine outdoor time with exercise",
+        "schedule outdoor activities every week"
+      ]
+    },
+    {
+      "id": "HL028",
+      "problem": "i don't know whether my lifestyle is healthy",
+      "category": "health",
+      "cause": "lack_of_focus",
+      "difficulty": "easy",
+      "keywords": [
+        "healthy lifestyle",
+        "health",
+        "routine",
+        "wellness",
+        "habits",
+        "nutrition",
+        "exercise",
+        "sleep",
+        "assessment",
+        "daily"
+      ],
+      "tags": [
+        "health",
+        "wellness",
+        "habits"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "poor_nutrition",
+        "lack_of_exercise"
+      ],
+      "solutions": [
+        "evaluate your sleep, diet, and activity levels",
+        "identify one area to improve first",
+        "review your lifestyle every month"
+      ]
+    },
+    {
+      "id": "HL029",
+      "problem": "i don't know where to start improving my health",
+      "category": "health",
+      "cause": "lack_of_focus",
+      "difficulty": "easy",
+      "keywords": [
+        "health",
+        "start",
+        "wellness",
+        "routine",
+        "fitness",
+        "nutrition",
+        "sleep",
+        "exercise",
+        "improvement",
+        "goals"
+      ],
+      "tags": [
+        "health",
+        "wellness",
+        "habits"
+      ],
+      "related_causes": [
+        "poor_sleep",
+        "poor_nutrition",
+        "lack_of_exercise"
+      ],
+      "solutions": [
+        "begin with one healthy habit",
+        "set realistic weekly goals",
+        "build consistency before increasing difficulty"
+      ]
+    },
+    {
+      "id": "HL030",
+      "problem": "i want to become healthier but i can't stay consistent",
+      "category": "health",
+      "cause": "procrastination",
+      "difficulty": "moderate",
+      "keywords": [
+        "health",
+        "consistency",
+        "fitness",
+        "routine",
+        "habits",
+        "discipline",
+        "wellness",
+        "motivation",
+        "healthy lifestyle",
+        "goals"
+      ],
+      "tags": [
+        "health",
+        "habits",
+        "discipline",
+        "wellness"
+      ],
+      "related_causes": [
+        "lack_of_focus",
+        "poor_time_management"
+      ],
+      "solutions": [
+        "focus on small sustainable habits",
+        "track your progress every week",
+        "expect gradual improvement instead of quick results"
       ]
     }
   ]

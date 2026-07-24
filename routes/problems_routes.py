@@ -47,34 +47,10 @@ def solve_problem():
 
     lines = [l.strip() for l in original.split("\n") if l.strip()][:5]
 
-    if problems_collection is not None:
-        try:
-            for line in lines:
-
-                lang = detect_language(line)
-                text = translate_to_english(line) if lang != "en" else line
-
-                text = correct_text(text)
-
-                if not is_clean(text):
-                    continue
-
-                if is_negative_sentiment(text):
-                    continue
-
-                if not is_valid_problem(text):
-                    continue
-
-                problems_collection.insert_one({
-                    "text": line,
-                    "time": datetime.now(timezone.utc)
-                })
-
-        except Exception as e:
-            logging.error(f"Problem insertion failed: {e}")
-
     all_suggestions = []
     all_similar = []
+
+    analyses = []
 
     abuse_detected = False
     negative_detected = False
@@ -104,20 +80,66 @@ def solve_problem():
         category = category_result["category"]
         category_confidence = category_result["confidence"]
         category_matches = category_result["matched_words"]
-        cause_matches = cause_result["matched_words"]
+        
 
         cause = cause_result["cause"]
         cause_confidence = cause_result["confidence"]
+        cause_matches = cause_result["matched_words"]
 
-        print("=" * 50)
-        print("TEXT:", text)
-        print("CATEGORY:", category)
-        print("CATEGORY CONFIDENCE:", category_confidence)
-        print("CAUSE:", cause)
-        print("CAUSE CONFIDENCE:", cause_confidence)
-        print("CATEGORY MATCHES:", category_matches)
-        print("CAUSE MATCHES:", cause_matches)
-        print("=" * 50)
+        analyses.append({
+
+            "category": category,
+
+            "category_confidence": category_confidence,
+
+            "category_matches": category_matches,
+
+            "cause": cause,
+
+            "cause_confidence": cause_confidence,
+
+            "cause_matches": cause_matches
+
+        })
+
+        if problems_collection is not None:
+            try:
+
+                problems_collection.insert_one({
+
+                "text": line,
+
+                "processed_text": text,
+
+                "language": lang,
+
+                "category": category,
+
+                "category_confidence": category_confidence,
+
+                "cause": cause,
+
+                "cause_confidence": cause_confidence,
+
+                "created_at": datetime.now(timezone.utc)
+
+            })
+
+            except Exception as e:
+
+                logging.error(
+                    f"Problem insertion failed: {e}"
+        )
+
+        print("\n" + "=" * 70)
+        print(f"TEXT: {text}")
+        print(f"CATEGORY: {category}")
+        print(f"CATEGORY SCORE: {category_confidence}")
+        print(f"CATEGORY MATCHES: {category_matches}")
+        print(f"CAUSE: {cause}")
+        print(f"CAUSE SCORE: {cause_confidence}")
+        print(f"CAUSE MATCHES: {cause_matches}")
+        print("=" * 70 + "\n")
                 
         suggestions, similar = get_suggestions(
             text,
@@ -138,7 +160,7 @@ def solve_problem():
 
     if problems_collection is not None:
         try:
-            recent = problems_collection.find().sort("time", -1).limit(3)
+            recent = problems_collection.find().sort("created_at", -1).limit(3)
             history = [r.get("text", "") for r in recent]
 
         except Exception as e:
@@ -177,8 +199,14 @@ def solve_problem():
         })
 
     return jsonify({
+
         "type": "normal",
+
         "suggestions": all_suggestions,
+
         "similar": list(set(all_similar))[:5],
-        "history": history
+
+        "history": history,
+
+        "analysis": analyses
     })

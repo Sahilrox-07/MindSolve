@@ -33,8 +33,16 @@ def detect_language(text):
 
 
 def translate_to_english(text):
+
+    if not text:
+        return text
+
     try:
-        return GoogleTranslator(source='auto', target='en').translate(text)
+        return GoogleTranslator(
+            source="auto",
+            target="en"
+        ).translate(text)
+
     except Exception as e:
         logging.error(f"Translation failed: {e}")
         return text
@@ -49,19 +57,25 @@ def is_hinglish(text):
     "mujhe","mera","meri","mere",
     "tum","aap","hum","mai",
     "main","padhai","college",
-    "school","kaam","job",
-    "career","future","focus",
     "dhyan","samajh","problem",
-    "pareshan","tension","stress",
-    "thak","thaka","thaki",
+    "pareshan","thak","thaka","thaki",
     "soch","sochna","dimag",
-    "paisa","salary","interview",
-    "padh","padhta","padhti",
+    "paisa","padh","padhta",
     "samasya","madad","karna",
     "kar","raha","rahi",
     "ho","gaya","gayi",
     "nhi","nahin","acha",
-    "kharab","bhai","yaar"
+    "kharab","bhai","yaar",
+    "padhai","padhayi","adhyan",
+    "samjh","samajh","samajhna",
+    "dhyaan","dhyan","nikal",
+    "nikalna","fas","fasa",
+    "paisa","likhne","samasya",
+    "kamai","naukri","padhti",
+    "rozgar","man","mann",
+    "dost","ghar","parivaar",
+    "family","shaadi","padhne",
+    "mushkil","bachpan","jawani"
 }
 
     words = text.lower().split()
@@ -103,7 +117,11 @@ def is_negative_sentiment(text):
     
     negative_words = {
         "sucks", "bad", "terrible", "awful", "worst", "hate",
-        "useless", "frustrating", "disappointing", "annoying"
+        "useless", "frustrating", "disappointing", "annoying",
+        "hopeless","worthless","frustrated","stuck","lost",
+        "failure","failing","broken","exhausted",
+        "drained","upset","sad","depressed","angry","annoyed",
+        "demotivated","burnt out","burned out","overwhelmed"
     }
 
     text = text.lower()

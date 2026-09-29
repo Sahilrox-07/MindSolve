@@ -25,9 +25,9 @@ CAUSE_SOLUTIONS = {
     ],
 
     "lack_of_energy": [
-    "Maintain a consistent sleep schedule",
-    "Take short breaks instead of pushing through exhaustion",
-    "Eat balanced meals and stay hydrated"
+        "Maintain a consistent sleep schedule",
+        "Take short breaks instead of pushing through exhaustion",
+        "Eat balanced meals and stay hydrated"
     ],
 }
 
@@ -35,3 +35,78 @@ CAUSE_SOLUTIONS = {
 def get_cause_solutions(cause):
 
     return CAUSE_SOLUTIONS.get(cause, [])
+
+
+def build_local_recommendation(
+    match=None,
+    match_score=0,
+    cause=None
+):
+
+    """
+    Build a local recommendation using:
+
+    1. Matched knowledge-base problem
+    2. Matched problem solutions
+    3. Cause-based solutions
+
+    This function does not call Gemini.
+    """
+
+    cause_suggestions = get_cause_solutions(cause)
+
+    # =========================
+    # STRONG MATCH
+    # =========================
+
+    if match and match_score >= 75:
+
+        matched_solutions = match.get(
+            "solutions",
+            []
+        )
+
+        return {
+            "source": "local",
+            "score": match_score,
+            "matched_problem": match.get(
+                "problem",
+                ""
+            ),
+            "solutions": matched_solutions,
+            "cause_solutions": cause_suggestions
+        }
+
+    # =========================
+    # WEAK / NO MATCH
+    # =========================
+
+    if cause_suggestions:
+
+        return {
+            "source": "cause",
+            "score": match_score,
+            "matched_problem": (
+                match.get("problem")
+                if match
+                else None
+            ),
+            "solutions": cause_suggestions,
+            "cause_solutions": cause_suggestions
+        }
+
+    # =========================
+    # NOTHING AVAILABLE
+    # =========================
+
+    return {
+        "source": "none",
+        "score": match_score,
+        "matched_problem": (
+            match.get("problem")
+            if match
+            else None
+        ),
+        "solutions": [],
+        "cause_solutions": []
+    }

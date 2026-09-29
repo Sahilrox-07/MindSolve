@@ -175,3 +175,26 @@ for category in data.values():
             print(item["id"], "contains duplicate keywords")
 
 print(f"Duplicate keyword issues: {issues}")
+
+print("\nChecking aliases...\n")
+
+invalid = 0
+
+for category in data.values():
+    for item in category:
+
+        if "aliases" not in item:
+            invalid += 1
+            print(item["id"], "-> Missing aliases")
+            continue
+
+        if not isinstance(item["aliases"], list):
+            invalid += 1
+            print(item["id"], "-> aliases is not a list")
+            continue
+
+        if len(item["aliases"]) < 7:
+            invalid += 1
+            print(item["id"], "-> Less than 7 aliases")
+
+print(f"Invalid aliases: {invalid}")

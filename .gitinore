@@ -1,6 +1,1 @@
-.venv/
-venv/
-_pycache_/
-*.pyc
-.env
-.env.*
+data_backup.json

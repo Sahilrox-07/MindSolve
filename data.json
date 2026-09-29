@@ -20,9 +20,8 @@
       ],
       "tags": [
         "student",
-        "education",
-        "focus",
-        "learning"
+        "learning",
+        "focus"
       ],
       "related_causes": [
         "phone_addiction",
@@ -33,6 +32,11 @@
         "use the pomodoro technique with 25 minute focus sessions",
         "remove phone and distractions from your study area",
         "study in a fixed location daily to build habit"
+      ],
+      "aliases": [
+        "cannot concentrate while studying",
+        "study focus problem",
+        "padhai me focus nahi lagta"
       ]
     },
     {
@@ -56,8 +60,7 @@
       "tags": [
         "student",
         "memory",
-        "learning",
-        "education"
+        "learning"
       ],
       "related_causes": [
         "poor_sleep",
@@ -67,6 +70,11 @@
         "revise within 24 hours of studying",
         "use active recall instead of passive reading",
         "practice writing answers instead of just reading"
+      ],
+      "aliases": [
+        "forget what i study",
+        "cannot remember what i studied",
+        "study memory problem"
       ]
     },
     {
@@ -90,8 +98,7 @@
       "tags": [
         "student",
         "health",
-        "sleep",
-        "energy"
+        "sleep"
       ],
       "related_causes": [
         "poor_sleep",
@@ -102,6 +109,11 @@
         "study sitting upright instead of lying down",
         "take short breaks every 30 minutes",
         "avoid studying right after heavy meals"
+      ],
+      "aliases": [
+        "feel sleepy during study",
+        "get drowsy while studying",
+        "sleepy when reading"
       ]
     },
     {
@@ -125,7 +137,6 @@
       "tags": [
         "student",
         "learning",
-        "education",
         "focus"
       ],
       "related_causes": [
@@ -136,6 +147,11 @@
         "break the concept into smaller parts",
         "watch videos or visual explanations",
         "teach the concept to someone else"
+      ],
+      "aliases": [
+        "struggle to understand concepts",
+        "difficult topics are confusing",
+        "cannot understand study topics"
       ]
     },
     {
@@ -171,6 +187,11 @@
         "start with just 5 minutes to reduce resistance",
         "set clear small goals instead of big tasks",
         "reward yourself after completing tasks"
+      ],
+      "aliases": [
+        "keep delaying my studies",
+        "avoid studying",
+        "procrastinate on studying"
       ]
     },
     {
@@ -205,6 +226,11 @@
         "keep your phone in another room",
         "use app blockers during study sessions",
         "reward yourself with phone time after finishing work"
+      ],
+      "aliases": [
+        "phone distracts me while studying",
+        "get distracted by mobile while studying",
+        "social media distracts me from study"
       ]
     },
     {
@@ -229,7 +255,7 @@
         "student",
         "stress",
         "anxiety",
-        "education"
+        "learning"
       ],
       "related_causes": [
         "lack_of_focus",
@@ -239,6 +265,11 @@
         "practice mock tests regularly",
         "prepare revision plans early",
         "use breathing exercises before exams"
+      ],
+      "aliases": [
+        "panic before an exam",
+        "feel very nervous before exams",
+        "exam fear and panic"
       ]
     },
     {
@@ -273,6 +304,11 @@
         "test yourself frequently",
         "use active recall techniques",
         "take short revision breaks"
+      ],
+      "aliases": [
+        "study a lot but remember nothing",
+        "forget everything after studying",
+        "poor retention after studying"
       ]
     },
     {
@@ -308,6 +344,11 @@
         "break work into smaller tasks",
         "set mini deadlines",
         "start with just five minutes"
+      ],
+      "aliases": [
+        "study at the last minute",
+        "keep delaying study until exams",
+        "leave revision until the deadline"
       ]
     },
     {
@@ -342,6 +383,11 @@
         "practice under timed conditions",
         "focus on preparation instead of outcomes",
         "avoid comparing yourself to others"
+      ],
+      "aliases": [
+        "feel anxious in exams",
+        "get nervous during tests",
+        "exam anxiety problem"
       ]
     },
     {
@@ -377,6 +423,11 @@
         "set weekly study goals instead of relying on motivation",
         "track daily progress to build consistency",
         "reward yourself after completing study sessions"
+      ],
+      "aliases": [
+        "lose study motivation quickly",
+        "cannot stay motivated to study",
+        "motivation disappears after a few days"
       ]
     },
     {
@@ -411,6 +462,11 @@
         "sleep at a consistent time every night",
         "keep your phone away before bedtime",
         "prepare your study desk the night before"
+      ],
+      "aliases": [
+        "cannot wake up early for studying",
+        "sleep through my morning alarm",
+        "unable to study in the morning"
       ]
     },
     {
@@ -445,6 +501,11 @@
         "alternate between different subjects",
         "use videos and diagrams while learning",
         "study in short focused sessions"
+      ],
+      "aliases": [
+        "get bored while studying",
+        "study feels boring",
+        "lose interest while studying"
       ]
     },
     {
@@ -468,7 +529,6 @@
       "tags": [
         "student",
         "time_management",
-        "planning",
         "productivity"
       ],
       "related_causes": [
@@ -479,6 +539,11 @@
         "create a weekly timetable",
         "prioritize weaker subjects",
         "review your schedule every weekend"
+      ],
+      "aliases": [
+        "cannot handle multiple subjects",
+        "struggle to manage subjects",
+        "too many subjects to study"
       ]
     },
     {
@@ -501,7 +566,6 @@
       ],
       "tags": [
         "student",
-        "planning",
         "time_management",
         "discipline"
       ],
@@ -513,6 +577,11 @@
         "divide the syllabus into weekly targets",
         "track completed topics daily",
         "keep buffer days for revision"
+      ],
+      "aliases": [
+        "cannot finish syllabus before exams",
+        "fall behind on syllabus",
+        "study syllabus is incomplete"
       ]
     },
     {
@@ -536,7 +605,6 @@
       "tags": [
         "student",
         "focus",
-        "environment",
         "learning"
       ],
       "related_causes": [
@@ -547,6 +615,11 @@
         "use noise-cancelling headphones or earplugs",
         "study in a quiet place",
         "play instrumental background music if it helps"
+      ],
+      "aliases": [
+        "noise distracts me while studying",
+        "cannot study with background noise",
+        "need a quiet place to study"
       ]
     },
     {
@@ -570,8 +643,7 @@
       "tags": [
         "student",
         "memory",
-        "learning",
-        "education"
+        "learning"
       ],
       "related_causes": [
         "poor_sleep",
@@ -581,6 +653,11 @@
         "create a separate formula notebook",
         "practice using formulas instead of memorizing only",
         "revise formulas every day"
+      ],
+      "aliases": [
+        "forget formulas easily",
+        "cannot remember math formulas",
+        "formula memory problem"
       ]
     },
     {
@@ -603,9 +680,7 @@
       ],
       "tags": [
         "student",
-        "performance",
-        "learning",
-        "education"
+        "learning"
       ],
       "related_causes": [
         "stress",
@@ -615,6 +690,11 @@
         "analyze previous mistakes carefully",
         "solve more mock papers under timed conditions",
         "focus on understanding rather than memorization"
+      ],
+      "aliases": [
+        "low marks despite studying",
+        "study hard but get poor marks",
+        "marks are low after studying"
       ]
     },
     {
@@ -649,6 +729,11 @@
         "measure your progress against your past performance",
         "avoid unhealthy academic comparisons",
         "focus on improving one subject at a time"
+      ],
+      "aliases": [
+        "compare my marks with others",
+        "feel bad comparing myself to classmates",
+        "academic comparison stress"
       ]
     },
     {
@@ -684,6 +769,11 @@
         "begin with the easiest topic for five minutes",
         "prepare a simple study checklist",
         "remove distractions before starting"
+      ],
+      "aliases": [
+        "don't know how to begin studying",
+        "cannot get started with study",
+        "how should i start studying"
       ]
     },
     {
@@ -719,6 +809,11 @@
         "study at the same time every day",
         "track your study streak on a calendar",
         "never skip two consecutive study sessions"
+      ],
+      "aliases": [
+        "cannot maintain a study routine",
+        "inconsistent with studying",
+        "keep breaking my study routine"
       ]
     },
     {
@@ -741,9 +836,8 @@
       ],
       "tags": [
         "student",
-        "planning",
         "time_management",
-        "education"
+        "learning"
       ],
       "related_causes": [
         "procrastination",
@@ -753,6 +847,11 @@
         "list all topics by importance",
         "finish difficult subjects during your most productive hours",
         "review your priorities every week"
+      ],
+      "aliases": [
+        "don't know which subject to study first",
+        "cannot decide study priority",
+        "confused about study order"
       ]
     },
     {
@@ -776,8 +875,7 @@
       "tags": [
         "student",
         "focus",
-        "learning",
-        "education"
+        "learning"
       ],
       "related_causes": [
         "phone_addiction",
@@ -787,6 +885,11 @@
         "keep your camera on if possible",
         "take handwritten notes during class",
         "close unrelated browser tabs"
+      ],
+      "aliases": [
+        "cannot focus in online classes",
+        "get distracted during virtual classes",
+        "lose concentration in online lectures"
       ]
     },
     {
@@ -811,7 +914,7 @@
         "student",
         "memory",
         "time_management",
-        "education"
+        "learning"
       ],
       "related_causes": [
         "procrastination",
@@ -821,6 +924,11 @@
         "reserve one day each week only for revision",
         "review notes after every study session",
         "use flashcards for important concepts"
+      ],
+      "aliases": [
+        "do not revise regularly",
+        "keep skipping revision",
+        "need a regular revision routine"
       ]
     },
     {
@@ -855,6 +963,11 @@
         "write only short summary notes",
         "highlight key concepts instead of copying everything",
         "use diagrams where possible"
+      ],
+      "aliases": [
+        "take too long to make notes",
+        "notes take too much study time",
+        "waste time making notes"
       ]
     },
     {
@@ -878,7 +991,6 @@
       "tags": [
         "student",
         "learning",
-        "education",
         "focus"
       ],
       "related_causes": [
@@ -889,6 +1001,11 @@
         "practice easy questions before difficult ones",
         "understand the concept behind each formula",
         "solve problems daily instead of only before exams"
+      ],
+      "aliases": [
+        "struggle with numerical questions",
+        "cannot solve math problems",
+        "difficulty solving numerical problems"
       ]
     },
     {
@@ -912,8 +1029,7 @@
       "tags": [
         "student",
         "focus",
-        "performance",
-        "education"
+        "learning"
       ],
       "related_causes": [
         "stress",
@@ -923,6 +1039,11 @@
         "leave time to review your answers",
         "underline important keywords in questions",
         "practice solving papers under exam conditions"
+      ],
+      "aliases": [
+        "make careless mistakes in exams",
+        "keep making silly exam errors",
+        "lose marks from careless mistakes"
       ]
     },
     {
@@ -947,7 +1068,7 @@
         "student",
         "confidence",
         "mental_health",
-        "education"
+        "learning"
       ],
       "related_causes": [
         "stress",
@@ -957,6 +1078,11 @@
         "identify specific mistakes instead of blaming yourself",
         "set realistic improvement goals",
         "celebrate small academic progress"
+      ],
+      "aliases": [
+        "lose confidence after bad marks",
+        "poor results hurt my confidence",
+        "feel discouraged by low marks"
       ]
     },
     {
@@ -980,8 +1106,7 @@
       "tags": [
         "student",
         "time_management",
-        "productivity",
-        "planning"
+        "productivity"
       ],
       "related_causes": [
         "stress",
@@ -992,6 +1117,11 @@
         "plan your week in advance",
         "focus on high-priority tasks first",
         "avoid multitasking while studying"
+      ],
+      "aliases": [
+        "cannot balance study and responsibilities",
+        "studies conflict with other responsibilities",
+        "not enough time for study"
       ]
     },
     {
@@ -1015,7 +1145,6 @@
       "tags": [
         "student",
         "learning",
-        "education",
         "productivity"
       ],
       "related_causes": [
@@ -1025,6 +1154,11 @@
         "experiment with active recall and spaced repetition",
         "identify which learning style works best for you",
         "review your progress and adjust your study method regularly"
+      ],
+      "aliases": [
+        "which study method should i use",
+        "need a better way to study",
+        "how can i study effectively"
       ]
     }
   ],
@@ -1050,7 +1184,7 @@
       "tags": [
         "career",
         "career_growth",
-        "planning",
+        "time_management",
         "student"
       ],
       "related_causes": [
@@ -1061,6 +1195,11 @@
         "list your interests, strengths, and long-term goals",
         "research careers that match your skills",
         "talk to professionals or mentors in your preferred field"
+      ],
+      "aliases": [
+        "which career should i choose",
+        "confused about my career",
+        "what career is suitable for me"
       ]
     },
     {
@@ -1095,6 +1234,11 @@
         "review and improve your resume",
         "ask for feedback after interviews whenever possible",
         "continue applying while improving your skills"
+      ],
+      "aliases": [
+        "keep getting job rejections",
+        "jobs reject my applications",
+        "cannot get hired"
       ]
     },
     {
@@ -1118,8 +1262,7 @@
       "tags": [
         "career",
         "learning",
-        "career_growth",
-        "skills"
+        "career_growth"
       ],
       "related_causes": [
         "low_confidence",
@@ -1129,6 +1272,11 @@
         "identify the required skills from job descriptions",
         "take relevant online courses and certifications",
         "build projects to demonstrate your abilities"
+      ],
+      "aliases": [
+        "lack skills for my target job",
+        "need skills for the job i want",
+        "not qualified for desired job"
       ]
     },
     {
@@ -1163,6 +1311,11 @@
         "practice mock interviews regularly",
         "prepare answers for common interview questions",
         "focus on speaking clearly rather than perfectly"
+      ],
+      "aliases": [
+        "nervous in job interviews",
+        "feel anxious during interviews",
+        "interview nervousness"
       ]
     },
     {
@@ -1196,6 +1349,11 @@
         "customize your resume for each job",
         "highlight measurable achievements",
         "keep the resume concise and error free"
+      ],
+      "aliases": [
+        "resume is not shortlisted",
+        "cv does not get shortlisted",
+        "applications rejected before interview"
       ]
     },
     {
@@ -1229,6 +1387,11 @@
         "apply for internships and freelance projects",
         "build a portfolio showcasing your work",
         "participate in open-source or volunteer projects"
+      ],
+      "aliases": [
+        "no work experience as a fresher",
+        "how to get a job without experience",
+        "lack of professional experience"
       ]
     },
     {
@@ -1263,6 +1426,11 @@
         "research the company before the interview",
         "practice common HR and technical questions",
         "prepare examples from your own experience"
+      ],
+      "aliases": [
+        "how should i prepare for interviews",
+        "interview preparation help",
+        "how to prepare for a job interview"
       ]
     },
     {
@@ -1287,7 +1455,7 @@
         "career",
         "career_growth",
         "confidence",
-        "planning"
+        "time_management"
       ],
       "related_causes": [
         "career_confusion",
@@ -1297,6 +1465,11 @@
         "research your target field thoroughly",
         "learn the required skills before switching",
         "make the transition gradually if possible"
+      ],
+      "aliases": [
+        "scared to change careers",
+        "fear of switching careers",
+        "nervous about career change"
       ]
     },
     {
@@ -1320,8 +1493,7 @@
       "tags": [
         "career",
         "career_growth",
-        "learning",
-        "skills"
+        "learning"
       ],
       "related_causes": [
         "low_confidence"
@@ -1330,6 +1502,11 @@
         "read multiple job descriptions in your field",
         "identify the most common required skills",
         "prioritize learning those high-demand skills"
+      ],
+      "aliases": [
+        "what skills do employers look for",
+        "which job skills should i learn",
+        "employer skill requirements"
       ]
     },
     {
@@ -1364,6 +1541,11 @@
         "focus on improving one skill at a time",
         "keep a record of your achievements",
         "remember that expertise develops through consistent practice"
+      ],
+      "aliases": [
+        "not confident about my dream job",
+        "feel unqualified for my dream career",
+        "self doubt about career"
       ]
     },
     {
@@ -1397,6 +1579,11 @@
         "tailor your resume for every application",
         "apply to jobs that match your current skills",
         "improve your LinkedIn profile and portfolio"
+      ],
+      "aliases": [
+        "not receiving interview calls",
+        "no interview callbacks",
+        "applications get no interview response"
       ]
     },
     {
@@ -1430,6 +1617,11 @@
         "keep your resume limited to relevant information",
         "highlight measurable achievements",
         "use a clean and ATS-friendly format"
+      ],
+      "aliases": [
+        "how to make a good resume",
+        "need help writing my cv",
+        "resume writing help"
       ]
     },
     {
@@ -1453,8 +1645,7 @@
       "tags": [
         "career",
         "career_growth",
-        "learning",
-        "projects"
+        "learning"
       ],
       "related_causes": [
         "low_confidence"
@@ -1463,6 +1654,11 @@
         "include your best projects with clear descriptions",
         "show measurable results wherever possible",
         "keep your portfolio updated regularly"
+      ],
+      "aliases": [
+        "how to create a portfolio",
+        "need help building a portfolio",
+        "what should i put in my portfolio"
       ]
     },
     {
@@ -1497,6 +1693,11 @@
         "apply if you meet most important requirements",
         "focus on demonstrating transferable skills",
         "continue learning while applying"
+      ],
+      "aliases": [
+        "feel underqualified for jobs",
+        "not qualified enough for applications",
+        "lack confidence applying for jobs"
       ]
     },
     {
@@ -1531,6 +1732,11 @@
         "practice coding problems consistently",
         "review fundamental concepts regularly",
         "simulate interview conditions before the actual interview"
+      ],
+      "aliases": [
+        "keep failing technical interviews",
+        "technical interview preparation problem",
+        "cannot pass coding interviews"
       ]
     },
     {
@@ -1564,6 +1770,11 @@
         "research the market salary for your role",
         "highlight your skills and achievements",
         "negotiate politely using facts instead of emotions"
+      ],
+      "aliases": [
+        "how to negotiate salary",
+        "need help with salary negotiation",
+        "what salary should i ask for"
       ]
     },
     {
@@ -1586,7 +1797,7 @@
       ],
       "tags": [
         "career",
-        "planning",
+        "time_management",
         "career_growth",
         "learning"
       ],
@@ -1598,6 +1809,11 @@
         "identify transferable skills from your current role",
         "learn the essential skills for your target career",
         "network with professionals in the new field"
+      ],
+      "aliases": [
+        "how to start a career switch",
+        "want to change careers but confused",
+        "steps to switch careers"
       ]
     },
     {
@@ -1622,7 +1838,7 @@
         "career",
         "career_growth",
         "motivation",
-        "planning"
+        "time_management"
       ],
       "related_causes": [
         "stress",
@@ -1632,6 +1848,11 @@
         "identify skills needed for your next role",
         "discuss growth opportunities with your manager",
         "create a long-term career development plan"
+      ],
+      "aliases": [
+        "feel stuck in my job",
+        "no growth in my current job",
+        "career feels stagnant"
       ]
     },
     {
@@ -1665,6 +1886,11 @@
         "practice answering questions aloud",
         "record yourself and review your responses",
         "maintain eye contact and speak at a steady pace"
+      ],
+      "aliases": [
+        "lack confidence speaking in interviews",
+        "cannot speak confidently in interviews",
+        "interview communication anxiety"
       ]
     },
     {
@@ -1698,6 +1924,11 @@
         "connect with professionals in your field on LinkedIn",
         "attend industry events and webinars",
         "build genuine relationships instead of asking for jobs immediately"
+      ],
+      "aliases": [
+        "how to network professionally",
+        "need professional networking tips",
+        "how to build career connections"
       ]
     },
     {
@@ -1721,7 +1952,7 @@
       "tags": [
         "career",
         "job_search",
-        "planning",
+        "time_management",
         "career_growth"
       ],
       "related_causes": [
@@ -1731,6 +1962,11 @@
         "make a list of companies in your preferred industry",
         "compare job descriptions and growth opportunities",
         "apply to companies that match your skills and interests"
+      ],
+      "aliases": [
+        "which companies should i apply to",
+        "don't know where to apply for jobs",
+        "how to choose companies to apply"
       ]
     },
     {
@@ -1753,7 +1989,7 @@
       ],
       "tags": [
         "career",
-        "planning",
+        "time_management",
         "career_growth",
         "student"
       ],
@@ -1765,6 +2001,11 @@
         "compare both careers based on your interests and long-term goals",
         "research salary, growth, and work-life balance",
         "talk to professionals working in both fields"
+      ],
+      "aliases": [
+        "confused between career choices",
+        "cannot choose between two careers",
+        "career options comparison"
       ]
     },
     {
@@ -1799,6 +2040,11 @@
         "prepare answers using real examples",
         "practice with a friend or mentor",
         "keep your answers honest and concise"
+      ],
+      "aliases": [
+        "how to answer HR interview questions",
+        "struggle with HR questions",
+        "HR interview answer preparation"
       ]
     },
     {
@@ -1832,6 +2078,11 @@
         "prepare key points before meetings",
         "start by contributing small ideas",
         "practice speaking clearly and confidently"
+      ],
+      "aliases": [
+        "struggle speaking in meetings",
+        "cannot communicate in meetings",
+        "not confident during workplace meetings"
       ]
     },
     {
@@ -1855,8 +2106,8 @@
       "tags": [
         "career",
         "career_growth",
-        "planning",
-        "performance"
+        "time_management",
+        "learning"
       ],
       "related_causes": [
         "low_confidence",
@@ -1866,6 +2117,11 @@
         "ask for constructive feedback from your manager",
         "improve skills required for the next role",
         "document your achievements throughout the year"
+      ],
+      "aliases": [
+        "not getting promoted at work",
+        "why am i not getting promoted",
+        "career promotion problem"
       ]
     },
     {
@@ -1899,6 +2155,11 @@
         "schedule a professional discussion with your manager",
         "present evidence of your contributions",
         "be prepared to discuss your future goals"
+      ],
+      "aliases": [
+        "how to ask my manager for promotion",
+        "need to request a promotion",
+        "promotion conversation with manager"
       ]
     },
     {
@@ -1933,6 +2194,11 @@
         "take regular breaks during work",
         "set healthy work boundaries",
         "discuss workload concerns with your manager if needed"
+      ],
+      "aliases": [
+        "feel burned out from work",
+        "work is exhausting me",
+        "job burnout problem"
       ]
     },
     {
@@ -1956,8 +2222,7 @@
       "tags": [
         "career",
         "communication",
-        "stress",
-        "workplace"
+        "stress"
       ],
       "related_causes": [
         "low_confidence"
@@ -1966,6 +2231,11 @@
         "address issues calmly and respectfully",
         "focus on solving problems instead of assigning blame",
         "seek mediation from your manager if necessary"
+      ],
+      "aliases": [
+        "conflicts with coworkers",
+        "problems with colleagues",
+        "workplace relationship conflict"
       ]
     },
     {
@@ -1999,6 +2269,11 @@
         "practice speaking every day",
         "record yourself to identify areas for improvement",
         "join public speaking or discussion groups"
+      ],
+      "aliases": [
+        "how to improve communication skills",
+        "want better communication at work",
+        "communication skills development"
       ]
     },
     {
@@ -2021,9 +2296,8 @@
       ],
       "tags": [
         "career",
-        "planning",
-        "career_growth",
-        "future"
+        "time_management",
+        "career_growth"
       ],
       "related_causes": [
         "low_confidence",
@@ -2033,6 +2307,11 @@
         "define your 1-year, 3-year, and 5-year career goals",
         "identify the skills required for each milestone",
         "review and update your career plan every six months"
+      ],
+      "aliases": [
+        "need a long term career plan",
+        "don't know my career direction",
+        "how to plan my career future"
       ]
     }
   ],
@@ -2069,6 +2348,11 @@
         "track how you spend your time for one week",
         "plan your day the night before",
         "prioritize high-impact tasks first"
+      ],
+      "aliases": [
+        "waste time every day",
+        "too much time gets wasted",
+        "not using my time well"
       ]
     },
     {
@@ -2104,6 +2388,11 @@
         "break big tasks into smaller actions",
         "start with just five minutes of work",
         "set deadlines for each small task"
+      ],
+      "aliases": [
+        "keep delaying important work",
+        "procrastinate on important tasks",
+        "avoid important work"
       ]
     },
     {
@@ -2138,6 +2427,11 @@
         "use app blockers during work hours",
         "disable unnecessary notifications",
         "keep your phone away while working"
+      ],
+      "aliases": [
+        "social media wastes my time",
+        "cannot stop checking social media",
+        "get distracted by social apps"
       ]
     },
     {
@@ -2172,6 +2466,11 @@
         "focus on daily habits instead of motivation",
         "track your progress visually",
         "avoid missing two consecutive days"
+      ],
+      "aliases": [
+        "cannot stay consistent with goals",
+        "keep abandoning my goals",
+        "struggle to follow goals"
       ]
     },
     {
@@ -2194,7 +2493,6 @@
       ],
       "tags": [
         "productivity",
-        "planning",
         "time_management",
         "discipline"
       ],
@@ -2206,6 +2504,11 @@
         "finish one important task before starting another",
         "limit your daily task list",
         "review unfinished work every evening"
+      ],
+      "aliases": [
+        "too many unfinished tasks",
+        "always have incomplete tasks",
+        "cannot finish my task list"
       ]
     },
     {
@@ -2227,7 +2530,6 @@
       ],
       "tags": [
         "productivity",
-        "planning",
         "time_management",
         "habits"
       ],
@@ -2238,6 +2540,11 @@
         "plan your next day before sleeping",
         "assign time blocks to important tasks",
         "leave buffer time for unexpected work"
+      ],
+      "aliases": [
+        "cannot manage daily schedule",
+        "daily routine is disorganized",
+        "struggle with my schedule"
       ]
     },
     {
@@ -2261,7 +2568,6 @@
       "tags": [
         "productivity",
         "time_management",
-        "planning",
         "discipline"
       ],
       "related_causes": [
@@ -2272,6 +2578,11 @@
         "start tasks earlier than necessary",
         "set personal deadlines before official ones",
         "track deadlines using a calendar"
+      ],
+      "aliases": [
+        "keep missing deadlines",
+        "cannot finish work on time",
+        "deadline management problem"
       ]
     },
     {
@@ -2306,6 +2617,11 @@
         "start working before trying to feel ready",
         "write your thoughts on paper",
         "focus only on the next small step"
+      ],
+      "aliases": [
+        "overthink before starting work",
+        "anxious about starting tasks",
+        "thinking too much before working"
       ]
     },
     {
@@ -2330,7 +2646,7 @@
         "productivity",
         "focus",
         "discipline",
-        "work"
+        "career"
       ],
       "related_causes": [
         "phone_addiction",
@@ -2341,6 +2657,11 @@
         "work in 25 to 50 minute focus blocks",
         "remove distractions before starting",
         "work on one task at a time"
+      ],
+      "aliases": [
+        "lose concentration while working",
+        "cannot focus on work",
+        "work focus problem"
       ]
     },
     {
@@ -2363,7 +2684,6 @@
       ],
       "tags": [
         "productivity",
-        "planning",
         "time_management",
         "discipline"
       ],
@@ -2375,6 +2695,11 @@
         "use the urgent-important matrix",
         "complete the most important task first",
         "review priorities every morning"
+      ],
+      "aliases": [
+        "don't know what task to do first",
+        "cannot prioritize tasks",
+        "need help prioritizing work"
       ]
     },
     {
@@ -2409,6 +2734,11 @@
         "work on one task until completion before switching",
         "keep only one active priority at a time",
         "disable unnecessary interruptions"
+      ],
+      "aliases": [
+        "multitasking prevents me finishing work",
+        "do too many tasks at once",
+        "cannot finish because i multitask"
       ]
     },
     {
@@ -2443,6 +2773,11 @@
         "keep your phone outside your workspace",
         "check notifications only during scheduled breaks",
         "enable focus mode while working"
+      ],
+      "aliases": [
+        "keep checking my phone at work",
+        "phone distracts me from work",
+        "mobile addiction while working"
       ]
     },
     {
@@ -2476,6 +2811,11 @@
         "start with one small habit at a time",
         "attach new habits to existing routines",
         "track your progress every day"
+      ],
+      "aliases": [
+        "how to build better habits",
+        "cannot create good habits",
+        "need help developing habits"
       ]
     },
     {
@@ -2510,6 +2850,11 @@
         "expect motivation to fluctuate",
         "focus on maintaining routines instead of chasing motivation",
         "review your reasons for starting"
+      ],
+      "aliases": [
+        "quit after making progress",
+        "cannot maintain progress",
+        "give up after starting well"
       ]
     },
     {
@@ -2532,9 +2877,8 @@
       ],
       "tags": [
         "productivity",
-        "planning",
-        "discipline",
-        "time_management"
+        "time_management",
+        "discipline"
       ],
       "related_causes": [
         "stress",
@@ -2544,6 +2888,11 @@
         "limit planning time to a fixed duration",
         "begin executing immediately after planning",
         "review plans weekly instead of constantly"
+      ],
+      "aliases": [
+        "plan too much and do too little",
+        "spend all my time planning",
+        "overplanning instead of working"
       ]
     },
     {
@@ -2567,7 +2916,6 @@
       "tags": [
         "productivity",
         "stress",
-        "planning",
         "time_management"
       ],
       "related_causes": [
@@ -2578,6 +2926,11 @@
         "break large workloads into smaller milestones",
         "prioritize the highest-impact tasks",
         "delegate work where appropriate"
+      ],
+      "aliases": [
+        "workload feels overwhelming",
+        "too much work stresses me",
+        "feel overwhelmed by tasks"
       ]
     },
     {
@@ -2612,6 +2965,11 @@
         "do the hardest task first each day",
         "reduce large tasks into manageable steps",
         "reward yourself after completion"
+      ],
+      "aliases": [
+        "keep avoiding difficult tasks",
+        "delay hard work",
+        "procrastinate on difficult tasks"
       ]
     },
     {
@@ -2646,6 +3004,11 @@
         "create a dedicated workspace",
         "follow fixed working hours",
         "avoid household distractions during work time"
+      ],
+      "aliases": [
+        "stay productive while working from home",
+        "work from home productivity problem",
+        "cannot focus at home"
       ]
     },
     {
@@ -2668,9 +3031,7 @@
       ],
       "tags": [
         "productivity",
-        "planning",
-        "time_management",
-        "organization"
+        "time_management"
       ],
       "related_causes": [
         "lack_of_focus"
@@ -2679,6 +3040,11 @@
         "maintain a single task list",
         "set reminders for important deadlines",
         "review your tasks every morning and evening"
+      ],
+      "aliases": [
+        "forget important tasks",
+        "keep forgetting things i need to do",
+        "forget my work tasks"
       ]
     },
     {
@@ -2713,6 +3079,11 @@
         "finish one project before starting another",
         "set clear completion milestones",
         "track completed work to build momentum"
+      ],
+      "aliases": [
+        "cannot finish what i start",
+        "leave tasks incomplete",
+        "struggle to complete projects"
       ]
     },
     {
@@ -2747,6 +3118,11 @@
         "follow the same wake-up and sleep schedule",
         "build routines around fixed daily events",
         "review your routine every week and adjust it gradually"
+      ],
+      "aliases": [
+        "cannot follow my daily routine",
+        "keep breaking my routine",
+        "inconsistent daily routine"
       ]
     },
     {
@@ -2770,8 +3146,7 @@
       "tags": [
         "productivity",
         "health",
-        "focus",
-        "energy"
+        "focus"
       ],
       "related_causes": [
         "poor_sleep",
@@ -2781,6 +3156,11 @@
         "take short recovery breaks between focus sessions",
         "schedule demanding work during your peak energy hours",
         "maintain healthy sleep and hydration"
+      ],
+      "aliases": [
+        "mentally exhausted before work is done",
+        "run out of energy while working",
+        "too tired to finish work"
       ]
     },
     {
@@ -2803,7 +3183,7 @@
       ],
       "tags": [
         "productivity",
-        "planning",
+        "time_management",
         "focus",
         "discipline"
       ],
@@ -2815,6 +3195,11 @@
         "commit to one goal for a fixed period",
         "write down why the goal matters",
         "review progress before changing direction"
+      ],
+      "aliases": [
+        "keep changing my goals",
+        "cannot stick to one goal",
+        "change goals too often"
       ]
     },
     {
@@ -2837,7 +3222,6 @@
       ],
       "tags": [
         "productivity",
-        "planning",
         "time_management",
         "discipline"
       ],
@@ -2849,6 +3233,11 @@
         "identify your three most important tasks each day",
         "complete important work before minor tasks",
         "avoid spending excessive time on low-value activities"
+      ],
+      "aliases": [
+        "waste time on low priority tasks",
+        "focus on unimportant work",
+        "spend time on things that don't matter"
       ]
     },
     {
@@ -2882,6 +3271,11 @@
         "start working before you feel motivated",
         "build habits that don't rely on emotions",
         "celebrate completing small actions consistently"
+      ],
+      "aliases": [
+        "wait for motivation before working",
+        "cannot start without motivation",
+        "depend on motivation to work"
       ]
     },
     {
@@ -2905,7 +3299,7 @@
       "tags": [
         "productivity",
         "focus",
-        "work",
+        "career",
         "time_management"
       ],
       "related_causes": [
@@ -2915,6 +3309,11 @@
         "schedule uninterrupted focus blocks",
         "inform others when you need focused work time",
         "mute unnecessary notifications"
+      ],
+      "aliases": [
+        "work keeps getting interrupted",
+        "constant interruptions while working",
+        "cannot work without interruptions"
       ]
     },
     {
@@ -2937,8 +3336,6 @@
       ],
       "tags": [
         "productivity",
-        "planning",
-        "organization",
         "time_management"
       ],
       "related_causes": [
@@ -2948,6 +3345,11 @@
         "maintain one centralized task list",
         "group similar tasks together",
         "review and organize tasks at the end of each day"
+      ],
+      "aliases": [
+        "don't know how to organize tasks",
+        "task organization problem",
+        "how should i organize my work"
       ]
     },
     {
@@ -2982,6 +3384,11 @@
         "set clear work ending times",
         "schedule personal and family time",
         "avoid checking work after working hours whenever possible"
+      ],
+      "aliases": [
+        "struggle with work life balance",
+        "work takes over my life",
+        "cannot balance work and personal life"
       ]
     },
     {
@@ -3015,6 +3422,11 @@
         "finish small tasks immediately when possible",
         "schedule recurring maintenance work",
         "review pending tasks every evening"
+      ],
+      "aliases": [
+        "delay small tasks until they become urgent",
+        "small tasks keep piling up",
+        "keep postponing simple tasks"
       ]
     },
     {
@@ -3052,6 +3464,11 @@
         "track your daily activities for one week",
         "identify your biggest productivity obstacles",
         "improve one limiting habit at a time instead of changing everything"
+      ],
+      "aliases": [
+        "why am i so unproductive",
+        "cannot figure out why i am unproductive",
+        "productivity problem"
       ]
     }
   ],
@@ -3087,6 +3504,11 @@
         "maintain a consistent bedtime",
         "avoid screens one hour before sleeping",
         "keep your bedroom dark and quiet"
+      ],
+      "aliases": [
+        "cannot sleep at night",
+        "trouble falling asleep",
+        "night sleep problem"
       ]
     },
     {
@@ -3109,8 +3531,7 @@
       ],
       "tags": [
         "health",
-        "sleep",
-        "energy"
+        "sleep"
       ],
       "related_causes": [
         "poor_nutrition",
@@ -3120,6 +3541,11 @@
         "sleep for 7 to 9 hours regularly",
         "avoid caffeine late in the day",
         "wake up at the same time every morning"
+      ],
+      "aliases": [
+        "wake up tired every morning",
+        "not refreshed after sleep",
+        "feel tired when i wake up"
       ]
     },
     {
@@ -3142,7 +3568,6 @@
       ],
       "tags": [
         "health",
-        "energy",
         "nutrition",
         "exercise"
       ],
@@ -3154,6 +3579,11 @@
         "eat balanced meals throughout the day",
         "exercise regularly",
         "improve your sleep schedule"
+      ],
+      "aliases": [
+        "tired throughout the day",
+        "low energy all day",
+        "constant daytime fatigue"
       ]
     },
     {
@@ -3186,6 +3616,11 @@
         "carry a reusable water bottle",
         "set reminders to drink water",
         "drink water before every meal"
+      ],
+      "aliases": [
+        "do not drink enough water",
+        "not drinking enough fluids",
+        "water intake is too low"
       ]
     },
     {
@@ -3218,6 +3653,11 @@
         "prepare breakfast the night before",
         "choose simple healthy meals",
         "eat something within two hours of waking"
+      ],
+      "aliases": [
+        "skip breakfast every day",
+        "usually don't eat breakfast",
+        "breakfast habit problem"
       ]
     },
     {
@@ -3250,6 +3690,11 @@
         "replace unhealthy snacks with healthier alternatives",
         "avoid buying excessive junk food",
         "plan your meals in advance"
+      ],
+      "aliases": [
+        "eat too much junk food",
+        "too much unhealthy food",
+        "junk food eating habit"
       ]
     },
     {
@@ -3283,6 +3728,11 @@
         "start with 20 minutes of walking",
         "exercise at the same time every day",
         "choose activities you enjoy"
+      ],
+      "aliases": [
+        "do not exercise regularly",
+        "not working out enough",
+        "exercise routine problem"
       ]
     },
     {
@@ -3305,8 +3755,7 @@
       ],
       "tags": [
         "health",
-        "exercise",
-        "posture"
+        "exercise"
       ],
       "related_causes": [
         "lack_of_energy"
@@ -3315,6 +3764,11 @@
         "stand up every 30 to 60 minutes",
         "improve your sitting posture",
         "stretch your back regularly"
+      ],
+      "aliases": [
+        "back hurts from sitting",
+        "back pain after sitting for long",
+        "sitting causes back pain"
       ]
     },
     {
@@ -3337,8 +3791,7 @@
       ],
       "tags": [
         "health",
-        "phone",
-        "screen_time"
+        "phone"
       ],
       "related_causes": [
         "lack_of_focus"
@@ -3347,6 +3800,11 @@
         "follow the 20-20-20 rule",
         "reduce screen brightness when appropriate",
         "take regular screen breaks"
+      ],
+      "aliases": [
+        "eye strain from screens",
+        "eyes hurt after screen use",
+        "phone computer causes eye pain"
       ]
     },
     {
@@ -3369,8 +3827,7 @@
       ],
       "tags": [
         "health",
-        "stress",
-        "wellness"
+        "stress"
       ],
       "related_causes": [
         "poor_sleep",
@@ -3380,6 +3837,11 @@
         "stay hydrated throughout the day",
         "maintain regular sleep habits",
         "consult a healthcare professional if headaches are severe or persistent"
+      ],
+      "aliases": [
+        "get frequent headaches",
+        "headache happens often",
+        "recurring headache problem"
       ]
     },
     {
@@ -3412,6 +3874,11 @@
         "stand and stretch every hour",
         "take short walking breaks",
         "include light physical activity in your daily routine"
+      ],
+      "aliases": [
+        "sit for too many hours",
+        "spend all day sitting",
+        "too much sitting every day"
       ]
     },
     {
@@ -3434,8 +3901,7 @@
       ],
       "tags": [
         "health",
-        "exercise",
-        "posture"
+        "exercise"
       ],
       "related_causes": [
         "lack_of_energy"
@@ -3444,6 +3910,11 @@
         "sit with your back supported",
         "keep your screen at eye level",
         "strengthen your core and back muscles"
+      ],
+      "aliases": [
+        "bad sitting posture",
+        "sit with poor posture",
+        "posture problem while sitting"
       ]
     },
     {
@@ -3466,8 +3937,7 @@
       ],
       "tags": [
         "health",
-        "exercise",
-        "energy"
+        "exercise"
       ],
       "related_causes": [
         "lack_of_energy"
@@ -3476,6 +3946,11 @@
         "spend 15 to 30 minutes outdoors daily",
         "combine sunlight exposure with walking",
         "consult a doctor if vitamin D deficiency is suspected"
+      ],
+      "aliases": [
+        "not getting enough sunlight",
+        "rarely get sunlight",
+        "spend too little time in daylight"
       ]
     },
     {
@@ -3508,6 +3983,11 @@
         "eat dinner earlier whenever possible",
         "avoid heavy meals before bedtime",
         "plan healthy evening snacks if needed"
+      ],
+      "aliases": [
+        "eat dinner very late",
+        "late night eating habit",
+        "eat too late at night"
       ]
     },
     {
@@ -3540,6 +4020,11 @@
         "identify emotional eating triggers",
         "keep healthy snacks available",
         "drink water before reaching for snacks"
+      ],
+      "aliases": [
+        "keep snacking without hunger",
+        "snack all the time",
+        "eat even when not hungry"
       ]
     },
     {
@@ -3573,6 +4058,11 @@
         "practice relaxation techniques daily",
         "exercise regularly",
         "seek support if stress becomes overwhelming"
+      ],
+      "aliases": [
+        "feel stressed most of the time",
+        "constant stress",
+        "always feeling stressed"
       ]
     },
     {
@@ -3595,7 +4085,6 @@
       ],
       "tags": [
         "health",
-        "energy",
         "habits"
       ],
       "related_causes": [
@@ -3605,6 +4094,11 @@
         "take a short break every hour",
         "stretch during breaks",
         "avoid working continuously for long periods"
+      ],
+      "aliases": [
+        "never take breaks while working",
+        "forget to take work breaks",
+        "work without taking breaks"
       ]
     },
     {
@@ -3637,6 +4131,11 @@
         "include fruits and vegetables in every meal",
         "eat enough protein and whole grains",
         "plan meals before grocery shopping"
+      ],
+      "aliases": [
+        "how to eat a balanced diet",
+        "need a healthier diet",
+        "don't know what a balanced diet is"
       ]
     },
     {
@@ -3669,6 +4168,11 @@
         "reduce caffeine gradually",
         "avoid caffeine late in the day",
         "improve your sleep schedule instead of relying on stimulants"
+      ],
+      "aliases": [
+        "depend on caffeine to stay awake",
+        "drink too much caffeine for energy",
+        "need caffeine to avoid sleepiness"
       ]
     },
     {
@@ -3691,7 +4195,6 @@
       ],
       "tags": [
         "health",
-        "energy",
         "exercise",
         "nutrition"
       ],
@@ -3704,6 +4207,11 @@
         "eat nutritious meals consistently",
         "exercise according to your fitness level",
         "consult a healthcare professional if the weakness persists or worsens"
+      ],
+      "aliases": [
+        "feel physically weak often",
+        "low physical energy",
+        "body feels weak most of the time"
       ]
     },
     {
@@ -3736,6 +4244,11 @@
         "aim for 7 to 9 hours of sleep each night",
         "maintain a consistent sleep schedule",
         "adjust your sleep duration based on how rested you feel"
+      ],
+      "aliases": [
+        "how much sleep do i need",
+        "don't know my ideal sleep duration",
+        "sleep requirement question"
       ]
     },
     {
@@ -3768,6 +4281,11 @@
         "set daily medication reminders",
         "use a pill organizer",
         "take medicines at the same time each day"
+      ],
+      "aliases": [
+        "forget to take medicine on time",
+        "miss medicine doses",
+        "medicine reminder problem"
       ]
     },
     {
@@ -3799,6 +4317,11 @@
         "sleep on your side if comfortable",
         "address nasal congestion if present",
         "consult a healthcare professional if it continues"
+      ],
+      "aliases": [
+        "mouth breathing during sleep",
+        "breathe through mouth at night",
+        "sleeping with mouth open"
       ]
     },
     {
@@ -3821,8 +4344,7 @@
       ],
       "tags": [
         "health",
-        "habits",
-        "wellness"
+        "habits"
       ],
       "related_causes": [
         "poor_time_management"
@@ -3831,6 +4353,11 @@
         "schedule regular health checkups",
         "pay attention to early symptoms",
         "build healthy habits before problems appear"
+      ],
+      "aliases": [
+        "ignore my health until sick",
+        "only care about health when ill",
+        "neglect my health"
       ]
     },
     {
@@ -3864,6 +4391,11 @@
         "set daily screen time limits",
         "keep devices away during meals and before bedtime",
         "replace screen time with offline activities"
+      ],
+      "aliases": [
+        "how to reduce screen time",
+        "spend too much time on screens",
+        "need to use my phone less"
       ]
     },
     {
@@ -3886,8 +4418,7 @@
       ],
       "tags": [
         "health",
-        "habits",
-        "wellness"
+        "habits"
       ],
       "related_causes": [
         "procrastination"
@@ -3896,6 +4427,11 @@
         "change one habit at a time",
         "track healthy behaviors daily",
         "focus on consistency instead of perfection"
+      ],
+      "aliases": [
+        "how to build healthier habits",
+        "cannot maintain healthy habits",
+        "need better health routines"
       ]
     },
     {
@@ -3918,8 +4454,7 @@
       ],
       "tags": [
         "health",
-        "exercise",
-        "wellness"
+        "exercise"
       ],
       "related_causes": [
         "lack_of_energy"
@@ -3928,6 +4463,11 @@
         "take a daily walk outside",
         "combine outdoor time with exercise",
         "schedule outdoor activities every week"
+      ],
+      "aliases": [
+        "don't spend enough time outside",
+        "rarely go outdoors",
+        "need more outdoor activity"
       ]
     },
     {
@@ -3950,7 +4490,6 @@
       ],
       "tags": [
         "health",
-        "wellness",
         "habits"
       ],
       "related_causes": [
@@ -3962,6 +4501,11 @@
         "evaluate your sleep, diet, and activity levels",
         "identify one area to improve first",
         "review your lifestyle every month"
+      ],
+      "aliases": [
+        "is my lifestyle healthy",
+        "not sure if my lifestyle is healthy",
+        "want to assess my lifestyle"
       ]
     },
     {
@@ -3984,7 +4528,6 @@
       ],
       "tags": [
         "health",
-        "wellness",
         "habits"
       ],
       "related_causes": [
@@ -3996,6 +4539,11 @@
         "begin with one healthy habit",
         "set realistic weekly goals",
         "build consistency before increasing difficulty"
+      ],
+      "aliases": [
+        "where should i start improving my health",
+        "need to improve my health",
+        "how to start a healthier lifestyle"
       ]
     },
     {
@@ -4019,8 +4567,7 @@
       "tags": [
         "health",
         "habits",
-        "discipline",
-        "wellness"
+        "discipline"
       ],
       "related_causes": [
         "lack_of_focus",
@@ -4030,6 +4577,11 @@
         "focus on small sustainable habits",
         "track your progress every week",
         "expect gradual improvement instead of quick results"
+      ],
+      "aliases": [
+        "want to be healthier but cannot stay consistent",
+        "struggle with healthy routines",
+        "cannot maintain healthy lifestyle changes"
       ]
     }
   ]

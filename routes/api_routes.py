@@ -15,7 +15,7 @@ def recent():
     if problems_collection is None:
         return jsonify({"problems": []})
 
-    data = problems_collection.find().sort("time", -1).limit(5)
+    data = problems_collection.find().sort("created_at", -1).limit(5)
 
     return jsonify({
         "problems": [d.get("text", "") for d in data]
@@ -35,7 +35,7 @@ def trending():
     last_week = datetime.now(timezone.utc) - timedelta(days=7)
 
     pipeline = [
-        {"$match": {"time": {"$gte": last_week}}},
+        {"$match": {"created_at": {"$gte": last_week}}},
         {"$group": {"_id": "$text", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
         {"$limit": 5}

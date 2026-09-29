@@ -13,9 +13,7 @@ problems_collection = None
 feedback_collection = None
 
 try:
-
-    print("MONGO_URI =", os.getenv("MONGO_URI"))
-
+    
     mongo_uri = os.getenv("MONGO_URI")
 
     if mongo_uri:

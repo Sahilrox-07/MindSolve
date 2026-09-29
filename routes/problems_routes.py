@@ -24,8 +24,9 @@ from services.matching_service import (
 
 from services.recommendation_service import build_local_recommendation
 
-from utils.database import problems_collection
+from services.conversation_service import get_conversation_response
 
+from utils.database import problems_collection
 
 problem_bp = Blueprint("problem_bp", __name__)
 
@@ -68,6 +69,16 @@ def solve_problem():
     # =========================
 
     for line in lines:
+
+                # =========================
+        # CONVERSATIONAL MESSAGE
+        # =========================
+
+        conversation_response = get_conversation_response(line)
+
+        if conversation_response:
+            all_suggestions.append(conversation_response)
+            continue
 
         # =========================
         # LANGUAGE DETECTION

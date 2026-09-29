@@ -8,14 +8,23 @@ import time
 def clean_text(text):
     return text.lower().strip()
 
-
 def is_valid_problem(text):
-    return (
-        text
-        and 5 <= len(text) <= 200
-        and len(set(text)) > 2
-        and any(c.isalpha() for c in text)
-    )
+
+    if not text:
+        return False
+
+    text = text.strip()
+
+    if len(text) < 5 or len(text) > 200:
+        return False
+
+    if len(set(text.replace(" ", ""))) <= 2:
+        return False
+
+    if not any(char.isalpha() for char in text):
+        return False
+
+    return True
 
 # =========================
 # 🌐 LANGUAGE CONTROL

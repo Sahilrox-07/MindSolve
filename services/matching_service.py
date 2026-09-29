@@ -160,6 +160,19 @@ def get_suggestions(problem_text, category="general"):
             tfidf_score * 0.3
         )
 
+        if combined_score >= 50 and (
+            tfidf_score > 10
+            or rapidfuzz_score >= 85
+        ):
+            matches.append(
+                (
+                    combined_score,
+                    rapidfuzz_score,
+                    tfidf_score,
+                    item
+                )
+            )
+
         # -------------------------------------
         # Keep reasonable matches
         # -------------------------------------
